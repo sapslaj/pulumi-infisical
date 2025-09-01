@@ -7,17 +7,42 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Infisical
 {
     /// <summary>
-    /// The provider type for the xyz package. By default, resources use package-wide configuration
+    /// The provider type for the infisical package. By default, resources use package-wide configuration
     /// settings, however an explicit `Provider` instance may be created and passed during resource
     /// construction to achieve fine-grained programmatic control over provider settings. See the
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
-    [XyzResourceType("pulumi:providers:xyz")]
+    [InfisicalResourceType("pulumi:providers:infisical")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
+        /// <summary>
+        /// (DEPRECATED, Use the `auth` attribute), Machine identity client ID. Used to fetch/modify secrets for a given project.
+        /// </summary>
+        [Output("clientId")]
+        public Output<string?> ClientId { get; private set; } = null!;
+
+        /// <summary>
+        /// (DEPRECATED, use `auth` attribute), Machine identity client secret. Used to fetch/modify secrets for a given project
+        /// </summary>
+        [Output("clientSecret")]
+        public Output<string?> ClientSecret { get; private set; } = null!;
+
+        /// <summary>
+        /// Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided, https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment variable
+        /// </summary>
+        [Output("host")]
+        public Output<string?> Host { get; private set; } = null!;
+
+        /// <summary>
+        /// (DEPRECATED, Use machine identity auth), Used to fetch/modify secrets for a given project
+        /// </summary>
+        [Output("serviceToken")]
+        public Output<string?> ServiceToken { get; private set; } = null!;
+
+
         /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
         /// </summary>
@@ -26,7 +51,7 @@ namespace Pulumi.Xyz
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("xyz", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("infisical", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 
@@ -35,6 +60,12 @@ namespace Pulumi.Xyz
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                AdditionalSecretOutputs =
+                {
+                    "clientId",
+                    "clientSecret",
+                    "serviceToken",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -46,16 +77,70 @@ namespace Pulumi.Xyz
         /// This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.
         /// </summary>
         public global::Pulumi.Output<ProviderTerraformConfigResult> TerraformConfig()
-            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:xyz/terraformConfig", CallArgs.Empty, this);
+            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:infisical/terraformConfig", CallArgs.Empty, this);
     }
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A region which should be used.
+        /// The configuration values for authentication
         /// </summary>
-        [Input("region", json: true)]
-        public Input<Pulumi.Xyz.Region.Region>? Region { get; set; }
+        [Input("auth", json: true)]
+        public Input<Inputs.ProviderAuthArgs>? Auth { get; set; }
+
+        [Input("clientId")]
+        private Input<string>? _clientId;
+
+        /// <summary>
+        /// (DEPRECATED, Use the `auth` attribute), Machine identity client ID. Used to fetch/modify secrets for a given project.
+        /// </summary>
+        public Input<string>? ClientId
+        {
+            get => _clientId;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _clientId = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("clientSecret")]
+        private Input<string>? _clientSecret;
+
+        /// <summary>
+        /// (DEPRECATED, use `auth` attribute), Machine identity client secret. Used to fetch/modify secrets for a given project
+        /// </summary>
+        public Input<string>? ClientSecret
+        {
+            get => _clientSecret;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _clientSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided, https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment variable
+        /// </summary>
+        [Input("host")]
+        public Input<string>? Host { get; set; }
+
+        [Input("serviceToken")]
+        private Input<string>? _serviceToken;
+
+        /// <summary>
+        /// (DEPRECATED, Use machine identity auth), Used to fetch/modify secrets for a given project
+        /// </summary>
+        public Input<string>? ServiceToken
+        {
+            get => _serviceToken;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _serviceToken = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public ProviderArgs()
         {

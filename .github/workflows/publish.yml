@@ -51,7 +51,7 @@ jobs:
     - name: Download provider assets
       uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
       with:
-        pattern: pulumi-resource-xyz-v${{ inputs.version }}-*
+        pattern: pulumi-resource-infisical-v${{ inputs.version }}-*
         path: dist
         # Don't create a directory for each artifact
         merge-multiple: true
@@ -65,17 +65,17 @@ jobs:
         path: dist
     - name: Calculate checksums
       working-directory: dist
-      run: shasum ./*.tar.gz > "pulumi-xyz_${{ inputs.version }}_checksums.txt"
+      run: shasum ./*.tar.gz > "pulumi-infisical_${{ inputs.version }}_checksums.txt"
     - name: Get Schema Change Summary
       id: schema-summary
       shell: bash
       run: |
         # Get latest stable release. Return only first column from result (tag).
-        LAST_VERSION=$(gh release view --repo pulumi/pulumi-xyz --json tagName -q .tagName || echo "No stable release" )
+        LAST_VERSION=$(gh release view --repo sapslaj/pulumi-infisical --json tagName -q .tagName || echo "No stable release" )
         {
           echo 'summary<<EOF'
           if [[ "$LAST_VERSION" != "No stable release" ]]; then
-            schema-tools compare --provider="xyz" --old-commit="$LAST_VERSION" --repository="github://api.github.com/pulumi" --new-commit="--local-path=provider/cmd/pulumi-resource-xyz/schema.json"
+            schema-tools compare --provider="infisical" --old-commit="$LAST_VERSION" --repository="github://api.github.com/sapslaj" --new-commit="--local-path=provider/cmd/pulumi-resource-infisical/schema.json"
           fi
           echo 'EOF'
         } >> "$GITHUB_OUTPUT"

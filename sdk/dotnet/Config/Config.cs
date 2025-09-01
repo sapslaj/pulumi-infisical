@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Infisical
 {
     public static class Config
     {
@@ -30,17 +30,132 @@ namespace Pulumi.Xyz
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("xyz");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("infisical");
 
-        private static readonly __Value<Pulumi.Xyz.Region.Region?> _region = new __Value<Pulumi.Xyz.Region.Region?>(() => __config.GetObject<Pulumi.Xyz.Region.Region>("region"));
+        private static readonly __Value<Pulumi.Infisical.Config.Types.Auth?> _auth = new __Value<Pulumi.Infisical.Config.Types.Auth?>(() => __config.GetObject<Pulumi.Infisical.Config.Types.Auth>("auth"));
         /// <summary>
-        /// A region which should be used.
+        /// The configuration values for authentication
         /// </summary>
-        public static Pulumi.Xyz.Region.Region? Region
+        public static Pulumi.Infisical.Config.Types.Auth? Auth
         {
-            get => _region.Get();
-            set => _region.Set(value);
+            get => _auth.Get();
+            set => _auth.Set(value);
         }
 
+        private static readonly __Value<string?> _clientId = new __Value<string?>(() => __config.Get("clientId"));
+        /// <summary>
+        /// (DEPRECATED, Use the `auth` attribute), Machine identity client ID. Used to fetch/modify secrets for a given project.
+        /// </summary>
+        public static string? ClientId
+        {
+            get => _clientId.Get();
+            set => _clientId.Set(value);
+        }
+
+        private static readonly __Value<string?> _clientSecret = new __Value<string?>(() => __config.Get("clientSecret"));
+        /// <summary>
+        /// (DEPRECATED, use `auth` attribute), Machine identity client secret. Used to fetch/modify secrets for a given project
+        /// </summary>
+        public static string? ClientSecret
+        {
+            get => _clientSecret.Get();
+            set => _clientSecret.Set(value);
+        }
+
+        private static readonly __Value<string?> _host = new __Value<string?>(() => __config.Get("host"));
+        /// <summary>
+        /// Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided, https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment variable
+        /// </summary>
+        public static string? Host
+        {
+            get => _host.Get();
+            set => _host.Set(value);
+        }
+
+        private static readonly __Value<string?> _serviceToken = new __Value<string?>(() => __config.Get("serviceToken"));
+        /// <summary>
+        /// (DEPRECATED, Use machine identity auth), Used to fetch/modify secrets for a given project
+        /// </summary>
+        public static string? ServiceToken
+        {
+            get => _serviceToken.Get();
+            set => _serviceToken.Set(value);
+        }
+
+        public static class Types
+        {
+
+             public class Auth
+             {
+            /// <summary>
+            /// The configuration values for AWS IAM Auth
+            /// </summary>
+                public Pulumi.Infisical.Config.Types.AuthAwsIam? AwsIam { get; set; } = null!;
+            /// <summary>
+            /// The configuration values for Kubernetes Auth
+            /// </summary>
+                public Pulumi.Infisical.Config.Types.AuthKubernetes? Kubernetes { get; set; } = null!;
+            /// <summary>
+            /// The configuration values for OIDC Auth
+            /// </summary>
+                public Pulumi.Infisical.Config.Types.AuthOidc? Oidc { get; set; } = null!;
+            /// <summary>
+            /// The authentication token for Machine Identity Token Auth. This attribute can also be set using the `INFISICAL_TOKEN` environment variable
+            /// </summary>
+                public string? Token { get; set; } = null!;
+            /// <summary>
+            /// The configuration values for Universal Auth
+            /// </summary>
+                public Pulumi.Infisical.Config.Types.AuthUniversal? Universal { get; set; } = null!;
+            }
+
+             public class AuthAwsIam
+             {
+            /// <summary>
+            /// Machine identity ID. This attribute can also be set using the `INFISICAL_MACHINE_IDENTITY_ID` environment variable
+            /// </summary>
+                public string? IdentityId { get; set; } = null!;
+            }
+
+             public class AuthKubernetes
+             {
+            /// <summary>
+            /// Machine identity ID. This attribute can also be set using the `INFISICAL_MACHINE_IDENTITY_ID` environment variable
+            /// </summary>
+                public string? IdentityId { get; set; } = null!;
+            /// <summary>
+            /// The service account token. This attribute can also be set using the `INFISICAL_KUBERNETES_SERVICE_ACCOUNT_TOKEN` environment variable
+            /// </summary>
+                public string? ServiceAccountToken { get; set; } = null!;
+            /// <summary>
+            /// The path to the service account token. This attribute can also be set using the `INFISICAL_KUBERNETES_SERVICE_ACCOUNT_TOKEN_PATH` environment variable. Default is `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+            /// </summary>
+                public string? ServiceAccountTokenPath { get; set; } = null!;
+            }
+
+             public class AuthOidc
+             {
+            /// <summary>
+            /// Machine identity ID. This attribute can also be set using the `INFISICAL_MACHINE_IDENTITY_ID` environment variable
+            /// </summary>
+                public string? IdentityId { get; set; } = null!;
+            /// <summary>
+            /// The environment variable name for the OIDC JWT token. This attribute can also be set using the `INFISICAL_OIDC_AUTH_TOKEN_KEY_NAME` environment variable. Default is `INFISICAL_AUTH_JWT`.
+            /// </summary>
+                public string? TokenEnvironmentVariableName { get; set; } = null!;
+            }
+
+             public class AuthUniversal
+             {
+            /// <summary>
+            /// Machine identity client ID. This attribute can also be set using the `INFISICAL_UNIVERSAL_AUTH_CLIENT_ID` environment variable
+            /// </summary>
+                public string? ClientId { get; set; } = null!;
+            /// <summary>
+            /// Machine identity client secret. This attribute can also be set using the `INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET` environment variable
+            /// </summary>
+                public string? ClientSecret { get; set; } = null!;
+            }
+        }
     }
 }
