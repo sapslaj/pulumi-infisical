@@ -9,7 +9,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`infisical` Terraform Provider](https://github.com/terraform-providers/terraform-provider-infisical).",
     "repository": "https://github.com/sapslaj/pulumi-infisical",
-    "publisher": "Pulumi",
+    "publisher": "sapslaj",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
     },

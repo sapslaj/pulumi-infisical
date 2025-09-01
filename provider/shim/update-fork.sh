@@ -21,6 +21,10 @@ git clone --depth 1 --branch "$UPSTREAM_VERSION" "$UPSTREAM_REPO" "$FORK_DIR"
 # Enter the fork directory
 cd "$FORK_DIR"
 
+# Remove .git directory to prevent Git from treating this as a submodule
+echo "🗑️  Removing .git directory to prevent submodule issues"
+rm -rf .git
+
 echo "🔧 Applying patches to expose internal provider"
 
 # Create public provider wrapper
