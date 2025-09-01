@@ -82,3 +82,7 @@ EOF
 echo "✅ Fork updated successfully!"
 echo "📁 Fork location: $(pwd)"
 echo "🏷️  Version: $UPSTREAM_VERSION"
+echo ""
+echo "⚠️  Note: If this was previously tracked as a Git submodule, you may need to:"
+echo "   git rm --cached provider/shim/terraform-provider-infisical"
+echo "   git add provider/shim/terraform-provider-infisical/"
