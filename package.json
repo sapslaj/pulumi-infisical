@@ -1,6 +1,6 @@
 {
   "name": "@sapslaj/pulumi-infisical",
-  "version": "0.15.33",
+  "version": "0.15.32",
   "description": "A Pulumi provider dynamically bridged from infisical.",
   "repository": "https://github.com/sapslaj/pulumi-infisical",
   "main": "dist/index.js",
@@ -19,8 +19,8 @@
     "version": "0.13.0",
     "parameterization": {
       "name": "infisical",
-      "version": "0.15.33",
-      "value": "eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2luZmlzaWNhbC9pbmZpc2ljYWwiLCJ2ZXJzaW9uIjoiMC4xNS4zMyJ9fQ=="
+      "version": "0.15.32",
+      "value": "eyJyZW1vdGUiOnsidXJsIjoicmVnaXN0cnkub3BlbnRvZnUub3JnL2luZmlzaWNhbC9pbmZpc2ljYWwiLCJ2ZXJzaW9uIjoiMC4xNS4zMiJ9fQ=="
     }
   },
   "types": "dist/index.d.ts"

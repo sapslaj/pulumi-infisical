@@ -79,11 +79,21 @@ def main():
     os.remove("./src/package.json")
     with open("package.json", "w") as fp:
         json.dump(fp=fp, obj=package_json, indent=2)
+        fp.write("\n")
 
     with not_found_ok():
         os.remove("./src/tsconfig.json")
         shutil.rmtree("./src/bin")
         shutil.rmtree("./src/scripts")
+
+    subprocess.run(
+        args=[
+            "sh",
+            "-c",
+            "sed -i 's#./package.json#../package.json#g' src/*.ts",
+        ],
+        check=True,
+    )
 
     subprocess.run(
         args=[
