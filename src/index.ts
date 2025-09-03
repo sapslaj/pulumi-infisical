@@ -50,6 +50,11 @@ export type AppConnectionGcp = import("./appConnectionGcp").AppConnectionGcp;
 export const AppConnectionGcp: typeof import("./appConnectionGcp").AppConnectionGcp = null as any;
 utilities.lazyLoad(exports, ["AppConnectionGcp"], () => require("./appConnectionGcp"));
 
+export { AppConnectionGitlabArgs, AppConnectionGitlabState } from "./appConnectionGitlab";
+export type AppConnectionGitlab = import("./appConnectionGitlab").AppConnectionGitlab;
+export const AppConnectionGitlab: typeof import("./appConnectionGitlab").AppConnectionGitlab = null as any;
+utilities.lazyLoad(exports, ["AppConnectionGitlab"], () => require("./appConnectionGitlab"));
+
 export { AppConnectionLdapArgs, AppConnectionLdapState } from "./appConnectionLdap";
 export type AppConnectionLdap = import("./appConnectionLdap").AppConnectionLdap;
 export const AppConnectionLdap: typeof import("./appConnectionLdap").AppConnectionLdap = null as any;
@@ -363,6 +368,11 @@ export type SecretSyncGithub = import("./secretSyncGithub").SecretSyncGithub;
 export const SecretSyncGithub: typeof import("./secretSyncGithub").SecretSyncGithub = null as any;
 utilities.lazyLoad(exports, ["SecretSyncGithub"], () => require("./secretSyncGithub"));
 
+export { SecretSyncGitlabArgs, SecretSyncGitlabState } from "./secretSyncGitlab";
+export type SecretSyncGitlab = import("./secretSyncGitlab").SecretSyncGitlab;
+export const SecretSyncGitlab: typeof import("./secretSyncGitlab").SecretSyncGitlab = null as any;
+utilities.lazyLoad(exports, ["SecretSyncGitlab"], () => require("./secretSyncGitlab"));
+
 export { SecretSyncRenderArgs, SecretSyncRenderState } from "./secretSyncRender";
 export type SecretSyncRender = import("./secretSyncRender").SecretSyncRender;
 export const SecretSyncRender: typeof import("./secretSyncRender").SecretSyncRender = null as any;
@@ -410,6 +420,8 @@ const _module = {
                 return new AppConnectionFlyio(name, <any>undefined, { urn })
             case "infisical:index/appConnectionGcp:AppConnectionGcp":
                 return new AppConnectionGcp(name, <any>undefined, { urn })
+            case "infisical:index/appConnectionGitlab:AppConnectionGitlab":
+                return new AppConnectionGitlab(name, <any>undefined, { urn })
             case "infisical:index/appConnectionLdap:AppConnectionLdap":
                 return new AppConnectionLdap(name, <any>undefined, { urn })
             case "infisical:index/appConnectionMssql:AppConnectionMssql":
@@ -522,6 +534,8 @@ const _module = {
                 return new SecretSyncGcpSecretManager(name, <any>undefined, { urn })
             case "infisical:index/secretSyncGithub:SecretSyncGithub":
                 return new SecretSyncGithub(name, <any>undefined, { urn })
+            case "infisical:index/secretSyncGitlab:SecretSyncGitlab":
+                return new SecretSyncGitlab(name, <any>undefined, { urn })
             case "infisical:index/secretSyncRender:SecretSyncRender":
                 return new SecretSyncRender(name, <any>undefined, { urn })
             case "infisical:index/secretSyncSupabase:SecretSyncSupabase":
@@ -542,6 +556,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/appConnectionCloudflar
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionDatabricks", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionFlyio", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGcp", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGitlab", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionLdap", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionMssql", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionMysql", _module)
@@ -598,6 +613,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/secretSyncDatabricks",
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncFlyio", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncGcpSecretManager", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncGithub", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/secretSyncGitlab", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncRender", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncSupabase", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretTag", _module)

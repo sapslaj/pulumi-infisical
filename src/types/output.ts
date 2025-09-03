@@ -112,6 +112,21 @@ export interface AppConnectionGcpCredentials {
     serviceAccountEmail?: string;
 }
 
+export interface AppConnectionGitlabCredentials {
+    /**
+     * The Access Token used to access GitLab.
+     */
+    accessToken: string;
+    /**
+     * The type of token used to connect with GitLab. Supported options: 'project' and 'personal'
+     */
+    accessTokenType: string;
+    /**
+     * The GitLab instance URL to connect with. (default: https://gitlab.com)
+     */
+    instanceUrl?: string;
+}
+
 export interface AppConnectionLdapCredentials {
     /**
      * The Distinguished Name (DN) or User Principal Name (UPN) of the principal to bind with (e.g., 'CN=John,CN=Users,DC=example,DC=com').
@@ -1687,6 +1702,60 @@ export interface SecretSyncGithubSyncOptions {
     initialSyncBehavior: string;
     /**
      * The format to use for structuring secret keys in the Github destination.
+     */
+    keySchema?: string;
+}
+
+export interface SecretSyncGitlabDestinationConfig {
+    /**
+     * The GitLab Group ID to sync secrets to. Required when scope is 'group'.
+     */
+    groupId?: string;
+    /**
+     * The GitLab Group Name to sync secrets to. Optional when scope is 'group'.
+     */
+    groupName?: string;
+    /**
+     * The GitLab Project ID to sync secrets to. Required when scope is 'project'.
+     */
+    projectId?: string;
+    /**
+     * The GitLab Project Name to sync secrets to. Optional when scope is 'project'.
+     */
+    projectName?: string;
+    /**
+     * The GitLab scope that secrets should be synced to. Supported options: 'project', 'group'
+     */
+    scope: string;
+    /**
+     * Whether variables should be hidden
+     */
+    shouldHideSecrets: boolean;
+    /**
+     * Whether variables should be masked in logs
+     */
+    shouldMaskSecrets: boolean;
+    /**
+     * Whether variables should be protected
+     */
+    shouldProtectSecrets: boolean;
+    /**
+     * The GitLab environment scope that secrets should be synced to. (default: *)
+     */
+    targetEnvironment: string;
+}
+
+export interface SecretSyncGitlabSyncOptions {
+    /**
+     * When set to true, Infisical will not remove secrets from GitLab. Enable this option if you intend to manage some secrets manually outside of Infisical.
+     */
+    disableSecretDeletion: boolean;
+    /**
+     * Specify how Infisical should resolve the initial sync to the destination. Supported options: overwrite-destination
+     */
+    initialSyncBehavior: string;
+    /**
+     * The format to use for structuring secret keys in the GitLab destination.
      */
     keySchema?: string;
 }

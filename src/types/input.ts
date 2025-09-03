@@ -112,6 +112,21 @@ export interface AppConnectionGcpCredentials {
     serviceAccountEmail?: pulumi.Input<string>;
 }
 
+export interface AppConnectionGitlabCredentials {
+    /**
+     * The Access Token used to access GitLab.
+     */
+    accessToken: pulumi.Input<string>;
+    /**
+     * The type of token used to connect with GitLab. Supported options: 'project' and 'personal'
+     */
+    accessTokenType: pulumi.Input<string>;
+    /**
+     * The GitLab instance URL to connect with. (default: https://gitlab.com)
+     */
+    instanceUrl?: pulumi.Input<string>;
+}
+
 export interface AppConnectionLdapCredentials {
     /**
      * The Distinguished Name (DN) or User Principal Name (UPN) of the principal to bind with (e.g., 'CN=John,CN=Users,DC=example,DC=com').
@@ -1675,6 +1690,60 @@ export interface SecretSyncGithubSyncOptions {
     initialSyncBehavior: pulumi.Input<string>;
     /**
      * The format to use for structuring secret keys in the Github destination.
+     */
+    keySchema?: pulumi.Input<string>;
+}
+
+export interface SecretSyncGitlabDestinationConfig {
+    /**
+     * The GitLab Group ID to sync secrets to. Required when scope is 'group'.
+     */
+    groupId?: pulumi.Input<string>;
+    /**
+     * The GitLab Group Name to sync secrets to. Optional when scope is 'group'.
+     */
+    groupName?: pulumi.Input<string>;
+    /**
+     * The GitLab Project ID to sync secrets to. Required when scope is 'project'.
+     */
+    projectId?: pulumi.Input<string>;
+    /**
+     * The GitLab Project Name to sync secrets to. Optional when scope is 'project'.
+     */
+    projectName?: pulumi.Input<string>;
+    /**
+     * The GitLab scope that secrets should be synced to. Supported options: 'project', 'group'
+     */
+    scope: pulumi.Input<string>;
+    /**
+     * Whether variables should be hidden
+     */
+    shouldHideSecrets?: pulumi.Input<boolean>;
+    /**
+     * Whether variables should be masked in logs
+     */
+    shouldMaskSecrets?: pulumi.Input<boolean>;
+    /**
+     * Whether variables should be protected
+     */
+    shouldProtectSecrets?: pulumi.Input<boolean>;
+    /**
+     * The GitLab environment scope that secrets should be synced to. (default: *)
+     */
+    targetEnvironment: pulumi.Input<string>;
+}
+
+export interface SecretSyncGitlabSyncOptions {
+    /**
+     * When set to true, Infisical will not remove secrets from GitLab. Enable this option if you intend to manage some secrets manually outside of Infisical.
+     */
+    disableSecretDeletion?: pulumi.Input<boolean>;
+    /**
+     * Specify how Infisical should resolve the initial sync to the destination. Supported options: overwrite-destination
+     */
+    initialSyncBehavior: pulumi.Input<string>;
+    /**
+     * The format to use for structuring secret keys in the GitLab destination.
      */
     keySchema?: pulumi.Input<string>;
 }
