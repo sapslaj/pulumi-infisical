@@ -36,9 +36,7 @@ export class Provider extends pulumi.ProviderResource {
      */
     declare public readonly clientSecret: pulumi.Output<string | undefined>;
     /**
-     * Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided,
-     * https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment
-     * variable
+     * Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided, https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment variable
      */
     declare public readonly host: pulumi.Output<string | undefined>;
     /**
@@ -97,9 +95,7 @@ export interface ProviderArgs {
      */
     clientSecret?: pulumi.Input<string>;
     /**
-     * Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided,
-     * https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment
-     * variable
+     * Used to point the client to fetch secrets from your self hosted instance of Infisical. If not host is provided, https://app.infisical.com is the default host. This attribute can also be set using the `INFISICAL_HOST` environment variable
      */
     host?: pulumi.Input<string>;
     /**
