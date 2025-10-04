@@ -125,6 +125,11 @@ export const getIdentityDetails: typeof import("./getIdentityDetails").getIdenti
 export const getIdentityDetailsOutput: typeof import("./getIdentityDetails").getIdentityDetailsOutput = null as any;
 utilities.lazyLoad(exports, ["getIdentityDetails","getIdentityDetailsOutput"], () => require("./getIdentityDetails"));
 
+export { GetKmsKeyPublicKeyArgs, GetKmsKeyPublicKeyResult, GetKmsKeyPublicKeyOutputArgs } from "./getKmsKeyPublicKey";
+export const getKmsKeyPublicKey: typeof import("./getKmsKeyPublicKey").getKmsKeyPublicKey = null as any;
+export const getKmsKeyPublicKeyOutput: typeof import("./getKmsKeyPublicKey").getKmsKeyPublicKeyOutput = null as any;
+utilities.lazyLoad(exports, ["getKmsKeyPublicKey","getKmsKeyPublicKeyOutput"], () => require("./getKmsKeyPublicKey"));
+
 export { GetProjectsArgs, GetProjectsResult, GetProjectsOutputArgs } from "./getProjects";
 export const getProjects: typeof import("./getProjects").getProjects = null as any;
 export const getProjectsOutput: typeof import("./getProjects").getProjectsOutput = null as any;
@@ -214,6 +219,11 @@ export { IntegrationGcpSecretManagerArgs, IntegrationGcpSecretManagerState } fro
 export type IntegrationGcpSecretManager = import("./integrationGcpSecretManager").IntegrationGcpSecretManager;
 export const IntegrationGcpSecretManager: typeof import("./integrationGcpSecretManager").IntegrationGcpSecretManager = null as any;
 utilities.lazyLoad(exports, ["IntegrationGcpSecretManager"], () => require("./integrationGcpSecretManager"));
+
+export { KmsKeyArgs, KmsKeyState } from "./kmsKey";
+export type KmsKey = import("./kmsKey").KmsKey;
+export const KmsKey: typeof import("./kmsKey").KmsKey = null as any;
+utilities.lazyLoad(exports, ["KmsKey"], () => require("./kmsKey"));
 
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
@@ -484,6 +494,8 @@ const _module = {
                 return new IntegrationDatabricks(name, <any>undefined, { urn })
             case "infisical:index/integrationGcpSecretManager:IntegrationGcpSecretManager":
                 return new IntegrationGcpSecretManager(name, <any>undefined, { urn })
+            case "infisical:index/kmsKey:KmsKey":
+                return new KmsKey(name, <any>undefined, { urn })
             case "infisical:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "infisical:index/projectEnvironment:ProjectEnvironment":
@@ -597,6 +609,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/integrationAwsSecretsM
 pulumi.runtime.registerResourceModule("infisical", "index/integrationCircleci", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/integrationDatabricks", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/integrationGcpSecretManager", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/kmsKey", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/project", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/projectEnvironment", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/projectGroup", _module)
