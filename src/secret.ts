@@ -53,12 +53,12 @@ export class Secret extends pulumi.CustomResource {
      */
     declare public readonly tagIds: pulumi.Output<string[] | undefined>;
     /**
-     * The value of the secret in plain text. This is required if `value_wo` is not set.
+     * The value of the secret in plain text. This is required if <span pulumi-lang-nodejs="`valueWo`" pulumi-lang-dotnet="`ValueWo`" pulumi-lang-go="`valueWo`" pulumi-lang-python="`value_wo`" pulumi-lang-yaml="`valueWo`" pulumi-lang-java="`valueWo`">`value_wo`</span> is not set.
      */
     declare public readonly value: pulumi.Output<string | undefined>;
     declare public readonly valueWo: pulumi.Output<string | undefined>;
     /**
-     * Used together with value_wo to trigger an update. Increment this value when an update to the value_wo is required.
+     * Used together with<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>to trigger an update. Increment this value when an update to the<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>is required.
      */
     declare public readonly valueWoVersion: pulumi.Output<number | undefined>;
     /**
@@ -138,12 +138,12 @@ export interface SecretState {
      */
     tagIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The value of the secret in plain text. This is required if `value_wo` is not set.
+     * The value of the secret in plain text. This is required if <span pulumi-lang-nodejs="`valueWo`" pulumi-lang-dotnet="`ValueWo`" pulumi-lang-go="`valueWo`" pulumi-lang-python="`value_wo`" pulumi-lang-yaml="`valueWo`" pulumi-lang-java="`valueWo`">`value_wo`</span> is not set.
      */
     value?: pulumi.Input<string>;
     valueWo?: pulumi.Input<string>;
     /**
-     * Used together with value_wo to trigger an update. Increment this value when an update to the value_wo is required.
+     * Used together with<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>to trigger an update. Increment this value when an update to the<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>is required.
      */
     valueWoVersion?: pulumi.Input<number>;
     /**
@@ -174,12 +174,12 @@ export interface SecretArgs {
      */
     tagIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The value of the secret in plain text. This is required if `value_wo` is not set.
+     * The value of the secret in plain text. This is required if <span pulumi-lang-nodejs="`valueWo`" pulumi-lang-dotnet="`ValueWo`" pulumi-lang-go="`valueWo`" pulumi-lang-python="`value_wo`" pulumi-lang-yaml="`valueWo`" pulumi-lang-java="`valueWo`">`value_wo`</span> is not set.
      */
     value?: pulumi.Input<string>;
     valueWo?: pulumi.Input<string>;
     /**
-     * Used together with value_wo to trigger an update. Increment this value when an update to the value_wo is required.
+     * Used together with<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>to trigger an update. Increment this value when an update to the<span pulumi-lang-nodejs=" valueWo " pulumi-lang-dotnet=" ValueWo " pulumi-lang-go=" valueWo " pulumi-lang-python=" value_wo " pulumi-lang-yaml=" valueWo " pulumi-lang-java=" valueWo "> value_wo </span>is required.
      */
     valueWoVersion?: pulumi.Input<number>;
     /**
