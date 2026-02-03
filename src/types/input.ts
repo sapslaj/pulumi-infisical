@@ -1266,6 +1266,10 @@ export interface ProviderAuth {
      */
     oidc?: pulumi.Input<inputs.ProviderAuthOidc>;
     /**
+     * When set, this will scope the login session to the specified organization the machine identity has access to. If left empty, the session defaults to the organization where the machine identity was created in.
+     */
+    organizationSlug?: pulumi.Input<string>;
+    /**
      * The authentication token for Machine Identity Token Auth. This attribute can also be set using the `INFISICAL_TOKEN` environment variable
      */
     token?: pulumi.Input<string>;

@@ -110,6 +110,11 @@ export type CertManagerCaCertificate = import("./certManagerCaCertificate").Cert
 export const CertManagerCaCertificate: typeof import("./certManagerCaCertificate").CertManagerCaCertificate = null as any;
 utilities.lazyLoad(exports, ["CertManagerCaCertificate"], () => require("./certManagerCaCertificate"));
 
+export { CertManagerCertificateArgs, CertManagerCertificateState } from "./certManagerCertificate";
+export type CertManagerCertificate = import("./certManagerCertificate").CertManagerCertificate;
+export const CertManagerCertificate: typeof import("./certManagerCertificate").CertManagerCertificate = null as any;
+utilities.lazyLoad(exports, ["CertManagerCertificate"], () => require("./certManagerCertificate"));
+
 export { CertManagerCertificatePolicyArgs, CertManagerCertificatePolicyState } from "./certManagerCertificatePolicy";
 export type CertManagerCertificatePolicy = import("./certManagerCertificatePolicy").CertManagerCertificatePolicy;
 export const CertManagerCertificatePolicy: typeof import("./certManagerCertificatePolicy").CertManagerCertificatePolicy = null as any;
@@ -529,6 +534,8 @@ const _module = {
                 return new AppConnectionSupabase(name, <any>undefined, { urn })
             case "infisical:index/certManagerCaCertificate:CertManagerCaCertificate":
                 return new CertManagerCaCertificate(name, <any>undefined, { urn })
+            case "infisical:index/certManagerCertificate:CertManagerCertificate":
+                return new CertManagerCertificate(name, <any>undefined, { urn })
             case "infisical:index/certManagerCertificatePolicy:CertManagerCertificatePolicy":
                 return new CertManagerCertificatePolicy(name, <any>undefined, { urn })
             case "infisical:index/certManagerCertificateProfile:CertManagerCertificateProfile":
@@ -685,6 +692,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/appConnectionPostgres"
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionRender", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionSupabase", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certManagerCaCertificate", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/certManagerCertificate", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certManagerCertificatePolicy", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certManagerCertificateProfile", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certManagerExternalCaAcme", _module)

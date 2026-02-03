@@ -2160,6 +2160,10 @@ export namespace config {
          */
         oidc?: outputs.config.AuthOidc;
         /**
+         * When set, this will scope the login session to the specified organization the machine identity has access to. If left empty, the session defaults to the organization where the machine identity was created in.
+         */
+        organizationSlug?: string;
+        /**
          * The authentication token for Machine Identity Token Auth. This attribute can also be set using the `INFISICAL_TOKEN` environment variable
          */
         token?: string;
