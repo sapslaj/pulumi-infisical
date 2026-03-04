@@ -65,6 +65,11 @@ export type AppConnectionGcp = import("./appConnectionGcp").AppConnectionGcp;
 export const AppConnectionGcp: typeof import("./appConnectionGcp").AppConnectionGcp = null as any;
 utilities.lazyLoad(exports, ["AppConnectionGcp"], () => require("./appConnectionGcp"));
 
+export { AppConnectionGithubArgs, AppConnectionGithubState } from "./appConnectionGithub";
+export type AppConnectionGithub = import("./appConnectionGithub").AppConnectionGithub;
+export const AppConnectionGithub: typeof import("./appConnectionGithub").AppConnectionGithub = null as any;
+utilities.lazyLoad(exports, ["AppConnectionGithub"], () => require("./appConnectionGithub"));
+
 export { AppConnectionGitlabArgs, AppConnectionGitlabState } from "./appConnectionGitlab";
 export type AppConnectionGitlab = import("./appConnectionGitlab").AppConnectionGitlab;
 export const AppConnectionGitlab: typeof import("./appConnectionGitlab").AppConnectionGitlab = null as any;
@@ -516,6 +521,8 @@ const _module = {
                 return new AppConnectionFlyio(name, <any>undefined, { urn })
             case "infisical:index/appConnectionGcp:AppConnectionGcp":
                 return new AppConnectionGcp(name, <any>undefined, { urn })
+            case "infisical:index/appConnectionGithub:AppConnectionGithub":
+                return new AppConnectionGithub(name, <any>undefined, { urn })
             case "infisical:index/appConnectionGitlab:AppConnectionGitlab":
                 return new AppConnectionGitlab(name, <any>undefined, { urn })
             case "infisical:index/appConnectionLdap:AppConnectionLdap":
@@ -683,6 +690,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/appConnectionCloudflar
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionDatabricks", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionFlyio", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGcp", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGithub", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGitlab", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionLdap", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionMssql", _module)
