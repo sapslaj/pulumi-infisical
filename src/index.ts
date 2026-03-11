@@ -215,6 +215,11 @@ export type Group = import("./group").Group;
 export const Group: typeof import("./group").Group = null as any;
 utilities.lazyLoad(exports, ["Group"], () => require("./group"));
 
+export { GroupMachineIdentityArgs, GroupMachineIdentityState } from "./groupMachineIdentity";
+export type GroupMachineIdentity = import("./groupMachineIdentity").GroupMachineIdentity;
+export const GroupMachineIdentity: typeof import("./groupMachineIdentity").GroupMachineIdentity = null as any;
+utilities.lazyLoad(exports, ["GroupMachineIdentity"], () => require("./groupMachineIdentity"));
+
 export { IdentityArgs, IdentityState } from "./identity";
 export type Identity = import("./identity").Identity;
 export const Identity: typeof import("./identity").Identity = null as any;
@@ -567,6 +572,8 @@ const _module = {
                 return new ExternalKmsAws(name, <any>undefined, { urn })
             case "infisical:index/group:Group":
                 return new Group(name, <any>undefined, { urn })
+            case "infisical:index/groupMachineIdentity:GroupMachineIdentity":
+                return new GroupMachineIdentity(name, <any>undefined, { urn })
             case "infisical:index/identity:Identity":
                 return new Identity(name, <any>undefined, { urn })
             case "infisical:index/identityAwsAuth:IdentityAwsAuth":
@@ -713,6 +720,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretMongoDb",
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretSqlDatabase", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/externalKmsAws", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/group", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/groupMachineIdentity", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identity", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identityAwsAuth", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identityAzureAuth", _module)
