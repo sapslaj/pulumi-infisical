@@ -6,9 +6,9 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
-export class AppConnection1password extends pulumi.CustomResource {
+export class AppConnectionHashicorpVault extends pulumi.CustomResource {
     /**
-     * Get an existing AppConnection1password resource's state with the given name, ID, and optional extra
+     * Get an existing AppConnectionHashicorpVault resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -16,42 +16,42 @@ export class AppConnection1password extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: AppConnection1passwordState, opts?: pulumi.CustomResourceOptions): AppConnection1password {
-        return new AppConnection1password(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: AppConnectionHashicorpVaultState, opts?: pulumi.CustomResourceOptions): AppConnectionHashicorpVault {
+        return new AppConnectionHashicorpVault(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'infisical:index/appConnection1password:AppConnection1password';
+    public static readonly __pulumiType = 'infisical:index/appConnectionHashicorpVault:AppConnectionHashicorpVault';
 
     /**
-     * Returns true if the given object is an instance of AppConnection1password.  This is designed to work even
+     * Returns true if the given object is an instance of AppConnectionHashicorpVault.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is AppConnection1password {
+    public static isInstance(obj: any): obj is AppConnectionHashicorpVault {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === AppConnection1password.__pulumiType;
+        return obj['__pulumiType'] === AppConnectionHashicorpVault.__pulumiType;
     }
 
     /**
-     * The credentials for the 1Password App Connection
+     * The credentials for the HashiCorp Vault App Connection
      */
-    declare public readonly credentials: pulumi.Output<outputs.AppConnection1passwordCredentials>;
+    declare public readonly credentials: pulumi.Output<outputs.AppConnectionHashicorpVaultCredentials>;
     /**
-     * The hash of the 1Password App Connection credentials
+     * The hash of the HashiCorp Vault App Connection credentials
      */
     declare public /*out*/ readonly credentialsHash: pulumi.Output<string>;
     /**
-     * An optional description for the 1Password App Connection.
+     * An optional description for the HashiCorp Vault App Connection.
      */
     declare public readonly description: pulumi.Output<string | undefined>;
     /**
-     * The method used to authenticate with 1Password. Possible values are: api-token
+     * The method used to authenticate with HashiCorp Vault. Possible values are: access-token, app-role
      */
     declare public readonly method: pulumi.Output<string>;
     /**
-     * The name of the 1Password App Connection to create. Must be slug-friendly
+     * The name of the HashiCorp Vault App Connection to create. Must be slug-friendly
      */
     declare public readonly name: pulumi.Output<string>;
     /**
@@ -60,18 +60,18 @@ export class AppConnection1password extends pulumi.CustomResource {
     declare public readonly projectId: pulumi.Output<string | undefined>;
 
     /**
-     * Create a AppConnection1password resource with the given unique name, arguments, and options.
+     * Create a AppConnectionHashicorpVault resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: AppConnection1passwordArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: AppConnection1passwordArgs | AppConnection1passwordState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: AppConnectionHashicorpVaultArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: AppConnectionHashicorpVaultArgs | AppConnectionHashicorpVaultState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as AppConnection1passwordState | undefined;
+            const state = argsOrState as AppConnectionHashicorpVaultState | undefined;
             resourceInputs["credentials"] = state?.credentials;
             resourceInputs["credentialsHash"] = state?.credentialsHash;
             resourceInputs["description"] = state?.description;
@@ -79,7 +79,7 @@ export class AppConnection1password extends pulumi.CustomResource {
             resourceInputs["name"] = state?.name;
             resourceInputs["projectId"] = state?.projectId;
         } else {
-            const args = argsOrState as AppConnection1passwordArgs | undefined;
+            const args = argsOrState as AppConnectionHashicorpVaultArgs | undefined;
             if (args?.credentials === undefined && !opts.urn) {
                 throw new Error("Missing required property 'credentials'");
             }
@@ -94,32 +94,32 @@ export class AppConnection1password extends pulumi.CustomResource {
             resourceInputs["credentialsHash"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(AppConnection1password.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
+        super(AppConnectionHashicorpVault.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
     }
 }
 
 /**
- * Input properties used for looking up and filtering AppConnection1password resources.
+ * Input properties used for looking up and filtering AppConnectionHashicorpVault resources.
  */
-export interface AppConnection1passwordState {
+export interface AppConnectionHashicorpVaultState {
     /**
-     * The credentials for the 1Password App Connection
+     * The credentials for the HashiCorp Vault App Connection
      */
-    credentials?: pulumi.Input<inputs.AppConnection1passwordCredentials | undefined>;
+    credentials?: pulumi.Input<inputs.AppConnectionHashicorpVaultCredentials | undefined>;
     /**
-     * The hash of the 1Password App Connection credentials
+     * The hash of the HashiCorp Vault App Connection credentials
      */
     credentialsHash?: pulumi.Input<string | undefined>;
     /**
-     * An optional description for the 1Password App Connection.
+     * An optional description for the HashiCorp Vault App Connection.
      */
     description?: pulumi.Input<string | undefined>;
     /**
-     * The method used to authenticate with 1Password. Possible values are: api-token
+     * The method used to authenticate with HashiCorp Vault. Possible values are: access-token, app-role
      */
     method?: pulumi.Input<string | undefined>;
     /**
-     * The name of the 1Password App Connection to create. Must be slug-friendly
+     * The name of the HashiCorp Vault App Connection to create. Must be slug-friendly
      */
     name?: pulumi.Input<string | undefined>;
     /**
@@ -129,23 +129,23 @@ export interface AppConnection1passwordState {
 }
 
 /**
- * The set of arguments for constructing a AppConnection1password resource.
+ * The set of arguments for constructing a AppConnectionHashicorpVault resource.
  */
-export interface AppConnection1passwordArgs {
+export interface AppConnectionHashicorpVaultArgs {
     /**
-     * The credentials for the 1Password App Connection
+     * The credentials for the HashiCorp Vault App Connection
      */
-    credentials: pulumi.Input<inputs.AppConnection1passwordCredentials>;
+    credentials: pulumi.Input<inputs.AppConnectionHashicorpVaultCredentials>;
     /**
-     * An optional description for the 1Password App Connection.
+     * An optional description for the HashiCorp Vault App Connection.
      */
     description?: pulumi.Input<string | undefined>;
     /**
-     * The method used to authenticate with 1Password. Possible values are: api-token
+     * The method used to authenticate with HashiCorp Vault. Possible values are: access-token, app-role
      */
     method: pulumi.Input<string>;
     /**
-     * The name of the 1Password App Connection to create. Must be slug-friendly
+     * The name of the HashiCorp Vault App Connection to create. Must be slug-friendly
      */
     name?: pulumi.Input<string | undefined>;
     /**

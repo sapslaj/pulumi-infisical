@@ -112,31 +112,31 @@ export interface SecretFolderState {
     /**
      * The ID of the environment
      */
-    environmentId?: pulumi.Input<string>;
+    environmentId?: pulumi.Input<string | undefined>;
     /**
      * The environment slug of the folder to modify/create
      */
-    environmentSlug?: pulumi.Input<string>;
+    environmentSlug?: pulumi.Input<string | undefined>;
     /**
      * The path where the folder should be created/updated
      */
-    folderPath?: pulumi.Input<string>;
+    folderPath?: pulumi.Input<string | undefined>;
     /**
      * Whether to force delete the folder even if it contains resources.
      */
-    forceDelete?: pulumi.Input<boolean>;
+    forceDelete?: pulumi.Input<boolean | undefined>;
     /**
      * The name for the folder
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The full path of the folder, including its name.
      */
-    path?: pulumi.Input<string>;
+    path?: pulumi.Input<string | undefined>;
     /**
      * The Infisical project ID (Required for Machine Identity auth, and service tokens with multiple scopes)
      */
-    projectId?: pulumi.Input<string>;
+    projectId?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -154,11 +154,11 @@ export interface SecretFolderArgs {
     /**
      * Whether to force delete the folder even if it contains resources.
      */
-    forceDelete?: pulumi.Input<boolean>;
+    forceDelete?: pulumi.Input<boolean | undefined>;
     /**
      * The name for the folder
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The Infisical project ID (Required for Machine Identity auth, and service tokens with multiple scopes)
      */
