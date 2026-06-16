@@ -1082,16 +1082,16 @@ export interface GetSecretFoldersFolder {
 }
 
 export interface GetSecretMetadataSecretMetadata {
-    isEncrypted: boolean;
-    key: string;
-    value: string;
+    isEncrypted?: boolean;
+    key?: string;
+    value?: string;
 }
 
 export interface GetSecretMetadataTag {
-    color: string;
-    id: string;
-    name: string;
-    slug: string;
+    color?: string;
+    id?: string;
+    name?: string;
+    slug?: string;
 }
 
 export interface GetSecretsSecrets {
