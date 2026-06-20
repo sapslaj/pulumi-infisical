@@ -2145,11 +2145,15 @@ export interface SecretSyncFlyioSyncOptions {
 
 export interface SecretSyncGcpSecretManagerDestinationConfig {
     /**
+     * The GCP region to sync secrets to (e.g. us-east1). Required when scope is 'region' and must not be set when scope is 'global'.
+     */
+    locationId?: string;
+    /**
      * The ID of the GCP project to sync with
      */
     projectId: string;
     /**
-     * The scope of the sync with GCP Secret Manager. Supported options: global
+     * The scope of the sync with GCP Secret Manager. Supported options: global, region
      */
     scope: string;
 }
