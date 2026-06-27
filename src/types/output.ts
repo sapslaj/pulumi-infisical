@@ -1059,7 +1059,158 @@ export interface GetIdentityDetailsOrganization {
     slug: string;
 }
 
+export interface GetProjectIdentityRole {
+    /**
+     * The ID of the custom role, if applicable.
+     */
+    customRoleId: string;
+    /**
+     * The ID of the project identity role.
+     */
+    id: string;
+    /**
+     * Flag to indicate whether the assigned role is temporary.
+     */
+    isTemporary: boolean;
+    /**
+     * The slug of the role.
+     */
+    roleSlug: string;
+    /**
+     * ISO time at which temporary access ends. Null for permanent roles.
+     */
+    temporaryAccessEndTime: string;
+    /**
+     * ISO time at which temporary access begins. Null for permanent roles.
+     */
+    temporaryAccessStartTime: string;
+    /**
+     * Type of temporary access given. Null for permanent roles.
+     */
+    temporaryMode: string;
+    /**
+     * TTL for the temporary access. Null for permanent roles.
+     */
+    temporaryRange: string;
+}
+
+export interface GetProjectUserRole {
+    /**
+     * The ID of the custom role, if applicable.
+     */
+    customRoleId: string;
+    /**
+     * The ID of the project user role.
+     */
+    id: string;
+    /**
+     * Flag to indicate whether the assigned role is temporary.
+     */
+    isTemporary: boolean;
+    /**
+     * The slug of the role.
+     */
+    roleSlug: string;
+    /**
+     * ISO time at which temporary access ends. Null for permanent roles.
+     */
+    temporaryAccessEndTime: string;
+    /**
+     * ISO time at which temporary access begins. Null for permanent roles.
+     */
+    temporaryAccessStartTime: string;
+    /**
+     * Type of temporary access given. Null for permanent roles.
+     */
+    temporaryMode: string;
+    /**
+     * TTL for the temporary access. Null for permanent roles.
+     */
+    temporaryRange: string;
+}
+
+export interface GetProjectUserUser {
+    /**
+     * The email of the user
+     */
+    email: string;
+    /**
+     * The first name of the user
+     */
+    firstName: string;
+    /**
+     * The id of the user
+     */
+    id: string;
+    /**
+     * The last name of the user
+     */
+    lastName: string;
+}
+
 export interface GetProjectsEnvironments {
+    /**
+     * The ID of the environment
+     */
+    id: string;
+    /**
+     * The name of the environment
+     */
+    name: string;
+    /**
+     * The slug of the environment
+     */
+    slug: string;
+}
+
+export interface GetProjectsListProject {
+    /**
+     * The auto capitalization status of the project
+     */
+    autoCapitalization: boolean;
+    /**
+     * The creation date of the project
+     */
+    createdAt: string;
+    /**
+     * The description of the project
+     */
+    description: string;
+    /**
+     * The environments of the project
+     */
+    environments: outputs.GetProjectsListProjectEnvironment[];
+    /**
+     * The ID of the project
+     */
+    id: string;
+    /**
+     * The name of the project
+     */
+    name: string;
+    /**
+     * The ID of the organization to which the project belongs
+     */
+    orgId: string;
+    /**
+     * The slug of the project
+     */
+    slug: string;
+    /**
+     * The type of the project ('secret-manager' or 'kms')
+     */
+    type: string;
+    /**
+     * The last update date of the project
+     */
+    updatedAt: string;
+    /**
+     * The version of the project
+     */
+    version: number;
+}
+
+export interface GetProjectsListProjectEnvironment {
     /**
      * The ID of the environment
      */
