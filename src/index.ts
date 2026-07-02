@@ -225,6 +225,11 @@ export const getGroups: typeof import("./getGroups").getGroups = null as any;
 export const getGroupsOutput: typeof import("./getGroups").getGroupsOutput = null as any;
 utilities.lazyLoad(exports, ["getGroups","getGroupsOutput"], () => require("./getGroups"));
 
+export { GetIdentityArgs, GetIdentityResult, GetIdentityOutputArgs } from "./getIdentity";
+export const getIdentity: typeof import("./getIdentity").getIdentity = null as any;
+export const getIdentityOutput: typeof import("./getIdentity").getIdentityOutput = null as any;
+utilities.lazyLoad(exports, ["getIdentity","getIdentityOutput"], () => require("./getIdentity"));
+
 export { GetIdentityDetailsResult } from "./getIdentityDetails";
 export const getIdentityDetails: typeof import("./getIdentityDetails").getIdentityDetails = null as any;
 export const getIdentityDetailsOutput: typeof import("./getIdentityDetails").getIdentityDetailsOutput = null as any;

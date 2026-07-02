@@ -1059,6 +1059,17 @@ export interface GetIdentityDetailsOrganization {
     slug: string;
 }
 
+export interface GetIdentityMetadata {
+    /**
+     * The key of the metadata entry
+     */
+    key: string;
+    /**
+     * The value of the metadata entry
+     */
+    value: string;
+}
+
 export interface GetProjectIdentityRole {
     /**
      * The ID of the custom role, if applicable.
