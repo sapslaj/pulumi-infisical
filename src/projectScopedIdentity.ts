@@ -6,9 +6,9 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
-export class ProjectIdentityProvisioning extends pulumi.CustomResource {
+export class ProjectScopedIdentity extends pulumi.CustomResource {
     /**
-     * Get an existing ProjectIdentityProvisioning resource's state with the given name, ID, and optional extra
+     * Get an existing ProjectScopedIdentity resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -16,22 +16,22 @@ export class ProjectIdentityProvisioning extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: ProjectIdentityProvisioningState, opts?: pulumi.CustomResourceOptions): ProjectIdentityProvisioning {
-        return new ProjectIdentityProvisioning(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: ProjectScopedIdentityState, opts?: pulumi.CustomResourceOptions): ProjectScopedIdentity {
+        return new ProjectScopedIdentity(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'infisical:index/projectIdentityProvisioning:ProjectIdentityProvisioning';
+    public static readonly __pulumiType = 'infisical:index/projectScopedIdentity:ProjectScopedIdentity';
 
     /**
-     * Returns true if the given object is an instance of ProjectIdentityProvisioning.  This is designed to work even
+     * Returns true if the given object is an instance of ProjectScopedIdentity.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is ProjectIdentityProvisioning {
+    public static isInstance(obj: any): obj is ProjectScopedIdentity {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === ProjectIdentityProvisioning.__pulumiType;
+        return obj['__pulumiType'] === ProjectScopedIdentity.__pulumiType;
     }
 
     /**
@@ -45,7 +45,7 @@ export class ProjectIdentityProvisioning extends pulumi.CustomResource {
     /**
      * The metadata associated with this identity.
      */
-    declare public readonly metadatas: pulumi.Output<outputs.ProjectIdentityProvisioningMetadata[] | undefined>;
+    declare public readonly metadatas: pulumi.Output<outputs.ProjectScopedIdentityMetadata[] | undefined>;
     /**
      * The name of the identity.
      */
@@ -54,45 +54,54 @@ export class ProjectIdentityProvisioning extends pulumi.CustomResource {
      * The ID of the project that owns this identity.
      */
     declare public readonly projectId: pulumi.Output<string>;
+    /**
+     * The roles assigned to the project-scoped identity. At least one permanent (non-temporary) role is required.
+     */
+    declare public readonly roles: pulumi.Output<outputs.ProjectScopedIdentityRole[]>;
 
     /**
-     * Create a ProjectIdentityProvisioning resource with the given unique name, arguments, and options.
+     * Create a ProjectScopedIdentity resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ProjectIdentityProvisioningArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ProjectIdentityProvisioningArgs | ProjectIdentityProvisioningState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: ProjectScopedIdentityArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ProjectScopedIdentityArgs | ProjectScopedIdentityState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as ProjectIdentityProvisioningState | undefined;
+            const state = argsOrState as ProjectScopedIdentityState | undefined;
             resourceInputs["authMethods"] = state?.authMethods;
             resourceInputs["hasDeleteProtection"] = state?.hasDeleteProtection;
             resourceInputs["metadatas"] = state?.metadatas;
             resourceInputs["name"] = state?.name;
             resourceInputs["projectId"] = state?.projectId;
+            resourceInputs["roles"] = state?.roles;
         } else {
-            const args = argsOrState as ProjectIdentityProvisioningArgs | undefined;
+            const args = argsOrState as ProjectScopedIdentityArgs | undefined;
             if (args?.projectId === undefined && !opts.urn) {
                 throw new Error("Missing required property 'projectId'");
+            }
+            if (args?.roles === undefined && !opts.urn) {
+                throw new Error("Missing required property 'roles'");
             }
             resourceInputs["hasDeleteProtection"] = args?.hasDeleteProtection;
             resourceInputs["metadatas"] = args?.metadatas;
             resourceInputs["name"] = args?.name;
             resourceInputs["projectId"] = args?.projectId;
+            resourceInputs["roles"] = args?.roles;
             resourceInputs["authMethods"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(ProjectIdentityProvisioning.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
+        super(ProjectScopedIdentity.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
     }
 }
 
 /**
- * Input properties used for looking up and filtering ProjectIdentityProvisioning resources.
+ * Input properties used for looking up and filtering ProjectScopedIdentity resources.
  */
-export interface ProjectIdentityProvisioningState {
+export interface ProjectScopedIdentityState {
     /**
      * The authentication methods configured for the identity.
      */
@@ -104,7 +113,7 @@ export interface ProjectIdentityProvisioningState {
     /**
      * The metadata associated with this identity.
      */
-    metadatas?: pulumi.Input<pulumi.Input<inputs.ProjectIdentityProvisioningMetadata>[] | undefined>;
+    metadatas?: pulumi.Input<pulumi.Input<inputs.ProjectScopedIdentityMetadata>[] | undefined>;
     /**
      * The name of the identity.
      */
@@ -113,12 +122,16 @@ export interface ProjectIdentityProvisioningState {
      * The ID of the project that owns this identity.
      */
     projectId?: pulumi.Input<string | undefined>;
+    /**
+     * The roles assigned to the project-scoped identity. At least one permanent (non-temporary) role is required.
+     */
+    roles?: pulumi.Input<pulumi.Input<inputs.ProjectScopedIdentityRole>[] | undefined>;
 }
 
 /**
- * The set of arguments for constructing a ProjectIdentityProvisioning resource.
+ * The set of arguments for constructing a ProjectScopedIdentity resource.
  */
-export interface ProjectIdentityProvisioningArgs {
+export interface ProjectScopedIdentityArgs {
     /**
      * Whether the identity has delete protection enabled. Defaults to false.
      */
@@ -126,7 +139,7 @@ export interface ProjectIdentityProvisioningArgs {
     /**
      * The metadata associated with this identity.
      */
-    metadatas?: pulumi.Input<pulumi.Input<inputs.ProjectIdentityProvisioningMetadata>[] | undefined>;
+    metadatas?: pulumi.Input<pulumi.Input<inputs.ProjectScopedIdentityMetadata>[] | undefined>;
     /**
      * The name of the identity.
      */
@@ -135,4 +148,8 @@ export interface ProjectIdentityProvisioningArgs {
      * The ID of the project that owns this identity.
      */
     projectId: pulumi.Input<string>;
+    /**
+     * The roles assigned to the project-scoped identity. At least one permanent (non-temporary) role is required.
+     */
+    roles: pulumi.Input<pulumi.Input<inputs.ProjectScopedIdentityRole>[]>;
 }
