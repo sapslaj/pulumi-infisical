@@ -55,6 +55,11 @@ export type AppConnectionDatabricks = import("./appConnectionDatabricks").AppCon
 export const AppConnectionDatabricks: typeof import("./appConnectionDatabricks").AppConnectionDatabricks = null as any;
 utilities.lazyLoad(exports, ["AppConnectionDatabricks"], () => require("./appConnectionDatabricks"));
 
+export { AppConnectionDatadogArgs, AppConnectionDatadogState } from "./appConnectionDatadog";
+export type AppConnectionDatadog = import("./appConnectionDatadog").AppConnectionDatadog;
+export const AppConnectionDatadog: typeof import("./appConnectionDatadog").AppConnectionDatadog = null as any;
+utilities.lazyLoad(exports, ["AppConnectionDatadog"], () => require("./appConnectionDatadog"));
+
 export { AppConnectionFlyioArgs, AppConnectionFlyioState } from "./appConnectionFlyio";
 export type AppConnectionFlyio = import("./appConnectionFlyio").AppConnectionFlyio;
 export const AppConnectionFlyio: typeof import("./appConnectionFlyio").AppConnectionFlyio = null as any;
@@ -622,6 +627,8 @@ const _module = {
                 return new AppConnectionCloudflare(name, <any>undefined, { urn })
             case "infisical:index/appConnectionDatabricks:AppConnectionDatabricks":
                 return new AppConnectionDatabricks(name, <any>undefined, { urn })
+            case "infisical:index/appConnectionDatadog:AppConnectionDatadog":
+                return new AppConnectionDatadog(name, <any>undefined, { urn })
             case "infisical:index/appConnectionFlyio:AppConnectionFlyio":
                 return new AppConnectionFlyio(name, <any>undefined, { urn })
             case "infisical:index/appConnectionGcp:AppConnectionGcp":
@@ -821,6 +828,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/appConnectionAzureKeyV
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionBitbucket", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionCloudflare", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionDatabricks", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/appConnectionDatadog", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionFlyio", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGcp", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionGithub", _module)
