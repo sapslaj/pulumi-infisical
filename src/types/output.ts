@@ -20,6 +20,21 @@ export interface AccessApprovalPolicyApprover {
     username?: string;
 }
 
+export interface AccessApprovalPolicyBypasser {
+    /**
+     * The ID of the bypasser
+     */
+    id?: string;
+    /**
+     * The type of bypasser. Either group or user
+     */
+    type: string;
+    /**
+     * The username of the bypasser. By default, this is the email
+     */
+    username?: string;
+}
+
 export interface AppConnection1passwordCredentials {
     /**
      * The API token to use for authentication. For more details, refer to the documentation here infisical.com/docs/integrations/app-connections/1password
@@ -1749,6 +1764,21 @@ export interface SecretApprovalPolicyApprover {
     type: string;
     /**
      * The username of the approver. By default, this is the email
+     */
+    username?: string;
+}
+
+export interface SecretApprovalPolicyBypasser {
+    /**
+     * The ID of the bypasser
+     */
+    id?: string;
+    /**
+     * The type of bypasser. Either group or user
+     */
+    type: string;
+    /**
+     * The username of the bypasser. By default, this is the email
      */
     username?: string;
 }
