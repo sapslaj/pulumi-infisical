@@ -2417,6 +2417,10 @@ export interface SecretSyncGcpSecretManagerDestinationConfig {
      * The scope of the sync with GCP Secret Manager. Supported options: global, region
      */
     scope: string;
+    /**
+     * The GCP regions to replicate secrets to (e.g. us-east1). Only applicable when scope is 'global'. When not defined, it will use the automatic replication policy
+     */
+    userReplicaLocationIds?: string[];
 }
 
 export interface SecretSyncGcpSecretManagerSyncOptions {

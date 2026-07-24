@@ -2234,6 +2234,10 @@ export interface SecretSyncGcpSecretManagerDestinationConfig {
      * The scope of the sync with GCP Secret Manager. Supported options: global, region
      */
     scope?: pulumi.Input<string | undefined>;
+    /**
+     * The GCP regions to replicate secrets to (e.g. us-east1). Only applicable when scope is 'global'. When not defined, it will use the automatic replication policy
+     */
+    userReplicaLocationIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface SecretSyncGcpSecretManagerSyncOptions {
