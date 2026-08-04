@@ -1355,6 +1355,10 @@ export interface IdentityOidcAuthAccessTokenTrustedIp {
     ipAddress: string;
 }
 
+export interface IdentityTlsCertAuthAccessTokenTrustedIp {
+    ipAddress: string;
+}
+
 export interface IdentityTokenAuthAccessTokenTrustedIp {
     ipAddress: string;
 }

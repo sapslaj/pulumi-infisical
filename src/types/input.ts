@@ -1101,6 +1101,10 @@ export interface IdentityOidcAuthAccessTokenTrustedIp {
     ipAddress?: pulumi.Input<string | undefined>;
 }
 
+export interface IdentityTlsCertAuthAccessTokenTrustedIp {
+    ipAddress?: pulumi.Input<string | undefined>;
+}
+
 export interface IdentityTokenAuthAccessTokenTrustedIp {
     ipAddress?: pulumi.Input<string | undefined>;
 }
