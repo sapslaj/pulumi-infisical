@@ -1669,6 +1669,28 @@ export interface ProjectTemplateEnvironment {
     slug: string;
 }
 
+export interface ProjectTemplateGroup {
+    /**
+     * The slug of the group
+     */
+    groupSlug: string;
+    /**
+     * The role slugs to assign to the group. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: string[];
+}
+
+export interface ProjectTemplateIdentity {
+    /**
+     * The ID of the identity
+     */
+    identityId: string;
+    /**
+     * The role slugs to assign to the identity. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: string[];
+}
+
 export interface ProjectTemplateRole {
     /**
      * The name of the role
@@ -1701,6 +1723,17 @@ export interface ProjectTemplateRolePermission {
      * Describe the entity the permission pertains to.
      */
     subject: string;
+}
+
+export interface ProjectTemplateUser {
+    /**
+     * The role slugs to assign to the user. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: string[];
+    /**
+     * The username of the user.
+     */
+    username: string;
 }
 
 export interface ProjectUserRole {

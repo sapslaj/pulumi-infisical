@@ -1415,6 +1415,28 @@ export interface ProjectTemplateEnvironment {
     slug: pulumi.Input<string>;
 }
 
+export interface ProjectTemplateGroup {
+    /**
+     * The slug of the group
+     */
+    groupSlug: pulumi.Input<string>;
+    /**
+     * The role slugs to assign to the group. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: pulumi.Input<pulumi.Input<string>[]>;
+}
+
+export interface ProjectTemplateIdentity {
+    /**
+     * The ID of the identity
+     */
+    identityId: pulumi.Input<string>;
+    /**
+     * The role slugs to assign to the identity. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: pulumi.Input<pulumi.Input<string>[]>;
+}
+
 export interface ProjectTemplateRole {
     /**
      * The name of the role
@@ -1447,6 +1469,17 @@ export interface ProjectTemplateRolePermission {
      * Describe the entity the permission pertains to.
      */
     subject: pulumi.Input<string>;
+}
+
+export interface ProjectTemplateUser {
+    /**
+     * The role slugs to assign to the user. Must reference roles defined in this template or predefined role slugs (admin, member, viewer, no-access).
+     */
+    roles: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The username of the user.
+     */
+    username: pulumi.Input<string>;
 }
 
 export interface ProjectUserRole {
