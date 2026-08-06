@@ -535,13 +535,13 @@ export interface CertManagerApplicationProfileScepConfig {
 
 export interface CertManagerCertificatePolicyAlgorithms {
     /**
-     * List of allowed key algorithms (at least one required). Supported values: RSA-2048, RSA-3072, RSA-4096, ECDSA-P256, ECDSA-P521, ECDSA-P384
+     * List of allowed key algorithms (at least one value when set). Supported values: RSA-2048, RSA-3072, RSA-4096, ECDSA-P256, ECDSA-P521, ECDSA-P384
      */
-    keyAlgorithms: string[];
+    keyAlgorithms?: string[];
     /**
-     * List of allowed signature algorithms (at least one required). Supported values: SHA256-RSA, SHA512-RSA, SHA384-ECDSA, SHA384-RSA, SHA256-ECDSA, SHA512-ECDSA
+     * List of allowed signature algorithms (at least one value when set). Supported values: SHA256-RSA, SHA512-RSA, SHA384-ECDSA, SHA384-RSA, SHA256-ECDSA, SHA512-ECDSA
      */
-    signatures: string[];
+    signatures?: string[];
 }
 
 export interface CertManagerCertificatePolicyBasicConstraints {

@@ -245,6 +245,11 @@ export const getKmsKeyPublicKey: typeof import("./getKmsKeyPublicKey").getKmsKey
 export const getKmsKeyPublicKeyOutput: typeof import("./getKmsKeyPublicKey").getKmsKeyPublicKeyOutput = null as any;
 utilities.lazyLoad(exports, ["getKmsKeyPublicKey","getKmsKeyPublicKeyOutput"], () => require("./getKmsKeyPublicKey"));
 
+export { GetOrganizationArgs, GetOrganizationResult, GetOrganizationOutputArgs } from "./getOrganization";
+export const getOrganization: typeof import("./getOrganization").getOrganization = null as any;
+export const getOrganizationOutput: typeof import("./getOrganization").getOrganizationOutput = null as any;
+utilities.lazyLoad(exports, ["getOrganization","getOrganizationOutput"], () => require("./getOrganization"));
+
 export { GetProjectEnvironmentArgs, GetProjectEnvironmentResult, GetProjectEnvironmentOutputArgs } from "./getProjectEnvironment";
 export const getProjectEnvironment: typeof import("./getProjectEnvironment").getProjectEnvironment = null as any;
 export const getProjectEnvironmentOutput: typeof import("./getProjectEnvironment").getProjectEnvironmentOutput = null as any;
