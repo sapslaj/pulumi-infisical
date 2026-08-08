@@ -35,6 +35,91 @@ export interface AccessApprovalPolicyBypasser {
     username?: string;
 }
 
+export interface AlertChannels {
+    /**
+     * Notifies principals of your organization or project by email.
+     */
+    email?: outputs.AlertChannelsEmail;
+    /**
+     * Whether the channel delivers notifications. Defaults to true.
+     */
+    enabled: boolean;
+    /**
+     * The ID of the channel in Infisical.
+     */
+    id: string;
+    /**
+     * The name the channel is shown under in Infisical.
+     */
+    name: string;
+    /**
+     * Creates PagerDuty incidents through the Events API v2.
+     */
+    pagerduty?: outputs.AlertChannelsPagerduty;
+    /**
+     * Posts notifications to a Slack channel through an incoming webhook.
+     */
+    slack?: outputs.AlertChannelsSlack;
+    /**
+     * Sends notifications to an HTTPS endpoint as a CloudEvents payload.
+     */
+    webhook?: outputs.AlertChannelsWebhook;
+}
+
+export interface AlertChannelsEmail {
+    /**
+     * The principals to notify. At least one and at most 20 are allowed.
+     */
+    recipients: outputs.AlertChannelsEmailRecipient[];
+}
+
+export interface AlertChannelsEmailRecipient {
+    /**
+     * The ID of the recipient user or group. The principal must belong to the scope the alert is created in.
+     */
+    id: string;
+    /**
+     * The type of the recipient. Options: user, group.
+     */
+    type: string;
+}
+
+export interface AlertChannelsPagerduty {
+    /**
+     * The PagerDuty Events API v2 integration key incidents are created with, a 32 character hex string. Write-only: it is never returned by the API, so it cannot be imported.
+     */
+    integrationKey: string;
+}
+
+export interface AlertChannelsSlack {
+    /**
+     * The Slack incoming webhook URL notifications are posted to. Must be a https://hooks.slack.com URL. Write-only: it is never returned by the API, so it cannot be imported.
+     */
+    webhookUrl: string;
+}
+
+export interface AlertChannelsWebhook {
+    /**
+     * The secret used to sign the payload so the receiver can verify it. Write-only: it is never returned by the API, so an imported channel keeps the secret it was created with until one is set here.
+     */
+    signingSecret?: string;
+    /**
+     * The HTTPS URL the CloudEvents payload is sent to.
+     */
+    url: string;
+}
+
+export interface AlertExpiry {
+    /**
+     * How many days before the watched resource expires the alert fires. Must be between 1 and 90.
+     */
+    alertBeforeDays: number;
+    /**
+     * Whether to keep notifying once a day until the watched resource expires, instead of notifying once. Defaults to false.
+     */
+    dailyReminder: boolean;
+}
+
 export interface AppConnection1passwordCredentials {
     /**
      * The API token to use for authentication. For more details, refer to the documentation here infisical.com/docs/integrations/app-connections/1password
@@ -679,6 +764,32 @@ export interface CertManagerCertificateProfileDefaults {
      * Default certificate validity in days
      */
     ttlDays?: number;
+}
+
+export interface CertificateSyncAwsCertificateManagerDestinationConfig {
+    /**
+     * The AWS region to sync certificates to (e.g. us-east-1).
+     */
+    awsRegion: string;
+}
+
+export interface CertificateSyncAwsCertificateManagerSyncOptions {
+    /**
+     * Whether Infisical should remove certificates from AWS Certificate Manager when they are no longer managed in Infisical.
+     */
+    canRemoveCertificates: boolean;
+    /**
+     * The naming scheme for synced certificates. Must include the {{certificateId}} or {{shortCertificateId}} placeholder. Available placeholders: {{certificateId}}, {{shortCertificateId}}, {{profileId}}, {{applicationId}}, {{applicationName}}, {{commonName}}.
+     */
+    certificateNameSchema: string;
+    /**
+     * Whether to include the root CA certificate in the synced certificate chain.
+     */
+    includeRootCa: boolean;
+    /**
+     * Whether to preserve the AWS Certificate Manager ARN when a certificate is renewed, reimporting into the existing certificate instead of creating a new one.
+     */
+    preserveArn: boolean;
 }
 
 export interface DynamicSecretAwsIamConfiguration {
