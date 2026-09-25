@@ -638,6 +638,10 @@ export interface CertManagerApplicationProfileScepConfig {
      * The SCEP endpoint URL clients should use.
      */
     scepEndpointUrl: string;
+    /**
+     * Sign the RA certificate with the profile's CA instead of self-signing it, so it chains to the CA root. Required by strict clients such as Apple and Microsoft Intune. Only supported for internal CAs. Cannot be changed once SCEP enrollment is configured. To change it, remove<span pulumi-lang-nodejs=" scepConfig " pulumi-lang-dotnet=" ScepConfig " pulumi-lang-go=" scepConfig " pulumi-lang-python=" scep_config " pulumi-lang-yaml=" scepConfig " pulumi-lang-java=" scepConfig " pulumi-lang-hcl=" scep_config "> scepConfig </span>(or the whole resource) to disable SCEP enrollment in one apply, then add<span pulumi-lang-nodejs=" scepConfig " pulumi-lang-dotnet=" ScepConfig " pulumi-lang-go=" scepConfig " pulumi-lang-python=" scep_config " pulumi-lang-yaml=" scepConfig " pulumi-lang-java=" scepConfig " pulumi-lang-hcl=" scep_config "> scepConfig </span>back with the new value in a subsequent apply. Defaults to false.
+     */
+    signRaWithCa: boolean;
 }
 
 export interface CertManagerCertificatePolicyAlgorithms {
