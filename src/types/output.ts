@@ -1567,6 +1567,164 @@ export interface GetSecretMetadataTag {
     slug?: string;
 }
 
+export interface GetSecretValidationRulesRule {
+    /**
+     * The constraints the rule enforces. Only the attributes that apply to the rule's type are set; the rest are null.
+     */
+    constraints: outputs.GetSecretValidationRulesRuleConstraints;
+    /**
+     * When the rule was created.
+     */
+    createdAt: string;
+    /**
+     * The description of the secret validation rule.
+     */
+    description: string;
+    /**
+     * The environment the rule is scoped to. Null when the rule is enforced in every environment of the project.
+     */
+    environment: outputs.GetSecretValidationRulesRuleEnvironment;
+    /**
+     * The ID of the secret validation rule.
+     */
+    id: string;
+    /**
+     * Whether the rule is enforced.
+     */
+    isActive: boolean;
+    /**
+     * The name of the secret validation rule.
+     */
+    name: string;
+    /**
+     * The ID of the project the rule belongs to.
+     */
+    projectId: string;
+    /**
+     * The secret path the rule is scoped to.
+     */
+    secretPath: string;
+    /**
+     * The type of the rule: static-secrets, dynamic-secrets or secret-rotations.
+     */
+    type: string;
+    /**
+     * When the rule was last updated.
+     */
+    updatedAt: string;
+}
+
+export interface GetSecretValidationRulesRuleConstraints {
+    /**
+     * Constraints enforced on the secret key. Set only on static-secrets rules.
+     */
+    keyConstraints: outputs.GetSecretValidationRulesRuleConstraintsKeyConstraints;
+    /**
+     * Constraints the generated password must satisfy. Set only on dynamic-secrets and secret-rotations rules.
+     */
+    passwordConstraints: outputs.GetSecretValidationRulesRuleConstraintsPasswordConstraints;
+    /**
+     * The providers the rule applies to. Set only on dynamic-secrets and secret-rotations rules.
+     */
+    providers: string[];
+    /**
+     * Constraints enforced on the secret value. Set only on static-secrets rules.
+     */
+    valueConstraints: outputs.GetSecretValidationRulesRuleConstraintsValueConstraints;
+}
+
+export interface GetSecretValidationRulesRuleConstraintsKeyConstraints {
+    /**
+     * The maximum number of characters the secret key may contain.
+     */
+    maxLength: number;
+    /**
+     * The minimum number of characters the secret key must contain.
+     */
+    minLength: number;
+    /**
+     * A regular expression the secret key must match.
+     */
+    regexPattern: string;
+    /**
+     * A string the secret key must start with.
+     */
+    requiredPrefix: string;
+    /**
+     * A string the secret key must end with.
+     */
+    requiredSuffix: string;
+}
+
+export interface GetSecretValidationRulesRuleConstraintsPasswordConstraints {
+    /**
+     * The maximum number of characters the generated password may contain.
+     */
+    maxLength: number;
+    /**
+     * The minimum number of characters the generated password must contain.
+     */
+    minLength: number;
+    /**
+     * A regular expression the generated password must match.
+     */
+    regexPattern: string;
+    /**
+     * A string the generated password must start with.
+     */
+    requiredPrefix: string;
+    /**
+     * A string the generated password must end with.
+     */
+    requiredSuffix: string;
+}
+
+export interface GetSecretValidationRulesRuleConstraintsValueConstraints {
+    /**
+     * The maximum number of characters the secret value may contain.
+     */
+    maxLength: number;
+    /**
+     * The minimum number of characters the secret value must contain.
+     */
+    minLength: number;
+    /**
+     * A regular expression the secret value must match.
+     */
+    regexPattern: string;
+    /**
+     * A string the secret value must start with.
+     */
+    requiredPrefix: string;
+    /**
+     * A string the secret value must end with.
+     */
+    requiredSuffix: string;
+    /**
+     * How many of the secret's own previous versions the new value must differ from. Null when the rule allows a value that repeats a previous version.
+     */
+    uniqueAcrossLastVersions: number;
+    /**
+     * Whether the rule rejects a value that another secret in the rule's scope already holds. Null when the rule allows a value another secret already holds.
+     */
+    uniqueWithinScope: boolean;
+}
+
+export interface GetSecretValidationRulesRuleEnvironment {
+    /**
+     * The ID of the environment.
+     */
+    id: string;
+    /**
+     * The name of the environment.
+     */
+    name: string;
+    /**
+     * The slug of the environment.
+     */
+    slug: string;
+}
+
 export interface GetSecretsSecrets {
     /**
      * The secret comment
@@ -1835,7 +1993,7 @@ export interface ProjectRolePermission {
      */
     conditions?: outputs.ProjectRolePermissionConditions;
     /**
-     * Describe what action an entity can take. Enum: role,member,groups,settings,integrations,webhooks,service-tokens,environments,tags,audit-logs,ip-allowlist,workspace,secrets,secret-rollback,secret-approval,secret-rotation,identity,certificate-authorities,certificates,certificate-policies,kms,pki-alerts,pki-collections
+     * Describe what action an entity can take. Enum: role,member,groups,settings,integrations,webhooks,service-tokens,environments,tags,audit-logs,ip-allowlist,workspace,secrets,secret-rollback,secret-approval,secret-rotation,secret-validation-rules,identity,certificate-authorities,certificates,certificate-policies,kms,pki-alerts,pki-collections
      */
     subject: string;
 }
@@ -2981,6 +3139,139 @@ export interface SecretSyncSupabaseSyncOptions {
      * The format to use for structuring secret keys in the Supabase destination.
      */
     keySchema?: string;
+}
+
+export interface SecretValidationRuleDynamicSecretsConstraints {
+    /**
+     * Constraints the generated password must satisfy. These replace any password requirements configured on the resource itself.
+     */
+    passwordConstraints: outputs.SecretValidationRuleDynamicSecretsConstraintsPasswordConstraints;
+    /**
+     * The dynamic secret providers this rule applies to. Supported: sql-database, milvus.
+     */
+    providers: string[];
+}
+
+export interface SecretValidationRuleDynamicSecretsConstraintsPasswordConstraints {
+    /**
+     * The maximum number of characters the generated password may contain.
+     */
+    maxLength?: number;
+    /**
+     * The minimum number of characters the generated password must contain.
+     */
+    minLength?: number;
+    /**
+     * A regular expression the generated password must match. Setting this makes Infisical build the password from the pattern and ignore the length constraints on the same rule.
+     */
+    regexPattern?: string;
+    /**
+     * A string the generated password must start with.
+     */
+    requiredPrefix?: string;
+    /**
+     * A string the generated password must end with.
+     */
+    requiredSuffix?: string;
+}
+
+export interface SecretValidationRuleSecretRotationsConstraints {
+    /**
+     * Constraints the generated password must satisfy. These replace any password requirements configured on the resource itself.
+     */
+    passwordConstraints: outputs.SecretValidationRuleSecretRotationsConstraintsPasswordConstraints;
+    /**
+     * The secret rotation providers this rule applies to. Supported: postgres-credentials, mysql-credentials, mssql-credentials, oracledb-credentials, unix-linux-local-account, ldap-password.
+     */
+    providers: string[];
+}
+
+export interface SecretValidationRuleSecretRotationsConstraintsPasswordConstraints {
+    /**
+     * The maximum number of characters the generated password may contain.
+     */
+    maxLength?: number;
+    /**
+     * The minimum number of characters the generated password must contain.
+     */
+    minLength?: number;
+    /**
+     * A regular expression the generated password must match. Setting this makes Infisical build the password from the pattern and ignore the length constraints on the same rule.
+     */
+    regexPattern?: string;
+    /**
+     * A string the generated password must start with.
+     */
+    requiredPrefix?: string;
+    /**
+     * A string the generated password must end with.
+     */
+    requiredSuffix?: string;
+}
+
+export interface SecretValidationRuleStaticSecretsConstraints {
+    /**
+     * Constraints enforced on the secret key when a secret is created or renamed. Omit to leave keys unconstrained.
+     */
+    keyConstraints?: outputs.SecretValidationRuleStaticSecretsConstraintsKeyConstraints;
+    /**
+     * Constraints enforced on the secret value when a secret is created or updated. Omit to leave values unconstrained.
+     */
+    valueConstraints?: outputs.SecretValidationRuleStaticSecretsConstraintsValueConstraints;
+}
+
+export interface SecretValidationRuleStaticSecretsConstraintsKeyConstraints {
+    /**
+     * The maximum number of characters the secret key may contain.
+     */
+    maxLength?: number;
+    /**
+     * The minimum number of characters the secret key must contain.
+     */
+    minLength?: number;
+    /**
+     * A regular expression the secret key must match.
+     */
+    regexPattern?: string;
+    /**
+     * A string the secret key must start with.
+     */
+    requiredPrefix?: string;
+    /**
+     * A string the secret key must end with.
+     */
+    requiredSuffix?: string;
+}
+
+export interface SecretValidationRuleStaticSecretsConstraintsValueConstraints {
+    /**
+     * The maximum number of characters the secret value may contain.
+     */
+    maxLength?: number;
+    /**
+     * The minimum number of characters the secret value must contain.
+     */
+    minLength?: number;
+    /**
+     * A regular expression the secret value must match.
+     */
+    regexPattern?: string;
+    /**
+     * A string the secret value must start with.
+     */
+    requiredPrefix?: string;
+    /**
+     * A string the secret value must end with.
+     */
+    requiredSuffix?: string;
+    /**
+     * How many of the secret's own previous versions the new value must differ from. Between 1 and 25. Omit to allow a value that repeats a previous version.
+     */
+    uniqueAcrossLastVersions?: number;
+    /**
+     * Set to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span> to reject a value that another secret in the rule's scope already holds. Requires blind indexing on the project. Omit to allow a value another secret already holds.
+     */
+    uniqueWithinScope?: boolean;
 }
 
 export namespace config {

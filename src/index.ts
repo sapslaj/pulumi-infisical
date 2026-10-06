@@ -340,6 +340,11 @@ export const getSecretTag: typeof import("./getSecretTag").getSecretTag = null a
 export const getSecretTagOutput: typeof import("./getSecretTag").getSecretTagOutput = null as any;
 utilities.lazyLoad(exports, ["getSecretTag","getSecretTagOutput"], () => require("./getSecretTag"));
 
+export { GetSecretValidationRulesArgs, GetSecretValidationRulesResult, GetSecretValidationRulesOutputArgs } from "./getSecretValidationRules";
+export const getSecretValidationRules: typeof import("./getSecretValidationRules").getSecretValidationRules = null as any;
+export const getSecretValidationRulesOutput: typeof import("./getSecretValidationRules").getSecretValidationRulesOutput = null as any;
+utilities.lazyLoad(exports, ["getSecretValidationRules","getSecretValidationRulesOutput"], () => require("./getSecretValidationRules"));
+
 export { GetSecretsArgs, GetSecretsResult, GetSecretsOutputArgs } from "./getSecrets";
 export const getSecrets: typeof import("./getSecrets").getSecrets = null as any;
 export const getSecretsOutput: typeof import("./getSecrets").getSecretsOutput = null as any;
@@ -653,6 +658,21 @@ export type SecretTag = import("./secretTag").SecretTag;
 export const SecretTag: typeof import("./secretTag").SecretTag = null as any;
 utilities.lazyLoad(exports, ["SecretTag"], () => require("./secretTag"));
 
+export { SecretValidationRuleDynamicSecretsArgs, SecretValidationRuleDynamicSecretsState } from "./secretValidationRuleDynamicSecrets";
+export type SecretValidationRuleDynamicSecrets = import("./secretValidationRuleDynamicSecrets").SecretValidationRuleDynamicSecrets;
+export const SecretValidationRuleDynamicSecrets: typeof import("./secretValidationRuleDynamicSecrets").SecretValidationRuleDynamicSecrets = null as any;
+utilities.lazyLoad(exports, ["SecretValidationRuleDynamicSecrets"], () => require("./secretValidationRuleDynamicSecrets"));
+
+export { SecretValidationRuleSecretRotationsArgs, SecretValidationRuleSecretRotationsState } from "./secretValidationRuleSecretRotations";
+export type SecretValidationRuleSecretRotations = import("./secretValidationRuleSecretRotations").SecretValidationRuleSecretRotations;
+export const SecretValidationRuleSecretRotations: typeof import("./secretValidationRuleSecretRotations").SecretValidationRuleSecretRotations = null as any;
+utilities.lazyLoad(exports, ["SecretValidationRuleSecretRotations"], () => require("./secretValidationRuleSecretRotations"));
+
+export { SecretValidationRuleStaticSecretsArgs, SecretValidationRuleStaticSecretsState } from "./secretValidationRuleStaticSecrets";
+export type SecretValidationRuleStaticSecrets = import("./secretValidationRuleStaticSecrets").SecretValidationRuleStaticSecrets;
+export const SecretValidationRuleStaticSecrets: typeof import("./secretValidationRuleStaticSecrets").SecretValidationRuleStaticSecrets = null as any;
+utilities.lazyLoad(exports, ["SecretValidationRuleStaticSecrets"], () => require("./secretValidationRuleStaticSecrets"));
+
 export { SubOrganizationArgs, SubOrganizationState } from "./subOrganization";
 export type SubOrganization = import("./subOrganization").SubOrganization;
 export const SubOrganization: typeof import("./subOrganization").SubOrganization = null as any;
@@ -903,6 +923,12 @@ const _module = {
                 return new SecretSyncSupabase(name, <any>undefined, { urn })
             case "infisical:index/secretTag:SecretTag":
                 return new SecretTag(name, <any>undefined, { urn })
+            case "infisical:index/secretValidationRuleDynamicSecrets:SecretValidationRuleDynamicSecrets":
+                return new SecretValidationRuleDynamicSecrets(name, <any>undefined, { urn })
+            case "infisical:index/secretValidationRuleSecretRotations:SecretValidationRuleSecretRotations":
+                return new SecretValidationRuleSecretRotations(name, <any>undefined, { urn })
+            case "infisical:index/secretValidationRuleStaticSecrets:SecretValidationRuleStaticSecrets":
+                return new SecretValidationRuleStaticSecrets(name, <any>undefined, { urn })
             case "infisical:index/subOrganization:SubOrganization":
                 return new SubOrganization(name, <any>undefined, { urn })
             case "infisical:index/webhook:Webhook":
@@ -1025,6 +1051,9 @@ pulumi.runtime.registerResourceModule("infisical", "index/secretSyncGitlab", _mo
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncRender", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretSyncSupabase", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretTag", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleDynamicSecrets", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleSecretRotations", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleStaticSecrets", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/subOrganization", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("infisical", {
