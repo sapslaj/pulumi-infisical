@@ -1351,6 +1351,52 @@ export interface GetGroupsGroup {
     slug: string;
 }
 
+export interface GetIdentitiesListFilter {
+    /**
+     * Only return identities with exactly these names. If the list is empty, no identities are returned. If not set, identities are not filtered by name.
+     */
+    identityNames?: string[];
+}
+
+export interface GetIdentitiesListIdentity {
+    /**
+     * The authentication methods configured on the identity
+     */
+    authModes: string[];
+    /**
+     * The ID of the custom role assigned to the identity. Null if the identity has a predefined role.
+     */
+    customRoleId: string;
+    /**
+     * Whether the identity has delete protection enabled
+     */
+    hasDeleteProtection: boolean;
+    /**
+     * The ID of the identity
+     */
+    id: string;
+    /**
+     * The name of the identity
+     */
+    name: string;
+    /**
+     * The ID of the organization the identity belongs to
+     */
+    orgId: string;
+    /**
+     * The ID of the project that owns the identity. Null for organization identities.
+     */
+    projectId: string;
+    /**
+     * The role assigned to the identity in its scope. For custom roles, this is the role slug. If the identity has more than one role, this is the first role.
+     */
+    role: string;
+    /**
+     * The scope that owns the identity. Either <span pulumi-lang-nodejs="`organization`" pulumi-lang-dotnet="`Organization`" pulumi-lang-go="`organization`" pulumi-lang-python="`organization`" pulumi-lang-yaml="`organization`" pulumi-lang-java="`organization`" pulumi-lang-hcl="`organization`">`organization`</span> or <span pulumi-lang-nodejs="`project`" pulumi-lang-dotnet="`Project`" pulumi-lang-go="`project`" pulumi-lang-python="`project`" pulumi-lang-yaml="`project`" pulumi-lang-java="`project`" pulumi-lang-hcl="`project`">`project`</span>.
+     */
+    scope: string;
+}
+
 export interface GetIdentityDetailsOrganization {
     /**
      * The ID of the organization
@@ -1464,6 +1510,72 @@ export interface GetProjectUserUser {
      * The last name of the user
      */
     lastName: string;
+}
+
+export interface GetProjectUsersListMember {
+    /**
+     * The email address of the user.
+     */
+    email: string;
+    /**
+     * The first name of the user.
+     */
+    firstName: string;
+    /**
+     * The last name of the user.
+     */
+    lastName: string;
+    /**
+     * The membership UUID.
+     */
+    membershipId: string;
+    /**
+     * The roles assigned to the project user.
+     */
+    roles: outputs.GetProjectUsersListMemberRole[];
+    /**
+     * The user's Infisical UUID.
+     */
+    userId: string;
+    /**
+     * The username of the user (by default the email address).
+     */
+    username: string;
+}
+
+export interface GetProjectUsersListMemberRole {
+    /**
+     * The ID of the custom role, if applicable.
+     */
+    customRoleId: string;
+    /**
+     * The ID of the project user role.
+     */
+    id: string;
+    /**
+     * Flag to indicate whether the assigned role is temporary.
+     */
+    isTemporary: boolean;
+    /**
+     * The slug of the role.
+     */
+    roleSlug: string;
+    /**
+     * ISO time at which temporary access ends. Null for permanent roles.
+     */
+    temporaryAccessEndTime: string;
+    /**
+     * ISO time at which temporary access begins. Null for permanent roles.
+     */
+    temporaryAccessStartTime: string;
+    /**
+     * Type of temporary access given. Null for permanent roles.
+     */
+    temporaryMode: string;
+    /**
+     * TTL for the temporary access. Null for permanent roles.
+     */
+    temporaryRange: string;
 }
 
 export interface GetProjectsEnvironments {

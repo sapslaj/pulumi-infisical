@@ -1324,6 +1324,20 @@ export interface GatewayKubernetesAuth {
 export interface GatewayTokenAuth {
 }
 
+export interface GetIdentitiesListFilter {
+    /**
+     * Only return identities with exactly these names. If the list is empty, no identities are returned. If not set, identities are not filtered by name.
+     */
+    identityNames?: string[];
+}
+
+export interface GetIdentitiesListFilterArgs {
+    /**
+     * Only return identities with exactly these names. If the list is empty, no identities are returned. If not set, identities are not filtered by name.
+     */
+    identityNames?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
 export interface IdentityAwsAuthAccessTokenTrustedIp {
     ipAddress?: pulumi.Input<string | undefined>;
 }
