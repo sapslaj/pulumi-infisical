@@ -2942,5 +2942,24 @@ export interface SecretValidationRuleStaticSecretsConstraintsValueConstraints {
      */
     uniqueWithinScope?: pulumi.Input<boolean | undefined>;
 }
+
+export interface SubOrganizationGroupRole {
+    /**
+     * Flag to indicate the assigned role is temporary or not. When<span pulumi-lang-nodejs=" isTemporary " pulumi-lang-dotnet=" IsTemporary " pulumi-lang-go=" isTemporary " pulumi-lang-python=" is_temporary " pulumi-lang-yaml=" isTemporary " pulumi-lang-java=" isTemporary " pulumi-lang-hcl=" is_temporary "> isTemporary </span>is true,<span pulumi-lang-nodejs=" temporaryAccessStartTime " pulumi-lang-dotnet=" TemporaryAccessStartTime " pulumi-lang-go=" temporaryAccessStartTime " pulumi-lang-python=" temporary_access_start_time " pulumi-lang-yaml=" temporaryAccessStartTime " pulumi-lang-java=" temporaryAccessStartTime " pulumi-lang-hcl=" temporary_access_start_time "> temporaryAccessStartTime </span>is required.
+     */
+    isTemporary?: pulumi.Input<boolean | undefined>;
+    /**
+     * The slug of the organization role, e.g. <span pulumi-lang-nodejs="`admin`" pulumi-lang-dotnet="`Admin`" pulumi-lang-go="`admin`" pulumi-lang-python="`admin`" pulumi-lang-yaml="`admin`" pulumi-lang-java="`admin`" pulumi-lang-hcl="`admin`">`admin`</span>, <span pulumi-lang-nodejs="`member`" pulumi-lang-dotnet="`Member`" pulumi-lang-go="`member`" pulumi-lang-python="`member`" pulumi-lang-yaml="`member`" pulumi-lang-java="`member`" pulumi-lang-hcl="`member`">`member`</span>, `no-access`, or the slug of a custom role of the sub-organization.
+     */
+    roleSlug: pulumi.Input<string>;
+    /**
+     * ISO time for which temporary access should begin. This is in the format YYYY-MM-DDTHH:MM:SSZ e.g. 2024-09-19T12:43:13Z
+     */
+    temporaryAccessStartTime?: pulumi.Input<string | undefined>;
+    /**
+     * TTL for the temporary time. Eg: 1m, 1h, 1d. Default: 1h
+     */
+    temporaryRange?: pulumi.Input<string | undefined>;
+}
 export namespace config {
 }

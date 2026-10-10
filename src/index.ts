@@ -708,6 +708,11 @@ export type SubOrganization = import("./subOrganization").SubOrganization;
 export const SubOrganization: typeof import("./subOrganization").SubOrganization = null as any;
 utilities.lazyLoad(exports, ["SubOrganization"], () => require("./subOrganization"));
 
+export { SubOrganizationGroupArgs, SubOrganizationGroupState } from "./subOrganizationGroup";
+export type SubOrganizationGroup = import("./subOrganizationGroup").SubOrganizationGroup;
+export const SubOrganizationGroup: typeof import("./subOrganizationGroup").SubOrganizationGroup = null as any;
+utilities.lazyLoad(exports, ["SubOrganizationGroup"], () => require("./subOrganizationGroup"));
+
 export { WebhookArgs, WebhookState } from "./webhook";
 export type Webhook = import("./webhook").Webhook;
 export const Webhook: typeof import("./webhook").Webhook = null as any;
@@ -965,6 +970,8 @@ const _module = {
                 return new SecretValidationRuleStaticSecrets(name, <any>undefined, { urn })
             case "infisical:index/subOrganization:SubOrganization":
                 return new SubOrganization(name, <any>undefined, { urn })
+            case "infisical:index/subOrganizationGroup:SubOrganizationGroup":
+                return new SubOrganizationGroup(name, <any>undefined, { urn })
             case "infisical:index/webhook:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
@@ -1091,6 +1098,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleDy
 pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleSecretRotations", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/secretValidationRuleStaticSecrets", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/subOrganization", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/subOrganizationGroup", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/webhook", _module)
 pulumi.runtime.registerResourcePackage("infisical", {
     version: utilities.getVersion(),
