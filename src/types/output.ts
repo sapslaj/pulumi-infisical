@@ -127,6 +127,10 @@ export interface AlertCondition {
      */
     profileIds?: string[];
     /**
+     * Only certificates of these code signing signers, by ID. To get a signer's ID, open it under Code Signing > Signers in Certificate Manager and select Options > Copy Signer ID. Only for these events: cert-manager.signer.certificate.expiry. Leave it out to cover all of them. At most 100.
+     */
+    signerIds?: string[];
+    /**
      * Only certificates with these sources. Options: issued, discovered, imported. Leave it out to cover every source. Only for these events: cert-manager.certificate.expiry, cert-manager.certificate.issuance, cert-manager.certificate.renewal, cert-manager.certificate.revocation.
      */
     sources?: string[];
