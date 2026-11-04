@@ -20,6 +20,17 @@ export class SecretSyncCircleci extends pulumi.CustomResource {
         return new SecretSyncCircleci(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing SecretSyncCircleci resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: SecretSyncCircleciState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/secretSyncCircleci:SecretSyncCircleci", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/secretSyncCircleci:SecretSyncCircleci';
 

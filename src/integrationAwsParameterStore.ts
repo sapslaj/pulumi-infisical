@@ -20,6 +20,17 @@ export class IntegrationAwsParameterStore extends pulumi.CustomResource {
         return new IntegrationAwsParameterStore(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing IntegrationAwsParameterStore resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: IntegrationAwsParameterStoreState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/integrationAwsParameterStore:IntegrationAwsParameterStore", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/integrationAwsParameterStore:IntegrationAwsParameterStore';
 

@@ -20,6 +20,17 @@ export class CertificateSyncCloudflareCustomCertificate extends pulumi.CustomRes
         return new CertificateSyncCloudflareCustomCertificate(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing CertificateSyncCloudflareCustomCertificate resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CertificateSyncCloudflareCustomCertificateState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/certificateSyncCloudflareCustomCertificate:CertificateSyncCloudflareCustomCertificate", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/certificateSyncCloudflareCustomCertificate:CertificateSyncCloudflareCustomCertificate';
 

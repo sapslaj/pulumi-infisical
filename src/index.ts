@@ -595,6 +595,81 @@ export type OrgRole = import("./orgRole").OrgRole;
 export const OrgRole: typeof import("./orgRole").OrgRole = null as any;
 utilities.lazyLoad(exports, ["OrgRole"], () => require("./orgRole"));
 
+export { PamAccountGroupArgs, PamAccountGroupState } from "./pamAccountGroup";
+export type PamAccountGroup = import("./pamAccountGroup").PamAccountGroup;
+export const PamAccountGroup: typeof import("./pamAccountGroup").PamAccountGroup = null as any;
+utilities.lazyLoad(exports, ["PamAccountGroup"], () => require("./pamAccountGroup"));
+
+export { PamAccountIdentityArgs, PamAccountIdentityState } from "./pamAccountIdentity";
+export type PamAccountIdentity = import("./pamAccountIdentity").PamAccountIdentity;
+export const PamAccountIdentity: typeof import("./pamAccountIdentity").PamAccountIdentity = null as any;
+utilities.lazyLoad(exports, ["PamAccountIdentity"], () => require("./pamAccountIdentity"));
+
+export { PamAccountKubernetesArgs, PamAccountKubernetesState } from "./pamAccountKubernetes";
+export type PamAccountKubernetes = import("./pamAccountKubernetes").PamAccountKubernetes;
+export const PamAccountKubernetes: typeof import("./pamAccountKubernetes").PamAccountKubernetes = null as any;
+utilities.lazyLoad(exports, ["PamAccountKubernetes"], () => require("./pamAccountKubernetes"));
+
+export { PamAccountPostgresArgs, PamAccountPostgresState } from "./pamAccountPostgres";
+export type PamAccountPostgres = import("./pamAccountPostgres").PamAccountPostgres;
+export const PamAccountPostgres: typeof import("./pamAccountPostgres").PamAccountPostgres = null as any;
+utilities.lazyLoad(exports, ["PamAccountPostgres"], () => require("./pamAccountPostgres"));
+
+export { PamAccountSshArgs, PamAccountSshState } from "./pamAccountSsh";
+export type PamAccountSsh = import("./pamAccountSsh").PamAccountSsh;
+export const PamAccountSsh: typeof import("./pamAccountSsh").PamAccountSsh = null as any;
+utilities.lazyLoad(exports, ["PamAccountSsh"], () => require("./pamAccountSsh"));
+
+export { PamAccountTemplateArgs, PamAccountTemplateState } from "./pamAccountTemplate";
+export type PamAccountTemplate = import("./pamAccountTemplate").PamAccountTemplate;
+export const PamAccountTemplate: typeof import("./pamAccountTemplate").PamAccountTemplate = null as any;
+utilities.lazyLoad(exports, ["PamAccountTemplate"], () => require("./pamAccountTemplate"));
+
+export { PamAccountUserArgs, PamAccountUserState } from "./pamAccountUser";
+export type PamAccountUser = import("./pamAccountUser").PamAccountUser;
+export const PamAccountUser: typeof import("./pamAccountUser").PamAccountUser = null as any;
+utilities.lazyLoad(exports, ["PamAccountUser"], () => require("./pamAccountUser"));
+
+export { PamAccountWindowsAdArgs, PamAccountWindowsAdState } from "./pamAccountWindowsAd";
+export type PamAccountWindowsAd = import("./pamAccountWindowsAd").PamAccountWindowsAd;
+export const PamAccountWindowsAd: typeof import("./pamAccountWindowsAd").PamAccountWindowsAd = null as any;
+utilities.lazyLoad(exports, ["PamAccountWindowsAd"], () => require("./pamAccountWindowsAd"));
+
+export { PamFolderArgs, PamFolderState } from "./pamFolder";
+export type PamFolder = import("./pamFolder").PamFolder;
+export const PamFolder: typeof import("./pamFolder").PamFolder = null as any;
+utilities.lazyLoad(exports, ["PamFolder"], () => require("./pamFolder"));
+
+export { PamFolderGroupArgs, PamFolderGroupState } from "./pamFolderGroup";
+export type PamFolderGroup = import("./pamFolderGroup").PamFolderGroup;
+export const PamFolderGroup: typeof import("./pamFolderGroup").PamFolderGroup = null as any;
+utilities.lazyLoad(exports, ["PamFolderGroup"], () => require("./pamFolderGroup"));
+
+export { PamFolderIdentityArgs, PamFolderIdentityState } from "./pamFolderIdentity";
+export type PamFolderIdentity = import("./pamFolderIdentity").PamFolderIdentity;
+export const PamFolderIdentity: typeof import("./pamFolderIdentity").PamFolderIdentity = null as any;
+utilities.lazyLoad(exports, ["PamFolderIdentity"], () => require("./pamFolderIdentity"));
+
+export { PamFolderUserArgs, PamFolderUserState } from "./pamFolderUser";
+export type PamFolderUser = import("./pamFolderUser").PamFolderUser;
+export const PamFolderUser: typeof import("./pamFolderUser").PamFolderUser = null as any;
+utilities.lazyLoad(exports, ["PamFolderUser"], () => require("./pamFolderUser"));
+
+export { PamGroupArgs, PamGroupState } from "./pamGroup";
+export type PamGroup = import("./pamGroup").PamGroup;
+export const PamGroup: typeof import("./pamGroup").PamGroup = null as any;
+utilities.lazyLoad(exports, ["PamGroup"], () => require("./pamGroup"));
+
+export { PamIdentityArgs, PamIdentityState } from "./pamIdentity";
+export type PamIdentity = import("./pamIdentity").PamIdentity;
+export const PamIdentity: typeof import("./pamIdentity").PamIdentity = null as any;
+utilities.lazyLoad(exports, ["PamIdentity"], () => require("./pamIdentity"));
+
+export { PamUserArgs, PamUserState } from "./pamUser";
+export type PamUser = import("./pamUser").PamUser;
+export const PamUser: typeof import("./pamUser").PamUser = null as any;
+utilities.lazyLoad(exports, ["PamUser"], () => require("./pamUser"));
+
 export { ProjectArgs, ProjectState } from "./project";
 export type Project = import("./project").Project;
 export const Project: typeof import("./project").Project = null as any;
@@ -1051,6 +1126,36 @@ const _module = {
                 return new KmsKey(name, <any>undefined, { urn })
             case "infisical:index/orgRole:OrgRole":
                 return new OrgRole(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountGroup:PamAccountGroup":
+                return new PamAccountGroup(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountIdentity:PamAccountIdentity":
+                return new PamAccountIdentity(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountKubernetes:PamAccountKubernetes":
+                return new PamAccountKubernetes(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountPostgres:PamAccountPostgres":
+                return new PamAccountPostgres(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountSsh:PamAccountSsh":
+                return new PamAccountSsh(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountTemplate:PamAccountTemplate":
+                return new PamAccountTemplate(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountUser:PamAccountUser":
+                return new PamAccountUser(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountWindowsAd:PamAccountWindowsAd":
+                return new PamAccountWindowsAd(name, <any>undefined, { urn })
+            case "infisical:index/pamFolder:PamFolder":
+                return new PamFolder(name, <any>undefined, { urn })
+            case "infisical:index/pamFolderGroup:PamFolderGroup":
+                return new PamFolderGroup(name, <any>undefined, { urn })
+            case "infisical:index/pamFolderIdentity:PamFolderIdentity":
+                return new PamFolderIdentity(name, <any>undefined, { urn })
+            case "infisical:index/pamFolderUser:PamFolderUser":
+                return new PamFolderUser(name, <any>undefined, { urn })
+            case "infisical:index/pamGroup:PamGroup":
+                return new PamGroup(name, <any>undefined, { urn })
+            case "infisical:index/pamIdentity:PamIdentity":
+                return new PamIdentity(name, <any>undefined, { urn })
+            case "infisical:index/pamUser:PamUser":
+                return new PamUser(name, <any>undefined, { urn })
             case "infisical:index/project:Project":
                 return new Project(name, <any>undefined, { urn })
             case "infisical:index/projectEnvironment:ProjectEnvironment":
@@ -1251,6 +1356,21 @@ pulumi.runtime.registerResourceModule("infisical", "index/integrationDatabricks"
 pulumi.runtime.registerResourceModule("infisical", "index/integrationGcpSecretManager", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/kmsKey", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/orgRole", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountGroup", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountIdentity", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountKubernetes", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountPostgres", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountSsh", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountTemplate", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountUser", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountWindowsAd", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamFolder", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamFolderGroup", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamFolderIdentity", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamFolderUser", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamGroup", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamIdentity", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamUser", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/project", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/projectEnvironment", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/projectGroup", _module)

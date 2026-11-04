@@ -18,6 +18,17 @@ export class CertManagerCertificate extends pulumi.CustomResource {
         return new CertManagerCertificate(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing CertManagerCertificate resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CertManagerCertificateState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/certManagerCertificate:CertManagerCertificate", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/certManagerCertificate:CertManagerCertificate';
 
@@ -61,9 +72,13 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public readonly country: pulumi.Output<string>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")).
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
      */
     declare public readonly csr: pulumi.Output<string>;
+    /**
+     * Delete the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals are deleted too and none are left behind in the inventory. Deleting does not revoke it. Set <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span> as well to revoke it first. Uses the value from the last apply. Defaults to false.
+     */
+    declare public readonly deleteOnDestroy: pulumi.Output<boolean>;
     /**
      * Domain components (DC) for the certificate. Multi-valued; each entry becomes a DC attribute in the subject.
      */
@@ -84,6 +99,10 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      * The locality (L) for the certificate
      */
     declare public readonly locality: pulumi.Output<string>;
+    /**
+     * Renew the certificate in place on `terraform apply` once it has fewer than this many days left before expiry. Nothing renews it between applies: if no apply runs before the certificate expires, it can no longer be renewed this way and has to be replaced. Only use it if you apply regularly; otherwise use <span pulumi-lang-nodejs="`autoRenew`" pulumi-lang-dotnet="`AutoRenew`" pulumi-lang-go="`autoRenew`" pulumi-lang-python="`auto_renew`" pulumi-lang-yaml="`autoRenew`" pulumi-lang-java="`autoRenew`" pulumi-lang-hcl="`auto_renew`">`autoRenew`</span> on the application profile. Must be at least 1 and smaller than the certificate lifetime. Not set by default.
+     */
+    declare public readonly manualRenewOnApplyWithinDays: pulumi.Output<number | undefined>;
     /**
      * The not-after (expiration) date of the certificate (RFC3339 format)
      */
@@ -109,13 +128,21 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly privateKey: pulumi.Output<string>;
     /**
-     * The ID of the certificate profile to use for issuance
+     * The ID of the certificate profile to use for issuance. Find it on the profile's page in Certificate Manager, or reference an <span pulumi-lang-nodejs="`infisical.CertManagerCertificateProfile`" pulumi-lang-dotnet="`infisical.CertManagerCertificateProfile`" pulumi-lang-go="`CertManagerCertificateProfile`" pulumi-lang-python="`CertManagerCertificateProfile`" pulumi-lang-yaml="`infisical.CertManagerCertificateProfile`" pulumi-lang-java="`infisical.CertManagerCertificateProfile`" pulumi-lang-hcl="`infisical_cert_manager_certificate_profile`">`infisical.CertManagerCertificateProfile`</span> resource.
      */
     declare public readonly profileId: pulumi.Output<string>;
     /**
      * The state/province (ST) for the certificate
      */
     declare public readonly province: pulumi.Output<string>;
+    /**
+     * The reason sent when the certificate is revoked on destroy, used with <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span>. Supported: unspecified, key_compromise, ca_compromise, affiliation_changed, superseded, cessation_of_operation, certificate_hold, privilege_withdrawn, aa_compromise. Defaults to unspecified.
+     */
+    declare public readonly revocationReasonOnDestroy: pulumi.Output<string>;
+    /**
+     * Revoke the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals that are still valid are revoked too. Uses the value from the last apply; if the certificate was deleted in Infisical, apply the new value before destroying. Certificates from Azure AD CS or Venafi TPP cannot be revoked, so destroying them fails while this is set. Self-signed certificates are skipped with a warning. Defaults to false.
+     */
+    declare public readonly revokeOnDestroy: pulumi.Output<boolean>;
     /**
      * The serial number of the issued certificate
      */
@@ -125,7 +152,7 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public readonly signatureAlgorithm: pulumi.Output<string>;
     /**
-     * The status of the certificate (pending, issued, failed)
+     * The status of the certificate: active or revoked. It is renewed when the certificate was renewed outside Terraform and that renewal is no longer available, and deleted when it was deleted outside Terraform but still has to be revoked because<span pulumi-lang-nodejs=" revokeOnDestroy " pulumi-lang-dotnet=" RevokeOnDestroy " pulumi-lang-go=" revokeOnDestroy " pulumi-lang-python=" revoke_on_destroy " pulumi-lang-yaml=" revokeOnDestroy " pulumi-lang-java=" revokeOnDestroy " pulumi-lang-hcl=" revoke_on_destroy "> revokeOnDestroy </span>is set. Use<span pulumi-lang-nodejs=" notAfter " pulumi-lang-dotnet=" NotAfter " pulumi-lang-go=" notAfter " pulumi-lang-python=" not_after " pulumi-lang-yaml=" notAfter " pulumi-lang-java=" notAfter " pulumi-lang-hcl=" not_after "> notAfter </span>to tell whether it has expired.
      */
     declare public /*out*/ readonly status: pulumi.Output<string>;
     /**
@@ -158,11 +185,13 @@ export class CertManagerCertificate extends pulumi.CustomResource {
             resourceInputs["commonName"] = state?.commonName;
             resourceInputs["country"] = state?.country;
             resourceInputs["csr"] = state?.csr;
+            resourceInputs["deleteOnDestroy"] = state?.deleteOnDestroy;
             resourceInputs["domainComponents"] = state?.domainComponents;
             resourceInputs["extendedKeyUsages"] = state?.extendedKeyUsages;
             resourceInputs["keyAlgorithm"] = state?.keyAlgorithm;
             resourceInputs["keyUsages"] = state?.keyUsages;
             resourceInputs["locality"] = state?.locality;
+            resourceInputs["manualRenewOnApplyWithinDays"] = state?.manualRenewOnApplyWithinDays;
             resourceInputs["notAfter"] = state?.notAfter;
             resourceInputs["notBefore"] = state?.notBefore;
             resourceInputs["orderId"] = state?.orderId;
@@ -171,6 +200,8 @@ export class CertManagerCertificate extends pulumi.CustomResource {
             resourceInputs["privateKey"] = state?.privateKey;
             resourceInputs["profileId"] = state?.profileId;
             resourceInputs["province"] = state?.province;
+            resourceInputs["revocationReasonOnDestroy"] = state?.revocationReasonOnDestroy;
+            resourceInputs["revokeOnDestroy"] = state?.revokeOnDestroy;
             resourceInputs["serialNumber"] = state?.serialNumber;
             resourceInputs["signatureAlgorithm"] = state?.signatureAlgorithm;
             resourceInputs["status"] = state?.status;
@@ -189,15 +220,19 @@ export class CertManagerCertificate extends pulumi.CustomResource {
             resourceInputs["commonName"] = args?.commonName;
             resourceInputs["country"] = args?.country;
             resourceInputs["csr"] = args?.csr;
+            resourceInputs["deleteOnDestroy"] = args?.deleteOnDestroy;
             resourceInputs["domainComponents"] = args?.domainComponents;
             resourceInputs["extendedKeyUsages"] = args?.extendedKeyUsages;
             resourceInputs["keyAlgorithm"] = args?.keyAlgorithm;
             resourceInputs["keyUsages"] = args?.keyUsages;
             resourceInputs["locality"] = args?.locality;
+            resourceInputs["manualRenewOnApplyWithinDays"] = args?.manualRenewOnApplyWithinDays;
             resourceInputs["organization"] = args?.organization;
             resourceInputs["ou"] = args?.ou;
             resourceInputs["profileId"] = args?.profileId;
             resourceInputs["province"] = args?.province;
+            resourceInputs["revocationReasonOnDestroy"] = args?.revocationReasonOnDestroy;
+            resourceInputs["revokeOnDestroy"] = args?.revokeOnDestroy;
             resourceInputs["signatureAlgorithm"] = args?.signatureAlgorithm;
             resourceInputs["timeoutSeconds"] = args?.timeoutSeconds;
             resourceInputs["ttl"] = args?.ttl;
@@ -251,9 +286,13 @@ export interface CertManagerCertificateState {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")).
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
      */
     csr?: pulumi.Input<string | undefined>;
+    /**
+     * Delete the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals are deleted too and none are left behind in the inventory. Deleting does not revoke it. Set <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span> as well to revoke it first. Uses the value from the last apply. Defaults to false.
+     */
+    deleteOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * Domain components (DC) for the certificate. Multi-valued; each entry becomes a DC attribute in the subject.
      */
@@ -274,6 +313,10 @@ export interface CertManagerCertificateState {
      * The locality (L) for the certificate
      */
     locality?: pulumi.Input<string | undefined>;
+    /**
+     * Renew the certificate in place on `terraform apply` once it has fewer than this many days left before expiry. Nothing renews it between applies: if no apply runs before the certificate expires, it can no longer be renewed this way and has to be replaced. Only use it if you apply regularly; otherwise use <span pulumi-lang-nodejs="`autoRenew`" pulumi-lang-dotnet="`AutoRenew`" pulumi-lang-go="`autoRenew`" pulumi-lang-python="`auto_renew`" pulumi-lang-yaml="`autoRenew`" pulumi-lang-java="`autoRenew`" pulumi-lang-hcl="`auto_renew`">`autoRenew`</span> on the application profile. Must be at least 1 and smaller than the certificate lifetime. Not set by default.
+     */
+    manualRenewOnApplyWithinDays?: pulumi.Input<number | undefined>;
     /**
      * The not-after (expiration) date of the certificate (RFC3339 format)
      */
@@ -299,13 +342,21 @@ export interface CertManagerCertificateState {
      */
     privateKey?: pulumi.Input<string | undefined>;
     /**
-     * The ID of the certificate profile to use for issuance
+     * The ID of the certificate profile to use for issuance. Find it on the profile's page in Certificate Manager, or reference an <span pulumi-lang-nodejs="`infisical.CertManagerCertificateProfile`" pulumi-lang-dotnet="`infisical.CertManagerCertificateProfile`" pulumi-lang-go="`CertManagerCertificateProfile`" pulumi-lang-python="`CertManagerCertificateProfile`" pulumi-lang-yaml="`infisical.CertManagerCertificateProfile`" pulumi-lang-java="`infisical.CertManagerCertificateProfile`" pulumi-lang-hcl="`infisical_cert_manager_certificate_profile`">`infisical.CertManagerCertificateProfile`</span> resource.
      */
     profileId?: pulumi.Input<string | undefined>;
     /**
      * The state/province (ST) for the certificate
      */
     province?: pulumi.Input<string | undefined>;
+    /**
+     * The reason sent when the certificate is revoked on destroy, used with <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span>. Supported: unspecified, key_compromise, ca_compromise, affiliation_changed, superseded, cessation_of_operation, certificate_hold, privilege_withdrawn, aa_compromise. Defaults to unspecified.
+     */
+    revocationReasonOnDestroy?: pulumi.Input<string | undefined>;
+    /**
+     * Revoke the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals that are still valid are revoked too. Uses the value from the last apply; if the certificate was deleted in Infisical, apply the new value before destroying. Certificates from Azure AD CS or Venafi TPP cannot be revoked, so destroying them fails while this is set. Self-signed certificates are skipped with a warning. Defaults to false.
+     */
+    revokeOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * The serial number of the issued certificate
      */
@@ -315,7 +366,7 @@ export interface CertManagerCertificateState {
      */
     signatureAlgorithm?: pulumi.Input<string | undefined>;
     /**
-     * The status of the certificate (pending, issued, failed)
+     * The status of the certificate: active or revoked. It is renewed when the certificate was renewed outside Terraform and that renewal is no longer available, and deleted when it was deleted outside Terraform but still has to be revoked because<span pulumi-lang-nodejs=" revokeOnDestroy " pulumi-lang-dotnet=" RevokeOnDestroy " pulumi-lang-go=" revokeOnDestroy " pulumi-lang-python=" revoke_on_destroy " pulumi-lang-yaml=" revokeOnDestroy " pulumi-lang-java=" revokeOnDestroy " pulumi-lang-hcl=" revoke_on_destroy "> revokeOnDestroy </span>is set. Use<span pulumi-lang-nodejs=" notAfter " pulumi-lang-dotnet=" NotAfter " pulumi-lang-go=" notAfter " pulumi-lang-python=" not_after " pulumi-lang-yaml=" notAfter " pulumi-lang-java=" notAfter " pulumi-lang-hcl=" not_after "> notAfter </span>to tell whether it has expired.
      */
     status?: pulumi.Input<string | undefined>;
     /**
@@ -349,9 +400,13 @@ export interface CertManagerCertificateArgs {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")).
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
      */
     csr?: pulumi.Input<string | undefined>;
+    /**
+     * Delete the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals are deleted too and none are left behind in the inventory. Deleting does not revoke it. Set <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span> as well to revoke it first. Uses the value from the last apply. Defaults to false.
+     */
+    deleteOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * Domain components (DC) for the certificate. Multi-valued; each entry becomes a DC attribute in the subject.
      */
@@ -373,6 +428,10 @@ export interface CertManagerCertificateArgs {
      */
     locality?: pulumi.Input<string | undefined>;
     /**
+     * Renew the certificate in place on `terraform apply` once it has fewer than this many days left before expiry. Nothing renews it between applies: if no apply runs before the certificate expires, it can no longer be renewed this way and has to be replaced. Only use it if you apply regularly; otherwise use <span pulumi-lang-nodejs="`autoRenew`" pulumi-lang-dotnet="`AutoRenew`" pulumi-lang-go="`autoRenew`" pulumi-lang-python="`auto_renew`" pulumi-lang-yaml="`autoRenew`" pulumi-lang-java="`autoRenew`" pulumi-lang-hcl="`auto_renew`">`autoRenew`</span> on the application profile. Must be at least 1 and smaller than the certificate lifetime. Not set by default.
+     */
+    manualRenewOnApplyWithinDays?: pulumi.Input<number | undefined>;
+    /**
      * The organization (O) for the certificate
      */
     organization?: pulumi.Input<string | undefined>;
@@ -381,13 +440,21 @@ export interface CertManagerCertificateArgs {
      */
     ou?: pulumi.Input<string | undefined>;
     /**
-     * The ID of the certificate profile to use for issuance
+     * The ID of the certificate profile to use for issuance. Find it on the profile's page in Certificate Manager, or reference an <span pulumi-lang-nodejs="`infisical.CertManagerCertificateProfile`" pulumi-lang-dotnet="`infisical.CertManagerCertificateProfile`" pulumi-lang-go="`CertManagerCertificateProfile`" pulumi-lang-python="`CertManagerCertificateProfile`" pulumi-lang-yaml="`infisical.CertManagerCertificateProfile`" pulumi-lang-java="`infisical.CertManagerCertificateProfile`" pulumi-lang-hcl="`infisical_cert_manager_certificate_profile`">`infisical.CertManagerCertificateProfile`</span> resource.
      */
     profileId: pulumi.Input<string>;
     /**
      * The state/province (ST) for the certificate
      */
     province?: pulumi.Input<string | undefined>;
+    /**
+     * The reason sent when the certificate is revoked on destroy, used with <span pulumi-lang-nodejs="`revokeOnDestroy`" pulumi-lang-dotnet="`RevokeOnDestroy`" pulumi-lang-go="`revokeOnDestroy`" pulumi-lang-python="`revoke_on_destroy`" pulumi-lang-yaml="`revokeOnDestroy`" pulumi-lang-java="`revokeOnDestroy`" pulumi-lang-hcl="`revoke_on_destroy`">`revokeOnDestroy`</span>. Supported: unspecified, key_compromise, ca_compromise, affiliation_changed, superseded, cessation_of_operation, certificate_hold, privilege_withdrawn, aa_compromise. Defaults to unspecified.
+     */
+    revocationReasonOnDestroy?: pulumi.Input<string | undefined>;
+    /**
+     * Revoke the certificate when the resource is destroyed or replaced. Every renewal creates a new certificate in Infisical and this resource follows all of them, so earlier and later renewals that are still valid are revoked too. Uses the value from the last apply; if the certificate was deleted in Infisical, apply the new value before destroying. Certificates from Azure AD CS or Venafi TPP cannot be revoked, so destroying them fails while this is set. Self-signed certificates are skipped with a warning. Defaults to false.
+     */
+    revokeOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512
      */

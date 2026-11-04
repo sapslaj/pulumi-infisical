@@ -2609,6 +2609,341 @@ export interface OrgRolePermission {
     subject: pulumi.Input<string>;
 }
 
+export interface PamAccountKubernetesConnectionDetails {
+    /**
+     * The PEM-encoded CA certificate to verify the API server with.
+     */
+    sslCertificate?: pulumi.Input<string | undefined>;
+    /**
+     * Whether to reject an API server certificate that isn't trusted. Defaults to true.
+     */
+    sslRejectUnauthorized?: pulumi.Input<boolean | undefined>;
+    /**
+     * The URL of the Kubernetes API server.
+     */
+    url: pulumi.Input<string>;
+}
+
+export interface PamAccountKubernetesCredentials {
+    /**
+     * How the account authenticates: `service-account-token` with a stored token, or `gateway-kubernetes-auth` through the gateway as <span pulumi-lang-nodejs="`serviceAccountName`" pulumi-lang-dotnet="`ServiceAccountName`" pulumi-lang-go="`serviceAccountName`" pulumi-lang-python="`service_account_name`" pulumi-lang-yaml="`serviceAccountName`" pulumi-lang-java="`serviceAccountName`" pulumi-lang-hcl="`service_account_name`">`serviceAccountName`</span> in <span pulumi-lang-nodejs="`namespace`" pulumi-lang-dotnet="`Namespace`" pulumi-lang-go="`namespace`" pulumi-lang-python="`namespace`" pulumi-lang-yaml="`namespace`" pulumi-lang-java="`namespace`" pulumi-lang-hcl="`namespace`">`namespace`</span>.
+     */
+    authMethod: pulumi.Input<string>;
+    /**
+     * The namespace of the service account, for the `gateway-kubernetes-auth` auth method.
+     */
+    namespace?: pulumi.Input<string | undefined>;
+    /**
+     * The name of the service account, for the `gateway-kubernetes-auth` auth method.
+     */
+    serviceAccountName?: pulumi.Input<string | undefined>;
+    /**
+     * The service account token, for the `service-account-token` auth method.
+     */
+    serviceAccountToken?: pulumi.Input<string | undefined>;
+}
+
+export interface PamAccountPostgresConnectionDetails {
+    /**
+     * The name of the database to connect to.
+     */
+    database: pulumi.Input<string>;
+    /**
+     * The hostname or IP address of the database server.
+     */
+    host: pulumi.Input<string>;
+    /**
+     * The port of the database server. Defaults to 5432.
+     */
+    port?: pulumi.Input<number | undefined>;
+    /**
+     * The PEM-encoded CA certificate to verify the server with.
+     */
+    sslCertificate?: pulumi.Input<string | undefined>;
+    /**
+     * Whether to connect over TLS. Must be true for the `aws-iam` auth method. Defaults to true.
+     */
+    sslEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether to reject a server certificate that isn't trusted. Defaults to true.
+     */
+    sslRejectUnauthorized?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PamAccountPostgresCredentials {
+    /**
+     * How the account authenticates: <span pulumi-lang-nodejs="`password`" pulumi-lang-dotnet="`Password`" pulumi-lang-go="`password`" pulumi-lang-python="`password`" pulumi-lang-yaml="`password`" pulumi-lang-java="`password`" pulumi-lang-hcl="`password`">`password`</span>, or `aws-iam` for RDS and Aurora IAM authentication. Defaults to <span pulumi-lang-nodejs="`password`" pulumi-lang-dotnet="`Password`" pulumi-lang-go="`password`" pulumi-lang-python="`password`" pulumi-lang-yaml="`password`" pulumi-lang-java="`password`" pulumi-lang-hcl="`password`">`password`</span>.
+     */
+    authMethod?: pulumi.Input<string | undefined>;
+    /**
+     * The AWS region of the RDS or Aurora instance, for the `aws-iam` auth method.
+     */
+    awsRegion?: pulumi.Input<string | undefined>;
+    /**
+     * The password, for the <span pulumi-lang-nodejs="`password`" pulumi-lang-dotnet="`Password`" pulumi-lang-go="`password`" pulumi-lang-python="`password`" pulumi-lang-yaml="`password`" pulumi-lang-java="`password`" pulumi-lang-hcl="`password`">`password`</span> auth method.
+     */
+    password?: pulumi.Input<string | undefined>;
+    /**
+     * The ARN of the IAM role Infisical assumes to generate the auth token, for the `aws-iam` auth method. It needs `rds-db:connect` and must trust Infisical with your organization ID as the external ID.
+     */
+    roleArn?: pulumi.Input<string | undefined>;
+    /**
+     * The database user.
+     */
+    username: pulumi.Input<string>;
+}
+
+export interface PamAccountSshConnectionDetails {
+    /**
+     * The hostname or IP address of the SSH server.
+     */
+    host: pulumi.Input<string>;
+    /**
+     * The port of the SSH server. Defaults to 22.
+     */
+    port?: pulumi.Input<number | undefined>;
+}
+
+export interface PamAccountSshCredentials {
+    /**
+     * How the account authenticates: <span pulumi-lang-nodejs="`password`" pulumi-lang-dotnet="`Password`" pulumi-lang-go="`password`" pulumi-lang-python="`password`" pulumi-lang-yaml="`password`" pulumi-lang-java="`password`" pulumi-lang-hcl="`password`">`password`</span>, `public-key`, or <span pulumi-lang-nodejs="`certificate`" pulumi-lang-dotnet="`Certificate`" pulumi-lang-go="`certificate`" pulumi-lang-python="`certificate`" pulumi-lang-yaml="`certificate`" pulumi-lang-java="`certificate`" pulumi-lang-hcl="`certificate`">`certificate`</span>. With <span pulumi-lang-nodejs="`certificate`" pulumi-lang-dotnet="`Certificate`" pulumi-lang-go="`certificate`" pulumi-lang-python="`certificate`" pulumi-lang-yaml="`certificate`" pulumi-lang-java="`certificate`" pulumi-lang-hcl="`certificate`">`certificate`</span>, the server must trust the account's Infisical SSH CA: once the account exists, get its public key from `GET /api/v1/pam/accounts/{id}/ssh-ca-public-key` and add it to the server's `TrustedUserCAKeys`. Creation doesn't check this trust, so sessions fail until it is set up.
+     */
+    authMethod: pulumi.Input<string>;
+    /**
+     * The password, for the <span pulumi-lang-nodejs="`password`" pulumi-lang-dotnet="`Password`" pulumi-lang-go="`password`" pulumi-lang-python="`password`" pulumi-lang-yaml="`password`" pulumi-lang-java="`password`" pulumi-lang-hcl="`password`">`password`</span> auth method.
+     */
+    password?: pulumi.Input<string | undefined>;
+    /**
+     * The PEM-encoded private key, for the `public-key` auth method.
+     */
+    privateKey?: pulumi.Input<string | undefined>;
+    /**
+     * The username to log in as.
+     */
+    username: pulumi.Input<string>;
+}
+
+export interface PamAccountTemplatePolicies {
+    /**
+     * Whether requests that pass one of the folder's auto-approval rules are approved instantly. Has no effect unless <span pulumi-lang-nodejs="`requiresApproval`" pulumi-lang-dotnet="`RequiresApproval`" pulumi-lang-go="`requiresApproval`" pulumi-lang-python="`requires_approval`" pulumi-lang-yaml="`requiresApproval`" pulumi-lang-java="`requiresApproval`" pulumi-lang-hcl="`requires_approval`">`requiresApproval`</span> is true.
+     */
+    allowAutoApproval?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether the folder's break-glass users can grant themselves access in an emergency. Has no effect unless <span pulumi-lang-nodejs="`requiresApproval`" pulumi-lang-dotnet="`RequiresApproval`" pulumi-lang-go="`requiresApproval`" pulumi-lang-python="`requires_approval`" pulumi-lang-yaml="`requiresApproval`" pulumi-lang-java="`requiresApproval`" pulumi-lang-hcl="`requires_approval`">`requiresApproval`</span> is true.
+     */
+    allowBreakGlass?: pulumi.Input<boolean | undefined>;
+    /**
+     * Regular expressions, one per command or statement to reject during a session. Only for <span pulumi-lang-nodejs="`ssh`" pulumi-lang-dotnet="`Ssh`" pulumi-lang-go="`ssh`" pulumi-lang-python="`ssh`" pulumi-lang-yaml="`ssh`" pulumi-lang-java="`ssh`" pulumi-lang-hcl="`ssh`">`ssh`</span>, <span pulumi-lang-nodejs="`snowflake`" pulumi-lang-dotnet="`Snowflake`" pulumi-lang-go="`snowflake`" pulumi-lang-python="`snowflake`" pulumi-lang-yaml="`snowflake`" pulumi-lang-java="`snowflake`" pulumi-lang-hcl="`snowflake`">`snowflake`</span>, <span pulumi-lang-nodejs="`clickhouse`" pulumi-lang-dotnet="`Clickhouse`" pulumi-lang-go="`clickhouse`" pulumi-lang-python="`clickhouse`" pulumi-lang-yaml="`clickhouse`" pulumi-lang-java="`clickhouse`" pulumi-lang-hcl="`clickhouse`">`clickhouse`</span> templates.
+     */
+    commandBlockings?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * The maximum session length in seconds, from 60 to 86400 (900 to 3600 for `aws-iam` templates).
+     */
+    maxSessionDuration?: pulumi.Input<number | undefined>;
+    /**
+     * Whether users must re-authenticate with MFA before accessing an account.
+     */
+    requireMfa?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether users must give a reason before accessing an account.
+     */
+    requireReason?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether users must request and receive approval before launching a session or viewing credentials.
+     */
+    requiresApproval?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PamAccountTemplateSettings {
+    /**
+     * Scheduled checks that each account's stored credential still works. Defaults to a daily check.
+     */
+    heartbeat?: pulumi.Input<inputs.PamAccountTemplateSettingsHeartbeat | undefined>;
+    /**
+     * Requirements for the passwords rotation generates and for passwords set on accounts. Only for <span pulumi-lang-nodejs="`postgres`" pulumi-lang-dotnet="`Postgres`" pulumi-lang-go="`postgres`" pulumi-lang-python="`postgres`" pulumi-lang-yaml="`postgres`" pulumi-lang-java="`postgres`" pulumi-lang-hcl="`postgres`">`postgres`</span>, <span pulumi-lang-nodejs="`mysql`" pulumi-lang-dotnet="`Mysql`" pulumi-lang-go="`mysql`" pulumi-lang-python="`mysql`" pulumi-lang-yaml="`mysql`" pulumi-lang-java="`mysql`" pulumi-lang-hcl="`mysql`">`mysql`</span>, <span pulumi-lang-nodejs="`mssql`" pulumi-lang-dotnet="`Mssql`" pulumi-lang-go="`mssql`" pulumi-lang-python="`mssql`" pulumi-lang-yaml="`mssql`" pulumi-lang-java="`mssql`" pulumi-lang-hcl="`mssql`">`mssql`</span>, <span pulumi-lang-nodejs="`oracledb`" pulumi-lang-dotnet="`Oracledb`" pulumi-lang-go="`oracledb`" pulumi-lang-python="`oracledb`" pulumi-lang-yaml="`oracledb`" pulumi-lang-java="`oracledb`" pulumi-lang-hcl="`oracledb`">`oracledb`</span>, <span pulumi-lang-nodejs="`windows`" pulumi-lang-dotnet="`Windows`" pulumi-lang-go="`windows`" pulumi-lang-python="`windows`" pulumi-lang-yaml="`windows`" pulumi-lang-java="`windows`" pulumi-lang-hcl="`windows`">`windows`</span>, `windows-ad` templates.
+     */
+    passwordRequirements?: pulumi.Input<inputs.PamAccountTemplateSettingsPasswordRequirements | undefined>;
+    /**
+     * Session recording. Defaults to recording every session into Infisical's database.
+     */
+    recording?: pulumi.Input<inputs.PamAccountTemplateSettingsRecording | undefined>;
+    /**
+     * Scheduled credential rotation. Only for <span pulumi-lang-nodejs="`postgres`" pulumi-lang-dotnet="`Postgres`" pulumi-lang-go="`postgres`" pulumi-lang-python="`postgres`" pulumi-lang-yaml="`postgres`" pulumi-lang-java="`postgres`" pulumi-lang-hcl="`postgres`">`postgres`</span>, <span pulumi-lang-nodejs="`mysql`" pulumi-lang-dotnet="`Mysql`" pulumi-lang-go="`mysql`" pulumi-lang-python="`mysql`" pulumi-lang-yaml="`mysql`" pulumi-lang-java="`mysql`" pulumi-lang-hcl="`mysql`">`mysql`</span>, <span pulumi-lang-nodejs="`mssql`" pulumi-lang-dotnet="`Mssql`" pulumi-lang-go="`mssql`" pulumi-lang-python="`mssql`" pulumi-lang-yaml="`mssql`" pulumi-lang-java="`mssql`" pulumi-lang-hcl="`mssql`">`mssql`</span>, <span pulumi-lang-nodejs="`oracledb`" pulumi-lang-dotnet="`Oracledb`" pulumi-lang-go="`oracledb`" pulumi-lang-python="`oracledb`" pulumi-lang-yaml="`oracledb`" pulumi-lang-java="`oracledb`" pulumi-lang-hcl="`oracledb`">`oracledb`</span>, <span pulumi-lang-nodejs="`windows`" pulumi-lang-dotnet="`Windows`" pulumi-lang-go="`windows`" pulumi-lang-python="`windows`" pulumi-lang-yaml="`windows`" pulumi-lang-java="`windows`" pulumi-lang-hcl="`windows`">`windows`</span>, `windows-ad` templates.
+     */
+    rotation?: pulumi.Input<inputs.PamAccountTemplateSettingsRotation | undefined>;
+    /**
+     * Masking of sensitive values in session logs.
+     */
+    sessionLogMasking?: pulumi.Input<inputs.PamAccountTemplateSettingsSessionLogMasking | undefined>;
+}
+
+export interface PamAccountTemplateSettingsHeartbeat {
+    /**
+     * Whether credential health checking is on. Set <span pulumi-lang-nodejs="`intervalSeconds`" pulumi-lang-dotnet="`IntervalSeconds`" pulumi-lang-go="`intervalSeconds`" pulumi-lang-python="`interval_seconds`" pulumi-lang-yaml="`intervalSeconds`" pulumi-lang-java="`intervalSeconds`" pulumi-lang-hcl="`interval_seconds`">`intervalSeconds`</span> as well to run it on a schedule.
+     */
+    enabled: pulumi.Input<boolean>;
+    /**
+     * How often credential health checking runs, in seconds, from 3600 to 31536000. Leave unset to run it only on demand.
+     */
+    intervalSeconds?: pulumi.Input<number | undefined>;
+}
+
+export interface PamAccountTemplateSettingsPasswordRequirements {
+    /**
+     * The symbols the password may contain, drawn from `!@#$%^&*()-_=+[]{}|:,.<>/~`.
+     */
+    allowedSymbols?: pulumi.Input<string | undefined>;
+    /**
+     * The length of the password, from 1 to 250 (at most 30 for <span pulumi-lang-nodejs="`oracledb`" pulumi-lang-dotnet="`Oracledb`" pulumi-lang-go="`oracledb`" pulumi-lang-python="`oracledb`" pulumi-lang-yaml="`oracledb`" pulumi-lang-java="`oracledb`" pulumi-lang-hcl="`oracledb`">`oracledb`</span> templates).
+     */
+    length: pulumi.Input<number>;
+    /**
+     * The minimum number of each kind of character. At least one must be above 0, and together they can't exceed <span pulumi-lang-nodejs="`length`" pulumi-lang-dotnet="`Length`" pulumi-lang-go="`length`" pulumi-lang-python="`length`" pulumi-lang-yaml="`length`" pulumi-lang-java="`length`" pulumi-lang-hcl="`length`">`length`</span>.
+     */
+    required: pulumi.Input<inputs.PamAccountTemplateSettingsPasswordRequirementsRequired>;
+}
+
+export interface PamAccountTemplateSettingsPasswordRequirementsRequired {
+    /**
+     * The minimum number of digits in the password. Defaults to 0.
+     */
+    digits?: pulumi.Input<number | undefined>;
+    /**
+     * The minimum number of lowercase letters in the password. Defaults to 0.
+     */
+    lowercase?: pulumi.Input<number | undefined>;
+    /**
+     * The minimum number of symbols in the password. Defaults to 0.
+     */
+    symbols?: pulumi.Input<number | undefined>;
+    /**
+     * The minimum number of uppercase letters in the password. Defaults to 0.
+     */
+    uppercase?: pulumi.Input<number | undefined>;
+}
+
+export interface PamAccountTemplateSettingsRecording {
+    /**
+     * The ID of the AWS or S3-Compatible Storage app connection used to store recordings.
+     */
+    connectionId?: pulumi.Input<string | undefined>;
+    /**
+     * Whether sessions are recorded. Defaults to true.
+     */
+    enabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * The bucket recordings are stored in when <span pulumi-lang-nodejs="`storageBackend`" pulumi-lang-dotnet="`StorageBackend`" pulumi-lang-go="`storageBackend`" pulumi-lang-python="`storage_backend`" pulumi-lang-yaml="`storageBackend`" pulumi-lang-java="`storageBackend`" pulumi-lang-hcl="`storage_backend`">`storageBackend`</span> is `aws-s3`.
+     */
+    s3?: pulumi.Input<inputs.PamAccountTemplateSettingsRecordingS3 | undefined>;
+    /**
+     * Where recordings are stored: <span pulumi-lang-nodejs="`postgres`" pulumi-lang-dotnet="`Postgres`" pulumi-lang-go="`postgres`" pulumi-lang-python="`postgres`" pulumi-lang-yaml="`postgres`" pulumi-lang-java="`postgres`" pulumi-lang-hcl="`postgres`">`postgres`</span> (Infisical's database) or `aws-s3`, which needs <span pulumi-lang-nodejs="`connectionId`" pulumi-lang-dotnet="`ConnectionId`" pulumi-lang-go="`connectionId`" pulumi-lang-python="`connection_id`" pulumi-lang-yaml="`connectionId`" pulumi-lang-java="`connectionId`" pulumi-lang-hcl="`connection_id`">`connectionId`</span> and <span pulumi-lang-nodejs="`s3`" pulumi-lang-dotnet="`S3`" pulumi-lang-go="`s3`" pulumi-lang-python="`s3`" pulumi-lang-yaml="`s3`" pulumi-lang-java="`s3`" pulumi-lang-hcl="`s3`">`s3`</span>. Defaults to <span pulumi-lang-nodejs="`postgres`" pulumi-lang-dotnet="`Postgres`" pulumi-lang-go="`postgres`" pulumi-lang-python="`postgres`" pulumi-lang-yaml="`postgres`" pulumi-lang-java="`postgres`" pulumi-lang-hcl="`postgres`">`postgres`</span>.
+     */
+    storageBackend?: pulumi.Input<string | undefined>;
+}
+
+export interface PamAccountTemplateSettingsRecordingS3 {
+    /**
+     * The name of the bucket.
+     */
+    bucket: pulumi.Input<string>;
+    /**
+     * An optional prefix for the recording object keys.
+     */
+    keyPrefix?: pulumi.Input<string | undefined>;
+    /**
+     * The AWS region of the bucket. Leave unset for S3-Compatible Storage connections.
+     */
+    region?: pulumi.Input<string | undefined>;
+}
+
+export interface PamAccountTemplateSettingsRotation {
+    /**
+     * Whether credential rotation is on. Set <span pulumi-lang-nodejs="`intervalSeconds`" pulumi-lang-dotnet="`IntervalSeconds`" pulumi-lang-go="`intervalSeconds`" pulumi-lang-python="`interval_seconds`" pulumi-lang-yaml="`intervalSeconds`" pulumi-lang-java="`intervalSeconds`" pulumi-lang-hcl="`interval_seconds`">`intervalSeconds`</span> as well to run it on a schedule.
+     */
+    enabled: pulumi.Input<boolean>;
+    /**
+     * How often credential rotation runs, in seconds, from 3600 to 31536000. Leave unset to run it only on demand.
+     */
+    intervalSeconds?: pulumi.Input<number | undefined>;
+}
+
+export interface PamAccountTemplateSettingsSessionLogMasking {
+    /**
+     * Whether common secrets are masked without a pattern. Defaults to true, except for <span pulumi-lang-nodejs="`windows`" pulumi-lang-dotnet="`Windows`" pulumi-lang-go="`windows`" pulumi-lang-python="`windows`" pulumi-lang-yaml="`windows`" pulumi-lang-java="`windows`" pulumi-lang-hcl="`windows`">`windows`</span>, `windows-ad` and `aws-iam` templates.
+     */
+    builtInDetection?: pulumi.Input<boolean | undefined>;
+    /**
+     * Regular expressions whose matches are masked in session logs.
+     */
+    patterns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
+export interface PamAccountWindowsAdConnectionDetails {
+    /**
+     * The hostname or IP address of a domain controller, used for LDAP connections.
+     */
+    dcAddress: pulumi.Input<string>;
+    /**
+     * The fully qualified domain name of the Active Directory domain, e.g. corp.example.com.
+     */
+    domain: pulumi.Input<string>;
+    /**
+     * The hostnames or IP addresses the account may open sessions to.
+     */
+    hosts: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The PEM-encoded CA certificate to verify the domain controller with over LDAPS.
+     */
+    ldapCaCert?: pulumi.Input<string | undefined>;
+    /**
+     * The LDAP port of the domain controller. Defaults to 389.
+     */
+    ldapPort?: pulumi.Input<number | undefined>;
+    /**
+     * Whether to reject a domain controller certificate that isn't trusted. Defaults to true.
+     */
+    ldapRejectUnauthorized?: pulumi.Input<boolean | undefined>;
+    /**
+     * The server name to verify the domain controller's certificate against over LDAPS.
+     */
+    ldapTlsServerName?: pulumi.Input<string | undefined>;
+    /**
+     * The RDP port of the hosts. Defaults to 3389.
+     */
+    rdpPort?: pulumi.Input<number | undefined>;
+    /**
+     * Whether to connect to the domain controller over LDAPS. Defaults to false.
+     */
+    useLdaps?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether to use WinRM over HTTPS. Defaults to false.
+     */
+    useWinrmHttps?: pulumi.Input<boolean | undefined>;
+    /**
+     * The PEM-encoded CA certificate to verify WinRM over HTTPS with.
+     */
+    winrmCaCert?: pulumi.Input<string | undefined>;
+    /**
+     * The WinRM port of the hosts, used for credential rotation. Defaults to 5985.
+     */
+    winrmPort?: pulumi.Input<number | undefined>;
+    /**
+     * Whether to reject a WinRM certificate that isn't trusted. Defaults to true.
+     */
+    winrmRejectUnauthorized?: pulumi.Input<boolean | undefined>;
+}
+
+export interface PamAccountWindowsAdCredentials {
+    /**
+     * The password of the domain user.
+     */
+    password?: pulumi.Input<string | undefined>;
+    /**
+     * The domain user, in DOMAIN\username form (e.g. CORP\Administrator).
+     */
+    username: pulumi.Input<string>;
+}
+
 export interface ProjectGroupRole {
     /**
      * Flag to indicate the assigned role is temporary or not. When<span pulumi-lang-nodejs=" isTemporary " pulumi-lang-dotnet=" IsTemporary " pulumi-lang-go=" isTemporary " pulumi-lang-python=" is_temporary " pulumi-lang-yaml=" isTemporary " pulumi-lang-java=" isTemporary " pulumi-lang-hcl=" is_temporary "> isTemporary </span>is true fields temporary_mode,<span pulumi-lang-nodejs=" temporaryRange " pulumi-lang-dotnet=" TemporaryRange " pulumi-lang-go=" temporaryRange " pulumi-lang-python=" temporary_range " pulumi-lang-yaml=" temporaryRange " pulumi-lang-java=" temporaryRange " pulumi-lang-hcl=" temporary_range "> temporaryRange </span>and<span pulumi-lang-nodejs=" temporaryAccessStartTime " pulumi-lang-dotnet=" TemporaryAccessStartTime " pulumi-lang-go=" temporaryAccessStartTime " pulumi-lang-python=" temporary_access_start_time " pulumi-lang-yaml=" temporaryAccessStartTime " pulumi-lang-java=" temporaryAccessStartTime " pulumi-lang-hcl=" temporary_access_start_time "> temporaryAccessStartTime </span>is required.

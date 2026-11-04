@@ -20,6 +20,17 @@ export class OrgRole extends pulumi.CustomResource {
         return new OrgRole(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing OrgRole resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: OrgRoleState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/orgRole:OrgRole", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/orgRole:OrgRole';
 

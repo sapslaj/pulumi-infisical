@@ -20,6 +20,17 @@ export class AppConnection1password extends pulumi.CustomResource {
         return new AppConnection1password(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing AppConnection1password resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: AppConnection1passwordState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/appConnection1password:AppConnection1password", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/appConnection1password:AppConnection1password';
 

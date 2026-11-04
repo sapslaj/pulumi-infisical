@@ -18,6 +18,17 @@ export class CertManagerApplication extends pulumi.CustomResource {
         return new CertManagerApplication(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing CertManagerApplication resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CertManagerApplicationState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("infisical:index/certManagerApplication:CertManagerApplication", id, <any>state || {}, { ...opts }, utilities.getPackage());
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'infisical:index/certManagerApplication:CertManagerApplication';
 
