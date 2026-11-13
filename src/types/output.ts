@@ -75,11 +75,11 @@ export interface AlertChannelsEmail {
 
 export interface AlertChannelsEmailRecipient {
     /**
-     * The ID of the recipient user or group, which must belong to the scope the alert is created in. For an email recipient this is the email address, which must be on one of your organization's verified email domains.
+     * The ID of the recipient user or group, which must belong to the scope the alert is created in. For an email recipient this is the email address, which must be on one of your organization's verified email domains. For a project-admins or project-members recipient this is the ID of the project the resource belongs to.
      */
     id: string;
     /**
-     * The type of the recipient. Options: user, group, email. The email type is only for cert-manager, cert-manager.application, cert-manager.signer alerts.
+     * The type of the recipient. Options: user, group, email, project-admins, project-members. The email type is only for cert-manager, cert-manager.application, cert-manager.signer alerts. The project-admins type notifies the members who have the admin role directly on the project, the project-members type notifies everyone in the project, directly or through a group, and both are only for secret.rotation alerts.
      */
     type: string;
 }
@@ -4805,7 +4805,9 @@ export interface SecretSyncSpaceliftSyncOptions {
      */
     disableSecretDeletion: boolean;
     /**
-     * Whether to sync secrets from folders beneath the source path as well.
+     * Whether to sync secrets from folders beneath the source path as well. Deprecated: use the top-level<span pulumi-lang-nodejs=" includeAllSubFolders " pulumi-lang-dotnet=" IncludeAllSubFolders " pulumi-lang-go=" includeAllSubFolders " pulumi-lang-python=" include_all_sub_folders " pulumi-lang-yaml=" includeAllSubFolders " pulumi-lang-java=" includeAllSubFolders " pulumi-lang-hcl=" include_all_sub_folders "> includeAllSubFolders </span>instead. When both are set, the top-level<span pulumi-lang-nodejs=" includeAllSubFolders " pulumi-lang-dotnet=" IncludeAllSubFolders " pulumi-lang-go=" includeAllSubFolders " pulumi-lang-python=" include_all_sub_folders " pulumi-lang-yaml=" includeAllSubFolders " pulumi-lang-java=" includeAllSubFolders " pulumi-lang-hcl=" include_all_sub_folders "> includeAllSubFolders </span>takes precedence.
+     *
+     * @deprecated Deprecated
      */
     includeAllSubFolders: boolean;
     /**

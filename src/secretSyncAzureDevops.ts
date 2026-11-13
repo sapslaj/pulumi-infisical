@@ -66,6 +66,10 @@ export class SecretSyncAzureDevops extends pulumi.CustomResource {
      */
     declare public readonly environment: pulumi.Output<string>;
     /**
+     * Whether to sync secrets from folders beneath the source path as well.
+     */
+    declare public readonly includeAllSubFolders: pulumi.Output<boolean>;
+    /**
      * The name of the Azure DevOps sync to create. Must be slug-friendly.
      */
     declare public readonly name: pulumi.Output<string>;
@@ -100,6 +104,7 @@ export class SecretSyncAzureDevops extends pulumi.CustomResource {
             resourceInputs["description"] = state?.description;
             resourceInputs["destinationConfig"] = state?.destinationConfig;
             resourceInputs["environment"] = state?.environment;
+            resourceInputs["includeAllSubFolders"] = state?.includeAllSubFolders;
             resourceInputs["name"] = state?.name;
             resourceInputs["projectId"] = state?.projectId;
             resourceInputs["secretPath"] = state?.secretPath;
@@ -129,6 +134,7 @@ export class SecretSyncAzureDevops extends pulumi.CustomResource {
             resourceInputs["description"] = args?.description;
             resourceInputs["destinationConfig"] = args?.destinationConfig;
             resourceInputs["environment"] = args?.environment;
+            resourceInputs["includeAllSubFolders"] = args?.includeAllSubFolders;
             resourceInputs["name"] = args?.name;
             resourceInputs["projectId"] = args?.projectId;
             resourceInputs["secretPath"] = args?.secretPath;
@@ -163,6 +169,10 @@ export interface SecretSyncAzureDevopsState {
      * The slug of the project environment to sync secrets from.
      */
     environment?: pulumi.Input<string | undefined>;
+    /**
+     * Whether to sync secrets from folders beneath the source path as well.
+     */
+    includeAllSubFolders?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the Azure DevOps sync to create. Must be slug-friendly.
      */
@@ -205,6 +215,10 @@ export interface SecretSyncAzureDevopsArgs {
      * The slug of the project environment to sync secrets from.
      */
     environment: pulumi.Input<string>;
+    /**
+     * Whether to sync secrets from folders beneath the source path as well.
+     */
+    includeAllSubFolders?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the Azure DevOps sync to create. Must be slug-friendly.
      */

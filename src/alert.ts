@@ -80,7 +80,7 @@ export class Alert extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly orgId: pulumi.Output<string>;
     /**
-     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer.
+     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer, secret.rotation.
      */
     declare public readonly projectId: pulumi.Output<string | undefined>;
     /**
@@ -88,7 +88,7 @@ export class Alert extends pulumi.CustomResource {
      */
     declare public readonly resourceId: pulumi.Output<string | undefined>;
     /**
-     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication.
+     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication, secret.rotation.
      */
     declare public readonly resourceType: pulumi.Output<string>;
 
@@ -180,7 +180,7 @@ export interface AlertState {
      */
     orgId?: pulumi.Input<string | undefined>;
     /**
-     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer.
+     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer, secret.rotation.
      */
     projectId?: pulumi.Input<string | undefined>;
     /**
@@ -188,7 +188,7 @@ export interface AlertState {
      */
     resourceId?: pulumi.Input<string | undefined>;
     /**
-     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication.
+     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication, secret.rotation.
      */
     resourceType?: pulumi.Input<string | undefined>;
 }
@@ -228,7 +228,7 @@ export interface AlertArgs {
      */
     name?: pulumi.Input<string | undefined>;
     /**
-     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer.
+     * The ID of the project the resource belongs to. Required for project level resources, and must be omitted for organization level ones. Not used by these resource types, so leave it out: cert-manager, cert-manager.application, cert-manager.signer, secret.rotation.
      */
     projectId?: pulumi.Input<string | undefined>;
     /**
@@ -236,7 +236,7 @@ export interface AlertArgs {
      */
     resourceId?: pulumi.Input<string | undefined>;
     /**
-     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication.
+     * The type of the resource to watch. Options: cert-manager, cert-manager.application, cert-manager.signer, identity.authentication, secret.rotation.
      */
     resourceType: pulumi.Input<string>;
 }
