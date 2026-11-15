@@ -85,6 +85,14 @@ export class SecretSyncFlyio extends pulumi.CustomResource {
      * Parameters to modify how secrets are synced.
      */
     declare public readonly syncOptions: pulumi.Output<outputs.SecretSyncFlyioSyncOptions>;
+    /**
+     * How long Terraform waits for syncs when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true.
+     */
+    declare public readonly timeouts: pulumi.Output<outputs.SecretSyncFlyioTimeouts | undefined>;
+    /**
+     * Whether Terraform waits for the sync to finish before it continues. On create, Terraform waits for the first sync. On update, Terraform first waits for a sync that is already in progress, then sends the update and waits for the sync that the update starts. If the sync fails, the apply fails with the error from Infisical. If the wait fails on create, Terraform marks the resource as tainted, and the next apply deletes and recreates the secret sync. If the configuration is correct and only the destination needs a fix, run `terraform untaint` on the resource instead. The wait has no effect when<span pulumi-lang-nodejs=" autoSyncEnabled " pulumi-lang-dotnet=" AutoSyncEnabled " pulumi-lang-go=" autoSyncEnabled " pulumi-lang-python=" auto_sync_enabled " pulumi-lang-yaml=" autoSyncEnabled " pulumi-lang-java=" autoSyncEnabled " pulumi-lang-hcl=" auto_sync_enabled "> autoSyncEnabled </span>is false, because Infisical then doesn't run a sync. Terraform waits up to the create and update values in timeouts (default: 10m). Every change to a secret in the source folder also starts a sync, so if those secrets change often, an update can wait longer for a sync that is already in progress. Set larger timeouts in that case. Defaults to false.
+     */
+    declare public readonly waitForSyncCompletion: pulumi.Output<boolean>;
 
     /**
      * Create a SecretSyncFlyio resource with the given unique name, arguments, and options.
@@ -109,6 +117,8 @@ export class SecretSyncFlyio extends pulumi.CustomResource {
             resourceInputs["projectId"] = state?.projectId;
             resourceInputs["secretPath"] = state?.secretPath;
             resourceInputs["syncOptions"] = state?.syncOptions;
+            resourceInputs["timeouts"] = state?.timeouts;
+            resourceInputs["waitForSyncCompletion"] = state?.waitForSyncCompletion;
         } else {
             const args = argsOrState as SecretSyncFlyioArgs | undefined;
             if (args?.connectionId === undefined && !opts.urn) {
@@ -139,6 +149,8 @@ export class SecretSyncFlyio extends pulumi.CustomResource {
             resourceInputs["projectId"] = args?.projectId;
             resourceInputs["secretPath"] = args?.secretPath;
             resourceInputs["syncOptions"] = args?.syncOptions;
+            resourceInputs["timeouts"] = args?.timeouts;
+            resourceInputs["waitForSyncCompletion"] = args?.waitForSyncCompletion;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(SecretSyncFlyio.__pulumiType, name, resourceInputs, opts, false /*dependency*/, utilities.getPackage());
@@ -189,6 +201,14 @@ export interface SecretSyncFlyioState {
      * Parameters to modify how secrets are synced.
      */
     syncOptions?: pulumi.Input<inputs.SecretSyncFlyioSyncOptions | undefined>;
+    /**
+     * How long Terraform waits for syncs when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true.
+     */
+    timeouts?: pulumi.Input<inputs.SecretSyncFlyioTimeouts | undefined>;
+    /**
+     * Whether Terraform waits for the sync to finish before it continues. On create, Terraform waits for the first sync. On update, Terraform first waits for a sync that is already in progress, then sends the update and waits for the sync that the update starts. If the sync fails, the apply fails with the error from Infisical. If the wait fails on create, Terraform marks the resource as tainted, and the next apply deletes and recreates the secret sync. If the configuration is correct and only the destination needs a fix, run `terraform untaint` on the resource instead. The wait has no effect when<span pulumi-lang-nodejs=" autoSyncEnabled " pulumi-lang-dotnet=" AutoSyncEnabled " pulumi-lang-go=" autoSyncEnabled " pulumi-lang-python=" auto_sync_enabled " pulumi-lang-yaml=" autoSyncEnabled " pulumi-lang-java=" autoSyncEnabled " pulumi-lang-hcl=" auto_sync_enabled "> autoSyncEnabled </span>is false, because Infisical then doesn't run a sync. Terraform waits up to the create and update values in timeouts (default: 10m). Every change to a secret in the source folder also starts a sync, so if those secrets change often, an update can wait longer for a sync that is already in progress. Set larger timeouts in that case. Defaults to false.
+     */
+    waitForSyncCompletion?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -235,4 +255,12 @@ export interface SecretSyncFlyioArgs {
      * Parameters to modify how secrets are synced.
      */
     syncOptions: pulumi.Input<inputs.SecretSyncFlyioSyncOptions>;
+    /**
+     * How long Terraform waits for syncs when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true.
+     */
+    timeouts?: pulumi.Input<inputs.SecretSyncFlyioTimeouts | undefined>;
+    /**
+     * Whether Terraform waits for the sync to finish before it continues. On create, Terraform waits for the first sync. On update, Terraform first waits for a sync that is already in progress, then sends the update and waits for the sync that the update starts. If the sync fails, the apply fails with the error from Infisical. If the wait fails on create, Terraform marks the resource as tainted, and the next apply deletes and recreates the secret sync. If the configuration is correct and only the destination needs a fix, run `terraform untaint` on the resource instead. The wait has no effect when<span pulumi-lang-nodejs=" autoSyncEnabled " pulumi-lang-dotnet=" AutoSyncEnabled " pulumi-lang-go=" autoSyncEnabled " pulumi-lang-python=" auto_sync_enabled " pulumi-lang-yaml=" autoSyncEnabled " pulumi-lang-java=" autoSyncEnabled " pulumi-lang-hcl=" auto_sync_enabled "> autoSyncEnabled </span>is false, because Infisical then doesn't run a sync. Terraform waits up to the create and update values in timeouts (default: 10m). Every change to a secret in the source folder also starts a sync, so if those secrets change often, an update can wait longer for a sync that is already in progress. Set larger timeouts in that case. Defaults to false.
+     */
+    waitForSyncCompletion?: pulumi.Input<boolean | undefined>;
 }

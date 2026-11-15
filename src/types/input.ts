@@ -664,6 +664,33 @@ export interface AppConnectionOracledbCredentials {
     username: pulumi.Input<string>;
 }
 
+export interface AppConnectionPaloAltoNetworksCredentials {
+    /**
+     * The hostname or IP address of the PAN-OS firewall or Panorama management interface, without scheme, port or path.
+     */
+    hostname: pulumi.Input<string>;
+    /**
+     * The password to authenticate to PAN-OS with.
+     */
+    password: pulumi.Input<string>;
+    /**
+     * The port of the PAN-OS management interface. Defaults to <span pulumi-lang-nodejs="`443`" pulumi-lang-dotnet="`443`" pulumi-lang-go="`443`" pulumi-lang-python="`443`" pulumi-lang-yaml="`443`" pulumi-lang-java="`443`" pulumi-lang-hcl="`443`">`443`</span>.
+     */
+    port?: pulumi.Input<number | undefined>;
+    /**
+     * The PEM-encoded CA certificate used to verify the PAN-OS TLS certificate.
+     */
+    sslCertificate?: pulumi.Input<string | undefined>;
+    /**
+     * Whether or not to reject untrusted TLS certificates presented by PAN-OS. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    sslRejectUnauthorized?: pulumi.Input<boolean | undefined>;
+    /**
+     * The username to authenticate to PAN-OS with.
+     */
+    username: pulumi.Input<string>;
+}
+
 export interface AppConnectionPostgresCredentials {
     /**
      * The name of the database to connect to.
@@ -1833,15 +1860,15 @@ export interface CertificateSyncNetscalerSyncOptions {
 
 export interface CertificateSyncNutanixPrismCentralCertificateFilters {
     /**
-     * The certificate orders to sync, from the <span pulumi-lang-nodejs="`orderId`" pulumi-lang-dotnet="`OrderId`" pulumi-lang-go="`orderId`" pulumi-lang-python="`order_id`" pulumi-lang-yaml="`orderId`" pulumi-lang-java="`orderId`" pulumi-lang-hcl="`order_id`">`orderId`</span> attribute of <span pulumi-lang-nodejs="`infisical.CertManagerCertificate`" pulumi-lang-dotnet="`infisical.CertManagerCertificate`" pulumi-lang-go="`CertManagerCertificate`" pulumi-lang-python="`CertManagerCertificate`" pulumi-lang-yaml="`infisical.CertManagerCertificate`" pulumi-lang-java="`infisical.CertManagerCertificate`" pulumi-lang-hcl="`infisical_cert_manager_certificate`">`infisical.CertManagerCertificate`</span>. A certificate and all of its renewals share one order, so the sync keeps holding the newest certificate of each order.
+     * The certificate order to sync, from the <span pulumi-lang-nodejs="`orderId`" pulumi-lang-dotnet="`OrderId`" pulumi-lang-go="`orderId`" pulumi-lang-python="`order_id`" pulumi-lang-yaml="`orderId`" pulumi-lang-java="`orderId`" pulumi-lang-hcl="`order_id`">`orderId`</span> attribute of <span pulumi-lang-nodejs="`infisical.CertManagerCertificate`" pulumi-lang-dotnet="`infisical.CertManagerCertificate`" pulumi-lang-go="`CertManagerCertificate`" pulumi-lang-python="`CertManagerCertificate`" pulumi-lang-yaml="`infisical.CertManagerCertificate`" pulumi-lang-java="`infisical.CertManagerCertificate`" pulumi-lang-hcl="`infisical_cert_manager_certificate`">`infisical.CertManagerCertificate`</span>. Set one order. The sync keeps holding the newest renewal of that order.
      */
     certificateOrderIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
-     * Sync certificates carrying every one of these metadata pairs.
+     * Not supported on this sync. Setting it fails the plan.
      */
     metadatas?: pulumi.Input<pulumi.Input<inputs.CertificateSyncNutanixPrismCentralCertificateFiltersMetadata>[] | undefined>;
     /**
-     * Sync certificates issued from any one of these certificate profiles.
+     * Not supported on this sync. Setting it fails the plan.
      */
     profileIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
@@ -1866,6 +1893,126 @@ export interface CertificateSyncNutanixPrismCentralDestinationConfig {
      * The name of the Nutanix cluster to install the certificate on.
      */
     clusterName: pulumi.Input<string>;
+}
+
+export interface CertificateSyncPaloAltoNetworksCertificateFilters {
+    /**
+     * The certificate orders to sync, from the <span pulumi-lang-nodejs="`orderId`" pulumi-lang-dotnet="`OrderId`" pulumi-lang-go="`orderId`" pulumi-lang-python="`order_id`" pulumi-lang-yaml="`orderId`" pulumi-lang-java="`orderId`" pulumi-lang-hcl="`order_id`">`orderId`</span> attribute of <span pulumi-lang-nodejs="`infisical.CertManagerCertificate`" pulumi-lang-dotnet="`infisical.CertManagerCertificate`" pulumi-lang-go="`CertManagerCertificate`" pulumi-lang-python="`CertManagerCertificate`" pulumi-lang-yaml="`infisical.CertManagerCertificate`" pulumi-lang-java="`infisical.CertManagerCertificate`" pulumi-lang-hcl="`infisical_cert_manager_certificate`">`infisical.CertManagerCertificate`</span>. A certificate and all of its renewals share one order, so the sync keeps holding the newest certificate of each order.
+     */
+    certificateOrderIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Sync certificates carrying every one of these metadata pairs.
+     */
+    metadatas?: pulumi.Input<pulumi.Input<inputs.CertificateSyncPaloAltoNetworksCertificateFiltersMetadata>[] | undefined>;
+    /**
+     * Sync certificates issued from any one of these certificate profiles.
+     */
+    profileIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksCertificateFiltersMetadata {
+    /**
+     * The metadata key the certificate must carry.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * The value the key must have. Leave unset to match any value.
+     */
+    value?: pulumi.Input<string | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksDestinationConfig {
+    /**
+     * Whether to push the template to the firewalls in every template stack that contains it after each sync. Applies only when the connection is a Panorama and <span pulumi-lang-nodejs="`template`" pulumi-lang-dotnet="`Template`" pulumi-lang-go="`template`" pulumi-lang-python="`template`" pulumi-lang-yaml="`template`" pulumi-lang-java="`template`" pulumi-lang-hcl="`template`">`template`</span> is set, and the template must then belong to a template stack. Infisical commits the changes on the connected firewall or Panorama either way. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    pushToDevices?: pulumi.Input<boolean | undefined>;
+    /**
+     * The Panorama template to sync certificates to. Required when the connection is a Panorama, and not allowed when it is a firewall.
+     */
+    template?: pulumi.Input<string | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksSslTlsProfileCertificateFilters {
+    /**
+     * The certificate order to sync, from the <span pulumi-lang-nodejs="`orderId`" pulumi-lang-dotnet="`OrderId`" pulumi-lang-go="`orderId`" pulumi-lang-python="`order_id`" pulumi-lang-yaml="`orderId`" pulumi-lang-java="`orderId`" pulumi-lang-hcl="`order_id`">`orderId`</span> attribute of <span pulumi-lang-nodejs="`infisical.CertManagerCertificate`" pulumi-lang-dotnet="`infisical.CertManagerCertificate`" pulumi-lang-go="`CertManagerCertificate`" pulumi-lang-python="`CertManagerCertificate`" pulumi-lang-yaml="`infisical.CertManagerCertificate`" pulumi-lang-java="`infisical.CertManagerCertificate`" pulumi-lang-hcl="`infisical_cert_manager_certificate`">`infisical.CertManagerCertificate`</span>. Set one order. The sync keeps holding the newest renewal of that order.
+     */
+    certificateOrderIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Not supported on this sync. Setting it fails the plan.
+     */
+    metadatas?: pulumi.Input<pulumi.Input<inputs.CertificateSyncPaloAltoNetworksSslTlsProfileCertificateFiltersMetadata>[] | undefined>;
+    /**
+     * Not supported on this sync. Setting it fails the plan.
+     */
+    profileIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksSslTlsProfileCertificateFiltersMetadata {
+    /**
+     * The metadata key the certificate must carry.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * The value the key must have. Leave unset to match any value.
+     */
+    value?: pulumi.Input<string | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksSslTlsProfileDestinationConfig {
+    /**
+     * Whether to push the template to the firewalls in every template stack that contains it after each sync. Applies only when the connection is a Panorama and <span pulumi-lang-nodejs="`template`" pulumi-lang-dotnet="`Template`" pulumi-lang-go="`template`" pulumi-lang-python="`template`" pulumi-lang-yaml="`template`" pulumi-lang-java="`template`" pulumi-lang-hcl="`template`">`template`</span> is set, and the template must then belong to a template stack. Infisical commits the changes on the connected firewall or Panorama either way. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    pushToDevices?: pulumi.Input<boolean | undefined>;
+    /**
+     * The name of the SSL/TLS service profile to bind the synced certificate to.
+     */
+    sslTlsServiceProfileName: pulumi.Input<string>;
+    /**
+     * The virtual system that holds the SSL/TLS service profile, for example <span pulumi-lang-nodejs="`vsys1`" pulumi-lang-dotnet="`Vsys1`" pulumi-lang-go="`vsys1`" pulumi-lang-python="`vsys1`" pulumi-lang-yaml="`vsys1`" pulumi-lang-java="`vsys1`" pulumi-lang-hcl="`vsys1`">`vsys1`</span>. Leave unset when the profile is in the shared scope.
+     */
+    sslTlsServiceProfileVsys?: pulumi.Input<string | undefined>;
+    /**
+     * The Panorama template to sync certificates to. Required when the connection is a Panorama, and not allowed when it is a firewall.
+     */
+    template?: pulumi.Input<string | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksSslTlsProfileSyncOptions {
+    /**
+     * Whether Infisical should remove the certificate from PAN-OS when it leaves this sync. If removing the sync's certificate order while this is <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span> would leave the SSL/TLS service profile without a certificate, Infisical rejects the apply. To change the profile's certificate, set <span pulumi-lang-nodejs="`certificateOrderIds`" pulumi-lang-dotnet="`CertificateOrderIds`" pulumi-lang-go="`certificateOrderIds`" pulumi-lang-python="`certificate_order_ids`" pulumi-lang-yaml="`certificateOrderIds`" pulumi-lang-java="`certificateOrderIds`" pulumi-lang-hcl="`certificate_order_ids`">`certificateOrderIds`</span> to another certificate order instead. Destroying the sync leaves the certificate in place. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    canRemoveCertificates?: pulumi.Input<boolean | undefined>;
+    /**
+     * The naming scheme for synced certificates, which must compile to 1-31 letters, digits, hyphens, or underscores. Available placeholders: {{shortCertificateId}}, {{commonName}} and {{applicationName}}.
+     */
+    certificateNameSchema: pulumi.Input<string>;
+    /**
+     * Has no effect for Palo Alto Networks: the sync always imports the full chain, root CA included. Defaults to <span pulumi-lang-nodejs="`false`" pulumi-lang-dotnet="`False`" pulumi-lang-go="`false`" pulumi-lang-python="`false`" pulumi-lang-yaml="`false`" pulumi-lang-java="`false`" pulumi-lang-hcl="`false`">`false`</span>.
+     */
+    includeRootCa?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether a renewed certificate replaces its existing PAN-OS certificate instead of creating a new one. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    preserveItemOnRenewal?: pulumi.Input<boolean | undefined>;
+}
+
+export interface CertificateSyncPaloAltoNetworksSyncOptions {
+    /**
+     * Whether Infisical should remove certificates from PAN-OS when their certificates leave this sync, for example when <span pulumi-lang-nodejs="`certificateFilters`" pulumi-lang-dotnet="`CertificateFilters`" pulumi-lang-go="`certificateFilters`" pulumi-lang-python="`certificate_filters`" pulumi-lang-yaml="`certificateFilters`" pulumi-lang-java="`certificateFilters`" pulumi-lang-hcl="`certificate_filters`">`certificateFilters`</span> stops matching them. Destroying the sync leaves them in place. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    canRemoveCertificates?: pulumi.Input<boolean | undefined>;
+    /**
+     * The naming scheme for synced certificates, which must compile to 1-31 letters, digits, hyphens, or underscores. Available placeholders: {{shortCertificateId}}, {{commonName}} and {{applicationName}}. A schema with placeholders must include {{shortCertificateId}} or {{commonName}} so each certificate gets its own name. A schema with no placeholder can be linked to only one certificate.
+     */
+    certificateNameSchema: pulumi.Input<string>;
+    /**
+     * Has no effect for Palo Alto Networks: the sync always imports the full chain, root CA included. Defaults to <span pulumi-lang-nodejs="`false`" pulumi-lang-dotnet="`False`" pulumi-lang-go="`false`" pulumi-lang-python="`false`" pulumi-lang-yaml="`false`" pulumi-lang-java="`false`" pulumi-lang-hcl="`false`">`false`</span>.
+     */
+    includeRootCa?: pulumi.Input<boolean | undefined>;
+    /**
+     * Whether a renewed certificate replaces its existing PAN-OS certificate instead of creating a new one. Defaults to <span pulumi-lang-nodejs="`true`" pulumi-lang-dotnet="`True`" pulumi-lang-go="`true`" pulumi-lang-python="`true`" pulumi-lang-yaml="`true`" pulumi-lang-java="`true`" pulumi-lang-hcl="`true`">`true`</span>.
+     */
+    preserveItemOnRenewal?: pulumi.Input<boolean | undefined>;
 }
 
 export interface CertificateSyncWindowsServerCertificateFilters {
@@ -3853,6 +4000,17 @@ export interface SecretSync1passwordSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSync1passwordTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncAwsParameterStoreDestinationConfig {
     /**
      * The AWS region of your AWS Parameter Store
@@ -3900,6 +4058,17 @@ export interface SecretSyncAwsParameterStoreSyncOptionsTag {
      * The value of the tag
      */
     value: pulumi.Input<string>;
+}
+
+export interface SecretSyncAwsParameterStoreTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncAwsSecretsManagerDestinationConfig {
@@ -3955,6 +4124,17 @@ export interface SecretSyncAwsSecretsManagerSyncOptionsTag {
     value: pulumi.Input<string>;
 }
 
+export interface SecretSyncAwsSecretsManagerTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncAzureAppConfigurationDestinationConfig {
     /**
      * The URL of your Azure App Configuration
@@ -3981,6 +4161,17 @@ export interface SecretSyncAzureAppConfigurationSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncAzureAppConfigurationTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncAzureDevopsDestinationConfig {
     /**
      * The ID of the Azure DevOps project to sync secrets to.
@@ -3997,6 +4188,17 @@ export interface SecretSyncAzureDevopsSyncOptions {
      * The format to use for structuring secret keys in the Azure DevOps destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncAzureDevopsTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncAzureKeyVaultDestinationConfig {
@@ -4019,6 +4221,17 @@ export interface SecretSyncAzureKeyVaultSyncOptions {
      * The format to use for structuring secret keys in the Azure Key Vault destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncAzureKeyVaultTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncBitbucketDestinationConfig {
@@ -4051,6 +4264,17 @@ export interface SecretSyncBitbucketSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncBitbucketTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncCircleciDestinationConfig {
     /**
      * The name of the CircleCI organization to sync secrets to.
@@ -4081,6 +4305,17 @@ export interface SecretSyncCircleciSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncCircleciTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncCloudflarePagesDestinationConfig {
     /**
      * The Cloudflare Pages environment (production, preview) where the secrets will be synced
@@ -4107,6 +4342,17 @@ export interface SecretSyncCloudflarePagesSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncCloudflarePagesTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncCloudflareWorkersDestinationConfig {
     /**
      * The Cloudflare Workers script ID where the secrets will be synced
@@ -4127,6 +4373,17 @@ export interface SecretSyncCloudflareWorkersSyncOptions {
      * The format to use for structuring secret keys in the Cloudflare Workers destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncCloudflareWorkersTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncDatabricksDestinationConfig {
@@ -4151,6 +4408,17 @@ export interface SecretSyncDatabricksSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncDatabricksTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncFlyioDestinationConfig {
     /**
      * The Fly.io app ID to sync secrets to.
@@ -4171,6 +4439,17 @@ export interface SecretSyncFlyioSyncOptions {
      * The format to use for structuring secret keys in the Fly.io destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncFlyioTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncGcpSecretManagerDestinationConfig {
@@ -4205,6 +4484,17 @@ export interface SecretSyncGcpSecretManagerSyncOptions {
      * The format to use for structuring secret keys in the GCP Secret Manager destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncGcpSecretManagerTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncGithubDestinationConfig {
@@ -4247,6 +4537,17 @@ export interface SecretSyncGithubSyncOptions {
      * The format to use for structuring secret keys in the Github destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncGithubTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncGitlabDestinationConfig {
@@ -4303,6 +4604,17 @@ export interface SecretSyncGitlabSyncOptions {
     keySchema?: pulumi.Input<string | undefined>;
 }
 
+export interface SecretSyncGitlabTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncRenderDestinationConfig {
     /**
      * The Render scope that secrets should be synced to. Supported options: service
@@ -4331,6 +4643,17 @@ export interface SecretSyncRenderSyncOptions {
      * The format to use for structuring secret keys in the Render destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncRenderTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretSyncSpaceliftDestinationConfig {
@@ -4377,6 +4700,17 @@ export interface SecretSyncSpaceliftSyncOptions {
     writeOnly?: pulumi.Input<boolean | undefined>;
 }
 
+export interface SecretSyncSpaceliftTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
+}
+
 export interface SecretSyncSupabaseDestinationConfig {
     /**
      * The Supabase project ID to sync secrets to.
@@ -4401,6 +4735,17 @@ export interface SecretSyncSupabaseSyncOptions {
      * The format to use for structuring secret keys in the Supabase destination.
      */
     keySchema?: pulumi.Input<string | undefined>;
+}
+
+export interface SecretSyncSupabaseTimeouts {
+    /**
+     * How long Terraform waits for Infisical to finish the sync that creating the secret sync starts, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    create?: pulumi.Input<string | undefined>;
+    /**
+     * How long Terraform waits during an update for a sync that is already running to finish, and then for the sync that the update starts to finish, when<span pulumi-lang-nodejs=" waitForSyncCompletion " pulumi-lang-dotnet=" WaitForSyncCompletion " pulumi-lang-go=" waitForSyncCompletion " pulumi-lang-python=" wait_for_sync_completion " pulumi-lang-yaml=" waitForSyncCompletion " pulumi-lang-java=" waitForSyncCompletion " pulumi-lang-hcl=" wait_for_sync_completion "> waitForSyncCompletion </span>is true. Both waits share this one timeout, and Terraform does not send the update until the running sync has finished. A duration of at least 1m, such as "5m" or "15m". Defaults to 10m.
+     */
+    update?: pulumi.Input<string | undefined>;
 }
 
 export interface SecretValidationRuleDynamicSecretsConstraints {

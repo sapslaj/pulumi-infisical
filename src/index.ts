@@ -150,6 +150,11 @@ export type AppConnectionOracledb = import("./appConnectionOracledb").AppConnect
 export const AppConnectionOracledb: typeof import("./appConnectionOracledb").AppConnectionOracledb = null as any;
 utilities.lazyLoad(exports, ["AppConnectionOracledb"], () => require("./appConnectionOracledb"));
 
+export { AppConnectionPaloAltoNetworksArgs, AppConnectionPaloAltoNetworksState } from "./appConnectionPaloAltoNetworks";
+export type AppConnectionPaloAltoNetworks = import("./appConnectionPaloAltoNetworks").AppConnectionPaloAltoNetworks;
+export const AppConnectionPaloAltoNetworks: typeof import("./appConnectionPaloAltoNetworks").AppConnectionPaloAltoNetworks = null as any;
+utilities.lazyLoad(exports, ["AppConnectionPaloAltoNetworks"], () => require("./appConnectionPaloAltoNetworks"));
+
 export { AppConnectionPostgresArgs, AppConnectionPostgresState } from "./appConnectionPostgres";
 export type AppConnectionPostgres = import("./appConnectionPostgres").AppConnectionPostgres;
 export const AppConnectionPostgres: typeof import("./appConnectionPostgres").AppConnectionPostgres = null as any;
@@ -329,6 +334,16 @@ export { CertificateSyncNutanixPrismCentralArgs, CertificateSyncNutanixPrismCent
 export type CertificateSyncNutanixPrismCentral = import("./certificateSyncNutanixPrismCentral").CertificateSyncNutanixPrismCentral;
 export const CertificateSyncNutanixPrismCentral: typeof import("./certificateSyncNutanixPrismCentral").CertificateSyncNutanixPrismCentral = null as any;
 utilities.lazyLoad(exports, ["CertificateSyncNutanixPrismCentral"], () => require("./certificateSyncNutanixPrismCentral"));
+
+export { CertificateSyncPaloAltoNetworksArgs, CertificateSyncPaloAltoNetworksState } from "./certificateSyncPaloAltoNetworks";
+export type CertificateSyncPaloAltoNetworks = import("./certificateSyncPaloAltoNetworks").CertificateSyncPaloAltoNetworks;
+export const CertificateSyncPaloAltoNetworks: typeof import("./certificateSyncPaloAltoNetworks").CertificateSyncPaloAltoNetworks = null as any;
+utilities.lazyLoad(exports, ["CertificateSyncPaloAltoNetworks"], () => require("./certificateSyncPaloAltoNetworks"));
+
+export { CertificateSyncPaloAltoNetworksSslTlsProfileArgs, CertificateSyncPaloAltoNetworksSslTlsProfileState } from "./certificateSyncPaloAltoNetworksSslTlsProfile";
+export type CertificateSyncPaloAltoNetworksSslTlsProfile = import("./certificateSyncPaloAltoNetworksSslTlsProfile").CertificateSyncPaloAltoNetworksSslTlsProfile;
+export const CertificateSyncPaloAltoNetworksSslTlsProfile: typeof import("./certificateSyncPaloAltoNetworksSslTlsProfile").CertificateSyncPaloAltoNetworksSslTlsProfile = null as any;
+utilities.lazyLoad(exports, ["CertificateSyncPaloAltoNetworksSslTlsProfile"], () => require("./certificateSyncPaloAltoNetworksSslTlsProfile"));
 
 export { CertificateSyncWindowsServerArgs, CertificateSyncWindowsServerState } from "./certificateSyncWindowsServer";
 export type CertificateSyncWindowsServer = import("./certificateSyncWindowsServer").CertificateSyncWindowsServer;
@@ -990,6 +1005,8 @@ const _module = {
                 return new AppConnectionNutanixPrismCentral(name, <any>undefined, { urn })
             case "infisical:index/appConnectionOracledb:AppConnectionOracledb":
                 return new AppConnectionOracledb(name, <any>undefined, { urn })
+            case "infisical:index/appConnectionPaloAltoNetworks:AppConnectionPaloAltoNetworks":
+                return new AppConnectionPaloAltoNetworks(name, <any>undefined, { urn })
             case "infisical:index/appConnectionPostgres:AppConnectionPostgres":
                 return new AppConnectionPostgres(name, <any>undefined, { urn })
             case "infisical:index/appConnectionRender:AppConnectionRender":
@@ -1062,6 +1079,10 @@ const _module = {
                 return new CertificateSyncNetscaler(name, <any>undefined, { urn })
             case "infisical:index/certificateSyncNutanixPrismCentral:CertificateSyncNutanixPrismCentral":
                 return new CertificateSyncNutanixPrismCentral(name, <any>undefined, { urn })
+            case "infisical:index/certificateSyncPaloAltoNetworks:CertificateSyncPaloAltoNetworks":
+                return new CertificateSyncPaloAltoNetworks(name, <any>undefined, { urn })
+            case "infisical:index/certificateSyncPaloAltoNetworksSslTlsProfile:CertificateSyncPaloAltoNetworksSslTlsProfile":
+                return new CertificateSyncPaloAltoNetworksSslTlsProfile(name, <any>undefined, { urn })
             case "infisical:index/certificateSyncWindowsServer:CertificateSyncWindowsServer":
                 return new CertificateSyncWindowsServer(name, <any>undefined, { urn })
             case "infisical:index/dynamicSecretAwsIam:DynamicSecretAwsIam":
@@ -1288,6 +1309,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/appConnectionMysql", _
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionNetscaler", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionNutanixPrismCentral", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionOracledb", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/appConnectionPaloAltoNetworks", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionPostgres", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionRender", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/appConnectionSpacelift", _module)
@@ -1324,6 +1346,8 @@ pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncKempLoa
 pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncLinuxServer", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncNetscaler", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncNutanixPrismCentral", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncPaloAltoNetworks", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncPaloAltoNetworksSslTlsProfile", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/certificateSyncWindowsServer", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretAwsIam", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretKubernetes", _module)
