@@ -370,6 +370,11 @@ export type DynamicSecretMongoDb = import("./dynamicSecretMongoDb").DynamicSecre
 export const DynamicSecretMongoDb: typeof import("./dynamicSecretMongoDb").DynamicSecretMongoDb = null as any;
 utilities.lazyLoad(exports, ["DynamicSecretMongoDb"], () => require("./dynamicSecretMongoDb"));
 
+export { DynamicSecretOpenrouterArgs, DynamicSecretOpenrouterState } from "./dynamicSecretOpenrouter";
+export type DynamicSecretOpenrouter = import("./dynamicSecretOpenrouter").DynamicSecretOpenrouter;
+export const DynamicSecretOpenrouter: typeof import("./dynamicSecretOpenrouter").DynamicSecretOpenrouter = null as any;
+utilities.lazyLoad(exports, ["DynamicSecretOpenrouter"], () => require("./dynamicSecretOpenrouter"));
+
 export { DynamicSecretSqlDatabaseArgs, DynamicSecretSqlDatabaseState } from "./dynamicSecretSqlDatabase";
 export type DynamicSecretSqlDatabase = import("./dynamicSecretSqlDatabase").DynamicSecretSqlDatabase;
 export const DynamicSecretSqlDatabase: typeof import("./dynamicSecretSqlDatabase").DynamicSecretSqlDatabase = null as any;
@@ -1093,6 +1098,8 @@ const _module = {
                 return new DynamicSecretMongoAtlas(name, <any>undefined, { urn })
             case "infisical:index/dynamicSecretMongoDb:DynamicSecretMongoDb":
                 return new DynamicSecretMongoDb(name, <any>undefined, { urn })
+            case "infisical:index/dynamicSecretOpenrouter:DynamicSecretOpenrouter":
+                return new DynamicSecretOpenrouter(name, <any>undefined, { urn })
             case "infisical:index/dynamicSecretSqlDatabase:DynamicSecretSqlDatabase":
                 return new DynamicSecretSqlDatabase(name, <any>undefined, { urn })
             case "infisical:index/externalKmsAws:ExternalKmsAws":
@@ -1353,6 +1360,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretAwsIam", 
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretKubernetes", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretMongoAtlas", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretMongoDb", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretOpenrouter", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/dynamicSecretSqlDatabase", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/externalKmsAws", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/gateway", _module)

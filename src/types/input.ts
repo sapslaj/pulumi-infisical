@@ -2390,6 +2390,49 @@ export interface DynamicSecretMongoDbMetadata {
     value: pulumi.Input<string>;
 }
 
+export interface DynamicSecretOpenrouterConfiguration {
+    /**
+     * Whether bring-your-own-key usage counts toward the spending limit. Defaults to false.
+     */
+    includeByokInLimit?: pulumi.Input<boolean | undefined>;
+    /**
+     * The spending limit in USD applied to each created API key, as a decimal string such as "2.5". Leave unset for no limit.
+     */
+    limit?: pulumi.Input<string | undefined>;
+    /**
+     * How often the spending limit resets. Supported values are daily, weekly and monthly. Leave unset for a limit that never resets.
+     */
+    limitReset?: pulumi.Input<string | undefined>;
+    /**
+     * The OpenRouter management API key that creates and deletes the API key of each lease. Infisical never returns it, so changes made outside Terraform aren't detected. It can't be changed while the dynamic secret has active leases, and a new key must belong to the same OpenRouter organization. To keep it out of the Terraform state, use<span pulumi-lang-nodejs=" managementKeyWo " pulumi-lang-dotnet=" ManagementKeyWo " pulumi-lang-go=" managementKeyWo " pulumi-lang-python=" management_key_wo " pulumi-lang-yaml=" managementKeyWo " pulumi-lang-java=" managementKeyWo " pulumi-lang-hcl=" management_key_wo "> managementKeyWo </span>instead. Self-hosted instances need an Infisical release newer than v0.167.10.
+     */
+    managementKey?: pulumi.Input<string | undefined>;
+    /**
+     * **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
+     * The OpenRouter management API key (write-only). This value is never stored in the Terraform state and can accept ephemeral values. Because it isn't stored, changes to it aren't detected. Increment<span pulumi-lang-nodejs=" managementKeyWoVersion " pulumi-lang-dotnet=" ManagementKeyWoVersion " pulumi-lang-go=" managementKeyWoVersion " pulumi-lang-python=" management_key_wo_version " pulumi-lang-yaml=" managementKeyWoVersion " pulumi-lang-java=" managementKeyWoVersion " pulumi-lang-hcl=" management_key_wo_version "> managementKeyWoVersion </span>to push a new value. Requires Terraform 1.11 or later.
+     */
+    managementKeyWo?: pulumi.Input<string | undefined>;
+    /**
+     * The version of the<span pulumi-lang-nodejs=" managementKeyWo " pulumi-lang-dotnet=" ManagementKeyWo " pulumi-lang-go=" managementKeyWo " pulumi-lang-python=" management_key_wo " pulumi-lang-yaml=" managementKeyWo " pulumi-lang-java=" managementKeyWo " pulumi-lang-hcl=" management_key_wo "> managementKeyWo </span>value. Increment this to trigger an update of the management key.
+     */
+    managementKeyWoVersion?: pulumi.Input<number | undefined>;
+    /**
+     * The ID of the OpenRouter workspace to create keys in. Defaults to the management key's default workspace.
+     */
+    workspaceId?: pulumi.Input<string | undefined>;
+}
+
+export interface DynamicSecretOpenrouterMetadata {
+    /**
+     * The key of the metadata object
+     */
+    key: pulumi.Input<string>;
+    /**
+     * The value of the metadata object
+     */
+    value: pulumi.Input<string>;
+}
+
 export interface DynamicSecretSqlDatabaseConfiguration {
     /**
      * The CA certificate to use to connect to the database.
