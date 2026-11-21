@@ -2567,7 +2567,7 @@ export interface ExternalKmsAwsConfigurationCredential {
      */
     roleArn?: pulumi.Input<string | undefined>;
     /**
-     * The external ID of the role to assume for performing operations. Required for assume-role type. For more details, refer to the documentation here https://infisical.com/docs/documentation/platform/kms-configuration/aws-kms#param-assume-role-external-id
+     * The external ID that Infisical sends when it assumes the IAM role. Required for assume-role type. Must be your Infisical organization ID, shown under Organization ID in Organization Settings. The IAM role's trust policy must require the same value in an `sts:ExternalId` condition. Infisical rejects any other value, including a project ID, when you create a configuration or change its credential (<span pulumi-lang-nodejs="`roleArn`" pulumi-lang-dotnet="`RoleArn`" pulumi-lang-go="`roleArn`" pulumi-lang-python="`role_arn`" pulumi-lang-yaml="`roleArn`" pulumi-lang-java="`roleArn`" pulumi-lang-hcl="`role_arn`">`roleArn`</span> or <span pulumi-lang-nodejs="`roleExternalId`" pulumi-lang-dotnet="`RoleExternalId`" pulumi-lang-go="`roleExternalId`" pulumi-lang-python="`role_external_id`" pulumi-lang-yaml="`roleExternalId`" pulumi-lang-java="`roleExternalId`" pulumi-lang-hcl="`role_external_id`">`roleExternalId`</span>). Configurations saved earlier with a different external ID keep working until their credential changes. For more details, refer to the documentation here https://infisical.com/docs/documentation/platform/kms-configuration/aws-kms#param-assume-role-external-id
      */
     roleExternalId?: pulumi.Input<string | undefined>;
     /**
