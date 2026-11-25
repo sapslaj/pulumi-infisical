@@ -3313,6 +3313,13 @@ export interface OrgRolePermission {
     subject: string;
 }
 
+export interface PamAccountAwsIamConnectionDetails {
+    /**
+     * The ARN of the IAM role Infisical assumes to give access to the account. Its trust policy must allow Infisical, with your organization ID as the external ID. See [AWS IAM accounts](https://infisical.com/docs/documentation/platform/pam/accounts/aws-iam) for the trust policy to use.
+     */
+    roleArn: string;
+}
+
 export interface PamAccountKubernetesConnectionDetails {
     /**
      * The PEM-encoded CA certificate to verify the API server with.
@@ -3345,6 +3352,40 @@ export interface PamAccountKubernetesCredentials {
      * The service account token, for the `service-account-token` auth method.
      */
     serviceAccountToken?: string;
+}
+
+export interface PamAccountMongodbConnectionDetails {
+    /**
+     * The `mongodb://` or `mongodb+srv://` URI of the deployment, with options such as `replicaSet` in its query string. It must not include credentials or a database.
+     */
+    connectionString: string;
+    /**
+     * The database to connect to, which is also where the user authenticates unless the connection string sets `authSource`. Defaults to <span pulumi-lang-nodejs="`admin`" pulumi-lang-dotnet="`Admin`" pulumi-lang-go="`admin`" pulumi-lang-python="`admin`" pulumi-lang-yaml="`admin`" pulumi-lang-java="`admin`" pulumi-lang-hcl="`admin`">`admin`</span>.
+     */
+    database: string;
+    /**
+     * The PEM-encoded CA certificate to verify the server with.
+     */
+    sslCertificate?: string;
+    /**
+     * Whether to connect over TLS, which `mongodb+srv://` deployments such as Atlas need. Defaults to true. Set it to false for a server without TLS, since a mismatch makes the connection test time out.
+     */
+    sslEnabled: boolean;
+    /**
+     * Whether to reject a server certificate that isn't trusted. Defaults to true.
+     */
+    sslRejectUnauthorized: boolean;
+}
+
+export interface PamAccountMongodbCredentials {
+    /**
+     * The password of the database user.
+     */
+    password?: string;
+    /**
+     * The database user.
+     */
+    username: string;
 }
 
 export interface PamAccountPostgresConnectionDetails {
@@ -3646,6 +3687,46 @@ export interface PamAccountWindowsAdCredentials {
      * The domain user, in DOMAIN\username form (e.g. CORP\Administrator).
      */
     username: string;
+}
+
+export interface PamFolderApprovalPolicyApprover {
+    /**
+     * The ID of the approver's user or group.
+     */
+    id: string;
+    /**
+     * Whether the approver is a <span pulumi-lang-nodejs="`user`" pulumi-lang-dotnet="`User`" pulumi-lang-go="`user`" pulumi-lang-python="`user`" pulumi-lang-yaml="`user`" pulumi-lang-java="`user`" pulumi-lang-hcl="`user`">`user`</span> or a <span pulumi-lang-nodejs="`group`" pulumi-lang-dotnet="`Group`" pulumi-lang-go="`group`" pulumi-lang-python="`group`" pulumi-lang-yaml="`group`" pulumi-lang-java="`group`" pulumi-lang-hcl="`group`">`group`</span>.
+     */
+    type: string;
+}
+
+export interface PamFolderApprovalPolicyBypasser {
+    /**
+     * The ID of the bypasser's user or group.
+     */
+    id: string;
+    /**
+     * Whether the bypasser is a <span pulumi-lang-nodejs="`user`" pulumi-lang-dotnet="`User`" pulumi-lang-go="`user`" pulumi-lang-python="`user`" pulumi-lang-yaml="`user`" pulumi-lang-java="`user`" pulumi-lang-hcl="`user`">`user`</span> or a <span pulumi-lang-nodejs="`group`" pulumi-lang-dotnet="`Group`" pulumi-lang-go="`group`" pulumi-lang-python="`group`" pulumi-lang-yaml="`group`" pulumi-lang-java="`group`" pulumi-lang-hcl="`group`">`group`</span>.
+     */
+    type: string;
+}
+
+export interface PamFolderApprovalPolicyConstraints {
+    /**
+     * How long the access a request asks for may last.
+     */
+    accessDuration: outputs.PamFolderApprovalPolicyConstraintsAccessDuration;
+}
+
+export interface PamFolderApprovalPolicyConstraintsAccessDuration {
+    /**
+     * The longest access duration a request can ask for, such as <span pulumi-lang-nodejs="`1h`" pulumi-lang-dotnet="`1h`" pulumi-lang-go="`1h`" pulumi-lang-python="`1h`" pulumi-lang-yaml="`1h`" pulumi-lang-java="`1h`" pulumi-lang-hcl="`1h`">`1h`</span> or <span pulumi-lang-nodejs="`2d`" pulumi-lang-dotnet="`2d`" pulumi-lang-go="`2d`" pulumi-lang-python="`2d`" pulumi-lang-yaml="`2d`" pulumi-lang-java="`2d`" pulumi-lang-hcl="`2d`">`2d`</span>, from 30 seconds to 7 days. Defaults to <span pulumi-lang-nodejs="`7d`" pulumi-lang-dotnet="`7d`" pulumi-lang-go="`7d`" pulumi-lang-python="`7d`" pulumi-lang-yaml="`7d`" pulumi-lang-java="`7d`" pulumi-lang-hcl="`7d`">`7d`</span>.
+     */
+    max: string;
+    /**
+     * The shortest access duration a request can ask for, such as <span pulumi-lang-nodejs="`1h`" pulumi-lang-dotnet="`1h`" pulumi-lang-go="`1h`" pulumi-lang-python="`1h`" pulumi-lang-yaml="`1h`" pulumi-lang-java="`1h`" pulumi-lang-hcl="`1h`">`1h`</span> or <span pulumi-lang-nodejs="`2d`" pulumi-lang-dotnet="`2d`" pulumi-lang-go="`2d`" pulumi-lang-python="`2d`" pulumi-lang-yaml="`2d`" pulumi-lang-java="`2d`" pulumi-lang-hcl="`2d`">`2d`</span>, from 30 seconds to 7 days. Defaults to <span pulumi-lang-nodejs="`30s`" pulumi-lang-dotnet="`30s`" pulumi-lang-go="`30s`" pulumi-lang-python="`30s`" pulumi-lang-yaml="`30s`" pulumi-lang-java="`30s`" pulumi-lang-hcl="`30s`">`30s`</span>.
+     */
+    min: string;
 }
 
 export interface ProjectGroupRole {

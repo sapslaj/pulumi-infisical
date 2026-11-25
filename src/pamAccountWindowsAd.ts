@@ -50,7 +50,7 @@ export class PamAccountWindowsAd extends pulumi.CustomResource {
      */
     declare public readonly connectionDetails: pulumi.Output<outputs.PamAccountWindowsAdConnectionDetails>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     declare public readonly credentials: pulumi.Output<outputs.PamAccountWindowsAdCredentials>;
     /**
@@ -142,7 +142,7 @@ export interface PamAccountWindowsAdState {
      */
     connectionDetails?: pulumi.Input<inputs.PamAccountWindowsAdConnectionDetails | undefined>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     credentials?: pulumi.Input<inputs.PamAccountWindowsAdCredentials | undefined>;
     /**
@@ -184,7 +184,7 @@ export interface PamAccountWindowsAdArgs {
      */
     connectionDetails: pulumi.Input<inputs.PamAccountWindowsAdConnectionDetails>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     credentials: pulumi.Input<inputs.PamAccountWindowsAdCredentials>;
     /**

@@ -50,7 +50,7 @@ export class PamAccountPostgres extends pulumi.CustomResource {
      */
     declare public readonly connectionDetails: pulumi.Output<outputs.PamAccountPostgresConnectionDetails>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     declare public readonly credentials: pulumi.Output<outputs.PamAccountPostgresCredentials>;
     /**
@@ -142,7 +142,7 @@ export interface PamAccountPostgresState {
      */
     connectionDetails?: pulumi.Input<inputs.PamAccountPostgresConnectionDetails | undefined>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     credentials?: pulumi.Input<inputs.PamAccountPostgresCredentials | undefined>;
     /**
@@ -184,7 +184,7 @@ export interface PamAccountPostgresArgs {
      */
     connectionDetails: pulumi.Input<inputs.PamAccountPostgresConnectionDetails>;
     /**
-     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected.
+     * The credentials of the account. Secrets are never read back, so changes made outside of Terraform, such as rotation, aren't detected. To stop managing a secret, add it to `lifecycle.ignore_changes`.
      */
     credentials: pulumi.Input<inputs.PamAccountPostgresCredentials>;
     /**

@@ -510,6 +510,11 @@ export type GroupMachineIdentity = import("./groupMachineIdentity").GroupMachine
 export const GroupMachineIdentity: typeof import("./groupMachineIdentity").GroupMachineIdentity = null as any;
 utilities.lazyLoad(exports, ["GroupMachineIdentity"], () => require("./groupMachineIdentity"));
 
+export { GroupUserArgs, GroupUserState } from "./groupUser";
+export type GroupUser = import("./groupUser").GroupUser;
+export const GroupUser: typeof import("./groupUser").GroupUser = null as any;
+utilities.lazyLoad(exports, ["GroupUser"], () => require("./groupUser"));
+
 export { IdentityArgs, IdentityState } from "./identity";
 export type Identity = import("./identity").Identity;
 export const Identity: typeof import("./identity").Identity = null as any;
@@ -615,6 +620,11 @@ export type OrgRole = import("./orgRole").OrgRole;
 export const OrgRole: typeof import("./orgRole").OrgRole = null as any;
 utilities.lazyLoad(exports, ["OrgRole"], () => require("./orgRole"));
 
+export { PamAccountAwsIamArgs, PamAccountAwsIamState } from "./pamAccountAwsIam";
+export type PamAccountAwsIam = import("./pamAccountAwsIam").PamAccountAwsIam;
+export const PamAccountAwsIam: typeof import("./pamAccountAwsIam").PamAccountAwsIam = null as any;
+utilities.lazyLoad(exports, ["PamAccountAwsIam"], () => require("./pamAccountAwsIam"));
+
 export { PamAccountGroupArgs, PamAccountGroupState } from "./pamAccountGroup";
 export type PamAccountGroup = import("./pamAccountGroup").PamAccountGroup;
 export const PamAccountGroup: typeof import("./pamAccountGroup").PamAccountGroup = null as any;
@@ -629,6 +639,11 @@ export { PamAccountKubernetesArgs, PamAccountKubernetesState } from "./pamAccoun
 export type PamAccountKubernetes = import("./pamAccountKubernetes").PamAccountKubernetes;
 export const PamAccountKubernetes: typeof import("./pamAccountKubernetes").PamAccountKubernetes = null as any;
 utilities.lazyLoad(exports, ["PamAccountKubernetes"], () => require("./pamAccountKubernetes"));
+
+export { PamAccountMongodbArgs, PamAccountMongodbState } from "./pamAccountMongodb";
+export type PamAccountMongodb = import("./pamAccountMongodb").PamAccountMongodb;
+export const PamAccountMongodb: typeof import("./pamAccountMongodb").PamAccountMongodb = null as any;
+utilities.lazyLoad(exports, ["PamAccountMongodb"], () => require("./pamAccountMongodb"));
 
 export { PamAccountPostgresArgs, PamAccountPostgresState } from "./pamAccountPostgres";
 export type PamAccountPostgres = import("./pamAccountPostgres").PamAccountPostgres;
@@ -659,6 +674,11 @@ export { PamFolderArgs, PamFolderState } from "./pamFolder";
 export type PamFolder = import("./pamFolder").PamFolder;
 export const PamFolder: typeof import("./pamFolder").PamFolder = null as any;
 utilities.lazyLoad(exports, ["PamFolder"], () => require("./pamFolder"));
+
+export { PamFolderApprovalPolicyArgs, PamFolderApprovalPolicyState } from "./pamFolderApprovalPolicy";
+export type PamFolderApprovalPolicy = import("./pamFolderApprovalPolicy").PamFolderApprovalPolicy;
+export const PamFolderApprovalPolicy: typeof import("./pamFolderApprovalPolicy").PamFolderApprovalPolicy = null as any;
+utilities.lazyLoad(exports, ["PamFolderApprovalPolicy"], () => require("./pamFolderApprovalPolicy"));
 
 export { PamFolderGroupArgs, PamFolderGroupState } from "./pamFolderGroup";
 export type PamFolderGroup = import("./pamFolderGroup").PamFolderGroup;
@@ -1112,6 +1132,8 @@ const _module = {
                 return new Group(name, <any>undefined, { urn })
             case "infisical:index/groupMachineIdentity:GroupMachineIdentity":
                 return new GroupMachineIdentity(name, <any>undefined, { urn })
+            case "infisical:index/groupUser:GroupUser":
+                return new GroupUser(name, <any>undefined, { urn })
             case "infisical:index/identity:Identity":
                 return new Identity(name, <any>undefined, { urn })
             case "infisical:index/identityAwsAuth:IdentityAwsAuth":
@@ -1154,12 +1176,16 @@ const _module = {
                 return new KmsKey(name, <any>undefined, { urn })
             case "infisical:index/orgRole:OrgRole":
                 return new OrgRole(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountAwsIam:PamAccountAwsIam":
+                return new PamAccountAwsIam(name, <any>undefined, { urn })
             case "infisical:index/pamAccountGroup:PamAccountGroup":
                 return new PamAccountGroup(name, <any>undefined, { urn })
             case "infisical:index/pamAccountIdentity:PamAccountIdentity":
                 return new PamAccountIdentity(name, <any>undefined, { urn })
             case "infisical:index/pamAccountKubernetes:PamAccountKubernetes":
                 return new PamAccountKubernetes(name, <any>undefined, { urn })
+            case "infisical:index/pamAccountMongodb:PamAccountMongodb":
+                return new PamAccountMongodb(name, <any>undefined, { urn })
             case "infisical:index/pamAccountPostgres:PamAccountPostgres":
                 return new PamAccountPostgres(name, <any>undefined, { urn })
             case "infisical:index/pamAccountSsh:PamAccountSsh":
@@ -1172,6 +1198,8 @@ const _module = {
                 return new PamAccountWindowsAd(name, <any>undefined, { urn })
             case "infisical:index/pamFolder:PamFolder":
                 return new PamFolder(name, <any>undefined, { urn })
+            case "infisical:index/pamFolderApprovalPolicy:PamFolderApprovalPolicy":
+                return new PamFolderApprovalPolicy(name, <any>undefined, { urn })
             case "infisical:index/pamFolderGroup:PamFolderGroup":
                 return new PamFolderGroup(name, <any>undefined, { urn })
             case "infisical:index/pamFolderIdentity:PamFolderIdentity":
@@ -1367,6 +1395,7 @@ pulumi.runtime.registerResourceModule("infisical", "index/gateway", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/gatewayEnrollmentToken", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/group", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/groupMachineIdentity", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/groupUser", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identity", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identityAwsAuth", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/identityAzureAuth", _module)
@@ -1388,15 +1417,18 @@ pulumi.runtime.registerResourceModule("infisical", "index/integrationDatabricks"
 pulumi.runtime.registerResourceModule("infisical", "index/integrationGcpSecretManager", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/kmsKey", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/orgRole", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountAwsIam", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountGroup", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountIdentity", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountKubernetes", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamAccountMongodb", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountPostgres", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountSsh", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountTemplate", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountUser", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamAccountWindowsAd", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamFolder", _module)
+pulumi.runtime.registerResourceModule("infisical", "index/pamFolderApprovalPolicy", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamFolderGroup", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamFolderIdentity", _module)
 pulumi.runtime.registerResourceModule("infisical", "index/pamFolderUser", _module)
