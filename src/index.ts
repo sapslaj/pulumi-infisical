@@ -430,6 +430,11 @@ export const getIdentityOidcAuthTemplate: typeof import("./getIdentityOidcAuthTe
 export const getIdentityOidcAuthTemplateOutput: typeof import("./getIdentityOidcAuthTemplate").getIdentityOidcAuthTemplateOutput = null as any;
 utilities.lazyLoad(exports, ["getIdentityOidcAuthTemplate","getIdentityOidcAuthTemplateOutput"], () => require("./getIdentityOidcAuthTemplate"));
 
+export { GetInstanceDeploymentAwsMetadataResult } from "./getInstanceDeploymentAwsMetadata";
+export const getInstanceDeploymentAwsMetadata: typeof import("./getInstanceDeploymentAwsMetadata").getInstanceDeploymentAwsMetadata = null as any;
+export const getInstanceDeploymentAwsMetadataOutput: typeof import("./getInstanceDeploymentAwsMetadata").getInstanceDeploymentAwsMetadataOutput = null as any;
+utilities.lazyLoad(exports, ["getInstanceDeploymentAwsMetadata","getInstanceDeploymentAwsMetadataOutput"], () => require("./getInstanceDeploymentAwsMetadata"));
+
 export { GetKmsKeyPublicKeyArgs, GetKmsKeyPublicKeyResult, GetKmsKeyPublicKeyOutputArgs } from "./getKmsKeyPublicKey";
 export const getKmsKeyPublicKey: typeof import("./getKmsKeyPublicKey").getKmsKeyPublicKey = null as any;
 export const getKmsKeyPublicKeyOutput: typeof import("./getKmsKeyPublicKey").getKmsKeyPublicKeyOutput = null as any;

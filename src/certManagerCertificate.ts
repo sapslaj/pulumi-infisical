@@ -72,7 +72,7 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public readonly country: pulumi.Output<string>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate. A CSR with a post-quantum key needs Infisical v0.167.7 or later, because older versions refuse a CSR longer than 4096 characters.
      */
     declare public readonly csr: pulumi.Output<string>;
     /**
@@ -88,7 +88,7 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public readonly extendedKeyUsages: pulumi.Output<string[]>;
     /**
-     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1
+     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     declare public readonly keyAlgorithm: pulumi.Output<string>;
     /**
@@ -148,7 +148,7 @@ export class CertManagerCertificate extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly serialNumber: pulumi.Output<string>;
     /**
-     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512
+     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. An internal CA with an ML-DSA key signs only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     declare public readonly signatureAlgorithm: pulumi.Output<string>;
     /**
@@ -286,7 +286,7 @@ export interface CertManagerCertificateState {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate. A CSR with a post-quantum key needs Infisical v0.167.7 or later, because older versions refuse a CSR longer than 4096 characters.
      */
     csr?: pulumi.Input<string | undefined>;
     /**
@@ -302,7 +302,7 @@ export interface CertManagerCertificateState {
      */
     extendedKeyUsages?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
-     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1
+     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithm?: pulumi.Input<string | undefined>;
     /**
@@ -362,7 +362,7 @@ export interface CertManagerCertificateState {
      */
     serialNumber?: pulumi.Input<string | undefined>;
     /**
-     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512
+     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. An internal CA with an ML-DSA key signs only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     signatureAlgorithm?: pulumi.Input<string | undefined>;
     /**
@@ -400,7 +400,7 @@ export interface CertManagerCertificateArgs {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate.
+     * Certificate Signing Request (CSR) in PEM format. If provided, the certificate will be issued based on the CSR. Use Terraform's file() function to read from a file (e.g., file("./my-certificate.csr")). Changing the CSR renews the certificate in place with the new CSR. Adding or removing the CSR replaces the certificate. A CSR with a post-quantum key needs Infisical v0.167.7 or later, because older versions refuse a CSR longer than 4096 characters.
      */
     csr?: pulumi.Input<string | undefined>;
     /**
@@ -416,7 +416,7 @@ export interface CertManagerCertificateArgs {
      */
     extendedKeyUsages?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
-     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1
+     * The key algorithm for the certificate. Supported: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithm?: pulumi.Input<string | undefined>;
     /**
@@ -456,7 +456,7 @@ export interface CertManagerCertificateArgs {
      */
     revokeOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
-     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512
+     * The signature algorithm for the certificate. Supported: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512, ML-DSA-44, ML-DSA-65, ML-DSA-87. The ML-DSA values are post-quantum algorithms, and issuing a certificate with one needs an Infisical Enterprise license. An internal CA with an ML-DSA key signs only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     signatureAlgorithm?: pulumi.Input<string | undefined>;
     /**

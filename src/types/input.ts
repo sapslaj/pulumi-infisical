@@ -949,11 +949,11 @@ export interface CertManagerApplicationProfileScepConfig {
 
 export interface CertManagerCertificatePolicyAlgorithms {
     /**
-     * List of allowed key algorithms (at least one value when set). Supported values: RSA-2048, RSA-3072, RSA-4096, ECDSA-P256, ECDSA-P521, ECDSA-P384
+     * List of allowed key algorithms (at least one value when set). Supported values: RSA-2048, RSA-3072, RSA-4096, ECDSA-P256, ECDSA-P521, ECDSA-P384, ML-DSA-44, ML-DSA-65, ML-DSA-87. Issuing a certificate with a post-quantum value (ML-DSA) needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithms?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
-     * List of allowed signature algorithms (at least one value when set). Supported values: SHA256-RSA, SHA512-RSA, SHA384-ECDSA, SHA384-RSA, SHA256-ECDSA, SHA512-ECDSA
+     * List of allowed signature algorithms (at least one value when set). Supported values: SHA256-RSA, SHA512-RSA, SHA384-ECDSA, SHA384-RSA, SHA256-ECDSA, SHA512-ECDSA, ML-DSA-44, ML-DSA-65, ML-DSA-87. Issuing a certificate with a post-quantum value (ML-DSA) needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     signatures?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
@@ -1062,7 +1062,7 @@ export interface CertManagerCertificateProfileDefaults {
      */
     extendedKeyUsages?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
-     * Default key algorithm. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1
+     * Default key algorithm. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. Issuing a certificate with a post-quantum value (ML-DSA) needs an Infisical Enterprise license. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithm?: pulumi.Input<string | undefined>;
     /**
@@ -1082,7 +1082,7 @@ export interface CertManagerCertificateProfileDefaults {
      */
     organizationalUnit?: pulumi.Input<string | undefined>;
     /**
-     * Default signature algorithm. Supported values: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512
+     * Default signature algorithm. Supported values: RSA-SHA256, RSA-SHA384, RSA-SHA512, ECDSA-SHA256, ECDSA-SHA384, ECDSA-SHA512, ML-DSA-44, ML-DSA-65, ML-DSA-87. Issuing a certificate with a post-quantum value (ML-DSA) needs an Infisical Enterprise license. The value must be one the profile's CA can sign with. Post-quantum values need Infisical v0.159.12 or later.
      */
     signatureAlgorithm?: pulumi.Input<string | undefined>;
     /**

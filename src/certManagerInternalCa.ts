@@ -44,6 +44,10 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
     }
 
     /**
+     * The ID of the AWS App Connection used to create the CA's signing key in AWS KMS and to sign with it. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    declare public readonly appConnectionId: pulumi.Output<string>;
+    /**
      * The common name (CN) of the CA certificate
      */
     declare public readonly commonName: pulumi.Output<string | undefined>;
@@ -52,9 +56,17 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
      */
     declare public readonly country: pulumi.Output<string | undefined>;
     /**
-     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1. Defaults to 'RSA_2048'.
+     * The ID of the HSM Connector to generate and keep the CA's signing key in. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'hsm', and only allowed then. Find it under Certificate Manager > Settings > HSM Connectors. Changing it replaces the CA.
+     */
+    declare public readonly hsmConnectorId: pulumi.Output<string>;
+    /**
+     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. Defaults to 'RSA_2048'. The ML-DSA values are post-quantum algorithms and need an Infisical Enterprise license. A CA with an ML-DSA key signs certificates only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     declare public readonly keyAlgorithm: pulumi.Output<string>;
+    /**
+     * Where the CA's signing key is generated and kept. Supported values: infisical, hsm, aws-kms. When omitted, an existing CA keeps the key source it has in Infisical, and a CA that Terraform creates, including one it creates again (replaced, tainted or deleted outside Terraform), uses 'infisical'. Set it to keep the key of a re-created CA in the HSM or AWS KMS. 'infisical' keeps the key in Infisical. 'hsm' generates the key in the HSM reached through <span pulumi-lang-nodejs="`hsmConnectorId`" pulumi-lang-dotnet="`HsmConnectorId`" pulumi-lang-go="`hsmConnectorId`" pulumi-lang-python="`hsm_connector_id`" pulumi-lang-yaml="`hsmConnectorId`" pulumi-lang-java="`hsmConnectorId`" pulumi-lang-hcl="`hsm_connector_id`">`hsmConnectorId`</span>, and supports the key algorithms RSA_2048, RSA_4096, EC_prime256v1, EC_secp384r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. An ML-DSA key in an HSM needs Infisical v0.167.5 or later. Infisical does not remove the key from the HSM when the CA is deleted. Requires an Enterprise license and Infisical v0.161.13 or later. 'aws-kms' generates the key in AWS KMS through <span pulumi-lang-nodejs="`appConnectionId`" pulumi-lang-dotnet="`AppConnectionId`" pulumi-lang-go="`appConnectionId`" pulumi-lang-python="`app_connection_id`" pulumi-lang-yaml="`appConnectionId`" pulumi-lang-java="`appConnectionId`" pulumi-lang-hcl="`app_connection_id`">`appConnectionId`</span> in <span pulumi-lang-nodejs="`region`" pulumi-lang-dotnet="`Region`" pulumi-lang-go="`region`" pulumi-lang-python="`region`" pulumi-lang-yaml="`region`" pulumi-lang-java="`region`" pulumi-lang-hcl="`region`">`region`</span>, and AWS KMS makes every signature. When the CA is deleted, Infisical asks AWS KMS to schedule the key for deletion. Requires an Enterprise license and Infisical v0.166.9 or later. Changing it replaces the CA.
+     */
+    declare public readonly keySource: pulumi.Output<string>;
     /**
      * The locality (L) of the CA certificate
      */
@@ -75,6 +87,10 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
      * The state/province (ST) of the CA certificate
      */
     declare public readonly province: pulumi.Output<string | undefined>;
+    /**
+     * The AWS region to create the CA's signing key in, for example 'us-east-1'. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    declare public readonly region: pulumi.Output<string>;
     /**
      * The status of the CA. Supported values: active, disabled. Defaults to 'active'.
      */
@@ -97,14 +113,18 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as CertManagerInternalCaState | undefined;
+            resourceInputs["appConnectionId"] = state?.appConnectionId;
             resourceInputs["commonName"] = state?.commonName;
             resourceInputs["country"] = state?.country;
+            resourceInputs["hsmConnectorId"] = state?.hsmConnectorId;
             resourceInputs["keyAlgorithm"] = state?.keyAlgorithm;
+            resourceInputs["keySource"] = state?.keySource;
             resourceInputs["locality"] = state?.locality;
             resourceInputs["name"] = state?.name;
             resourceInputs["organization"] = state?.organization;
             resourceInputs["ou"] = state?.ou;
             resourceInputs["province"] = state?.province;
+            resourceInputs["region"] = state?.region;
             resourceInputs["status"] = state?.status;
             resourceInputs["type"] = state?.type;
         } else {
@@ -112,14 +132,18 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
             if (args?.type === undefined && !opts.urn) {
                 throw new Error("Missing required property 'type'");
             }
+            resourceInputs["appConnectionId"] = args?.appConnectionId;
             resourceInputs["commonName"] = args?.commonName;
             resourceInputs["country"] = args?.country;
+            resourceInputs["hsmConnectorId"] = args?.hsmConnectorId;
             resourceInputs["keyAlgorithm"] = args?.keyAlgorithm;
+            resourceInputs["keySource"] = args?.keySource;
             resourceInputs["locality"] = args?.locality;
             resourceInputs["name"] = args?.name;
             resourceInputs["organization"] = args?.organization;
             resourceInputs["ou"] = args?.ou;
             resourceInputs["province"] = args?.province;
+            resourceInputs["region"] = args?.region;
             resourceInputs["status"] = args?.status;
             resourceInputs["type"] = args?.type;
         }
@@ -133,6 +157,10 @@ export class CertManagerInternalCa extends pulumi.CustomResource {
  */
 export interface CertManagerInternalCaState {
     /**
+     * The ID of the AWS App Connection used to create the CA's signing key in AWS KMS and to sign with it. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    appConnectionId?: pulumi.Input<string | undefined>;
+    /**
      * The common name (CN) of the CA certificate
      */
     commonName?: pulumi.Input<string | undefined>;
@@ -141,9 +169,17 @@ export interface CertManagerInternalCaState {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1. Defaults to 'RSA_2048'.
+     * The ID of the HSM Connector to generate and keep the CA's signing key in. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'hsm', and only allowed then. Find it under Certificate Manager > Settings > HSM Connectors. Changing it replaces the CA.
+     */
+    hsmConnectorId?: pulumi.Input<string | undefined>;
+    /**
+     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. Defaults to 'RSA_2048'. The ML-DSA values are post-quantum algorithms and need an Infisical Enterprise license. A CA with an ML-DSA key signs certificates only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithm?: pulumi.Input<string | undefined>;
+    /**
+     * Where the CA's signing key is generated and kept. Supported values: infisical, hsm, aws-kms. When omitted, an existing CA keeps the key source it has in Infisical, and a CA that Terraform creates, including one it creates again (replaced, tainted or deleted outside Terraform), uses 'infisical'. Set it to keep the key of a re-created CA in the HSM or AWS KMS. 'infisical' keeps the key in Infisical. 'hsm' generates the key in the HSM reached through <span pulumi-lang-nodejs="`hsmConnectorId`" pulumi-lang-dotnet="`HsmConnectorId`" pulumi-lang-go="`hsmConnectorId`" pulumi-lang-python="`hsm_connector_id`" pulumi-lang-yaml="`hsmConnectorId`" pulumi-lang-java="`hsmConnectorId`" pulumi-lang-hcl="`hsm_connector_id`">`hsmConnectorId`</span>, and supports the key algorithms RSA_2048, RSA_4096, EC_prime256v1, EC_secp384r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. An ML-DSA key in an HSM needs Infisical v0.167.5 or later. Infisical does not remove the key from the HSM when the CA is deleted. Requires an Enterprise license and Infisical v0.161.13 or later. 'aws-kms' generates the key in AWS KMS through <span pulumi-lang-nodejs="`appConnectionId`" pulumi-lang-dotnet="`AppConnectionId`" pulumi-lang-go="`appConnectionId`" pulumi-lang-python="`app_connection_id`" pulumi-lang-yaml="`appConnectionId`" pulumi-lang-java="`appConnectionId`" pulumi-lang-hcl="`app_connection_id`">`appConnectionId`</span> in <span pulumi-lang-nodejs="`region`" pulumi-lang-dotnet="`Region`" pulumi-lang-go="`region`" pulumi-lang-python="`region`" pulumi-lang-yaml="`region`" pulumi-lang-java="`region`" pulumi-lang-hcl="`region`">`region`</span>, and AWS KMS makes every signature. When the CA is deleted, Infisical asks AWS KMS to schedule the key for deletion. Requires an Enterprise license and Infisical v0.166.9 or later. Changing it replaces the CA.
+     */
+    keySource?: pulumi.Input<string | undefined>;
     /**
      * The locality (L) of the CA certificate
      */
@@ -164,6 +200,10 @@ export interface CertManagerInternalCaState {
      * The state/province (ST) of the CA certificate
      */
     province?: pulumi.Input<string | undefined>;
+    /**
+     * The AWS region to create the CA's signing key in, for example 'us-east-1'. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    region?: pulumi.Input<string | undefined>;
     /**
      * The status of the CA. Supported values: active, disabled. Defaults to 'active'.
      */
@@ -179,6 +219,10 @@ export interface CertManagerInternalCaState {
  */
 export interface CertManagerInternalCaArgs {
     /**
+     * The ID of the AWS App Connection used to create the CA's signing key in AWS KMS and to sign with it. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    appConnectionId?: pulumi.Input<string | undefined>;
+    /**
      * The common name (CN) of the CA certificate
      */
     commonName?: pulumi.Input<string | undefined>;
@@ -187,9 +231,17 @@ export interface CertManagerInternalCaArgs {
      */
     country?: pulumi.Input<string | undefined>;
     /**
-     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1. Defaults to 'RSA_2048'.
+     * The ID of the HSM Connector to generate and keep the CA's signing key in. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'hsm', and only allowed then. Find it under Certificate Manager > Settings > HSM Connectors. Changing it replaces the CA.
+     */
+    hsmConnectorId?: pulumi.Input<string | undefined>;
+    /**
+     * The key algorithm for the CA. Supported values: RSA_2048, RSA_3072, RSA_4096, EC_prime256v1, EC_secp384r1, EC_secp521r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. Defaults to 'RSA_2048'. The ML-DSA values are post-quantum algorithms and need an Infisical Enterprise license. A CA with an ML-DSA key signs certificates only with that same ML-DSA variant. Post-quantum values need Infisical v0.159.12 or later.
      */
     keyAlgorithm?: pulumi.Input<string | undefined>;
+    /**
+     * Where the CA's signing key is generated and kept. Supported values: infisical, hsm, aws-kms. When omitted, an existing CA keeps the key source it has in Infisical, and a CA that Terraform creates, including one it creates again (replaced, tainted or deleted outside Terraform), uses 'infisical'. Set it to keep the key of a re-created CA in the HSM or AWS KMS. 'infisical' keeps the key in Infisical. 'hsm' generates the key in the HSM reached through <span pulumi-lang-nodejs="`hsmConnectorId`" pulumi-lang-dotnet="`HsmConnectorId`" pulumi-lang-go="`hsmConnectorId`" pulumi-lang-python="`hsm_connector_id`" pulumi-lang-yaml="`hsmConnectorId`" pulumi-lang-java="`hsmConnectorId`" pulumi-lang-hcl="`hsm_connector_id`">`hsmConnectorId`</span>, and supports the key algorithms RSA_2048, RSA_4096, EC_prime256v1, EC_secp384r1, ML-DSA-44, ML-DSA-65, ML-DSA-87. An ML-DSA key in an HSM needs Infisical v0.167.5 or later. Infisical does not remove the key from the HSM when the CA is deleted. Requires an Enterprise license and Infisical v0.161.13 or later. 'aws-kms' generates the key in AWS KMS through <span pulumi-lang-nodejs="`appConnectionId`" pulumi-lang-dotnet="`AppConnectionId`" pulumi-lang-go="`appConnectionId`" pulumi-lang-python="`app_connection_id`" pulumi-lang-yaml="`appConnectionId`" pulumi-lang-java="`appConnectionId`" pulumi-lang-hcl="`app_connection_id`">`appConnectionId`</span> in <span pulumi-lang-nodejs="`region`" pulumi-lang-dotnet="`Region`" pulumi-lang-go="`region`" pulumi-lang-python="`region`" pulumi-lang-yaml="`region`" pulumi-lang-java="`region`" pulumi-lang-hcl="`region`">`region`</span>, and AWS KMS makes every signature. When the CA is deleted, Infisical asks AWS KMS to schedule the key for deletion. Requires an Enterprise license and Infisical v0.166.9 or later. Changing it replaces the CA.
+     */
+    keySource?: pulumi.Input<string | undefined>;
     /**
      * The locality (L) of the CA certificate
      */
@@ -210,6 +262,10 @@ export interface CertManagerInternalCaArgs {
      * The state/province (ST) of the CA certificate
      */
     province?: pulumi.Input<string | undefined>;
+    /**
+     * The AWS region to create the CA's signing key in, for example 'us-east-1'. Required when <span pulumi-lang-nodejs="`keySource`" pulumi-lang-dotnet="`KeySource`" pulumi-lang-go="`keySource`" pulumi-lang-python="`key_source`" pulumi-lang-yaml="`keySource`" pulumi-lang-java="`keySource`" pulumi-lang-hcl="`key_source`">`keySource`</span> is 'aws-kms', and only allowed then. Changing it replaces the CA.
+     */
+    region?: pulumi.Input<string | undefined>;
     /**
      * The status of the CA. Supported values: active, disabled. Defaults to 'active'.
      */
